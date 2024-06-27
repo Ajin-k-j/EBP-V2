@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Benefits Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .welcome-search {
+            max-width: 50%;
+        }
+
+        .welcome-search h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-search p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-bar {
+            display: flex;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+
+        .search-bar button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 0.25rem;
+            margin-left: 0.5rem;
+        }
+
+        .popular-benefits {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 45%;
+        }
+
+        .benefit-card {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border: 1px solid #e3e3e3;
+            border-radius: 0.25rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .benefit-card:hover {
+            transform: scale(1.05);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-card img {
+            height: 50px;
+            width: 50px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card h5 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .main-categories {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .main-category {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border: 1px solid #e3e3e3;
+            border-radius: 0.25rem;
+            width: 30%;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .main-category:hover {
+            transform: scale(1.05);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            background-color: #f1f1f1;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+            border-top: 1px solid #e3e3e3;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Benefits Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Statutory Benefits</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tax-saving Benefits</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Other Benefits</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Admin</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <div class="welcome-search">
+                <h1>Welcome to Your Benefits Portal</h1>
+                <p>Discover your benefits and learn how to avail them.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for a benefit...">
+                    <button>Search</button>
+                </div>
+            </div>
+            <div class="popular-benefits">
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 1">
+                    <h5>Benefit 1</h5>
+                </div>
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 2">
+                    <h5>Benefit 2</h5>
+                </div>
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 3">
+                    <h5>Benefit 3</h5>
+                </div>
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 4">
+                    <h5>Benefit 4</h5>
+                </div>
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 5">
+                    <h5>Benefit 5</h5>
+                </div>
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 6">
+                    <h5>Benefit 6</h5>
+                </div>
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 7">
+                    <h5>Benefit 7</h5>
+                </div>
+                <div class="benefit-card">
+                    <img src="https://via.placeholder.com/50" alt="Icon 8">
+                    <h5>Benefit 8</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-categories">
+            <div class="main-category">
+                <h5>Statutory Benefits</h5>
+                <p>Explore statutory benefits like EPF, ESI, and more.</p>
+            </div>
+            <div class="main-category">
+                <h5>Tax-saving Benefits</h5>
+                <p>Learn about meal cards, LTA, NPS, and other tax-saving options.</p>
+            </div>
+            <div class="main-category">
+                <h5>Other Benefits</h5>
+                <p>Discover additional benefits like medical insurance, wellness sessions, and more.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Employee Benefits Portal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
