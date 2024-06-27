@@ -34,8 +34,11 @@
                 <h1>Welcome to Your Benefits Portal</h1>
                 <p>Discover your benefits and learn how to avail them.</p>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search for a benefit...">
-                    <button>Search</button>
+                    <div class="search-input-container">
+                        <input type="text" id="benefit-search" placeholder="Search for a benefit...">
+                        <button onclick="performSearch()">Search</button>
+                    </div>
+                    <div id="recommendations" class="recommendations"></div>
                 </div>
             </div>
             <div class="popular-benefits col pt-3 pb-3">
@@ -95,10 +98,9 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

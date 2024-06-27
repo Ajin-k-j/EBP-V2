@@ -255,4 +255,38 @@ main {
     text-align: center;
     border-top: 1px solid #e3e3e3;
 }
+.search-bar {
+    position: relative;
+    width: 100%;
+}
 
+.search-input-container {
+    display: flex;
+    width: 300px; /* Adjust this width as needed */
+}
+
+.search-input-container input {
+    flex: 1;
+}
+
+.recommendations {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: calc(100% - 100px); /* Adjust to the width of the input excluding the button */
+    z-index: 1000;
+}
+
+.recommendation-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.recommendation-item:hover {
+    background-color: #f8f9fa;
+}
