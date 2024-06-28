@@ -12,7 +12,40 @@ body {
     height: 100%;
 }
 
+header {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+header img{
+    background-color: var(--expRed);
+    width:150px;
+    padding: 8px 0;
+}
 .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: var(--expRed);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: var(--expRed);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,7 +70,7 @@ header h3{
 
 .navbar-nav .nav-item .nav-link:hover {
     color: #4d1923;
-}
+} */
 
 .hero-section {
     display: flex;
@@ -103,11 +136,14 @@ header h3{
 
 .footer {
     background-color: #f1f1f1;
+    bottom:0;
+    position: fixed;
+    padding: 3px;
+    height: 25px;
     width: 100%;
+    font-size: 12px;
     text-align: center;
     border-top: 1px solid #e3e3e3;
-    position: absolute;
-    bottom: 0;
 }
 
 .footer p{
