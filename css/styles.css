@@ -84,7 +84,7 @@ header img{
 
 .search-bar {
     display: flex;
-    width:fit-content;
+    width: fit-content;
     padding: 4px;
     border: 1.5px solid #e3e3e3;
     border-radius: 5px;
@@ -93,11 +93,11 @@ header img{
 
 .search-input-container {
     display: flex;
-    
+    width: 30vw;
 }
 
 .search-input-container input {
-    width: 250px;
+    width: 70%;
     font-size: 12px;
     flex: 1;
     padding: 0 0.5rem;
@@ -109,7 +109,9 @@ header img{
 }
 
 .search-input-container button {
-    padding: 0 0.5rem;
+    width: 20%;
+    padding: 0;
+    font-size: 1.3vw;
     border: none;
     background-color: white;
     color: var(--expRed);
@@ -132,7 +134,8 @@ header img{
 }
 
 .recommendation-item {
-    padding: 10px;
+    padding: 3px;
+    font-size: 1.2vw;
     cursor: pointer;
 }
 
@@ -145,14 +148,18 @@ header img{
     justify-content: center; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0.8rem;
-    max-width: 45vw;
-    max-height: 23vw;
+    gap: 0.8vw;
+    /* max-width: 45vw;
+    max-height: 23vw; */
     border: solid 2px white;
     border-radius: 10px;
+    width:fit-content;
+    padding: 1vw;
 }
 
 .benefit-card {
+    /* width:10vw;
+    height: 10vw; */
     padding: 0.8rem 0.1rem 0 0.1rem;
     background-color: #f8f9fa;
     border: 1px solid #e3e3e3;
@@ -175,13 +182,15 @@ header img{
 } */
 
 .benefit-card h5 {
-    padding:0.1rem;
-    font-size: 0.69rem;
+    /* padding:0.1rem; */
+    font-size: 1.03vw;
     margin-top: 0.5rem;
     font-weight: bold;
 }
+
 .icon{
     color: #DC123C;
+    font-size: 5vw;
 }
 
 .icon:hover{
