@@ -206,7 +206,7 @@ header img{
 }
 
 .main-category {
-    
+    text-decoration: none;
     background-color: #f8f9fa;
     /* border:2px solid var(--expRed); */
     border-radius: 0.5rem;
@@ -225,10 +225,10 @@ header img{
     transform: scale(1.05);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
 }
-.main-category div{
+/* .main-category div{
     width:100%;
     background-color: #ffffff;
-}
+} */
 .main-category h5{
     border:2px solid var(--expRed);
     border-radius: 0.4rem 0.4rem 0 0;
@@ -237,6 +237,7 @@ header img{
     color: var(--expRed);
 }
 .main-category p{
+    color: black;
     padding: 0 1rem;
     width:100%;
     font-size: 0.9rem;
@@ -257,6 +258,3 @@ header img{
 .icon1{
     color: black;
 }
-
-
-
