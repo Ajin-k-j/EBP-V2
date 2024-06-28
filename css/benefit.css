@@ -39,7 +39,7 @@ header img{
     font-weight: bold;
 }
 
-.navbar-nav .nav-item .nav-link {
+.nav-link {
     color: var(--expRed);
     font-size: 1rem;
     font-weight: bold;
