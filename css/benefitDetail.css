@@ -54,6 +54,25 @@ main{
 }
 .leftNav{
     width:30%;
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    flex-direction: column;
+}
+.leftNavBanner{
+    width: 80%;
+    height: 200px;
+    background-color: var(--expRed);
+    border-radius: 8px;
+}
+.horizontalLine{
+    background-color: #343a40;
+    height: 1px;
+    width: 100%;
+}
+.leftNavActive{
+    border: 1px solid rgb(37, 33, 33);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 .rightContainer{
     width:70%;
