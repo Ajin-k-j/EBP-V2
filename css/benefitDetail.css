@@ -62,8 +62,13 @@ main{
 .leftNavBanner{
     width: 80%;
     height: 200px;
-    background-color: var(--expRed);
+    /* background-color: var(--expRed); */
+    border: 2px solid var(--expRed);
     border-radius: 8px;
+    text-align: center;
+}
+.leftNavBanner h1{
+    font-size: 2rem;
 }
 .horizontalLine{
     background-color: #343a40;
@@ -76,19 +81,33 @@ main{
 }
 .rightContainer{
     width:70%;
+    padding:1rem  1.5rem 2rem 1.5rem;
+    background-color:#F1F1F1;
+    margin-bottom: 0.5rem;
 }
 .heading{
-    background-color:blanchedalmond;
+    background-color: var(--expRed);
     padding: 0.1rem 0;
+    border-radius: 10px;
 }
 .heading h1{
     margin: 1rem auto;
     width: fit-content;
-    background-color: var(--expRed);
-    color: white;
+    background-color: white;
+    color: black;
     text-align: center;
     border-radius: 10px;
     padding: 0.5rem 1rem;
+}
+.discription{
+    padding: 1rem;
+}
+#output{
+    margin-top: 20px; 
+    padding: 10px; 
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 5px;
 }
 .faq{
     width: 80%;
@@ -103,8 +122,9 @@ main{
     border-radius: 10px 10px 0 0;
     padding: 0.5rem 5rem;
 }
-
-
+.accordion-button:target-within{
+    background-color: lightgreen;
+}
 .footer {
     background-color: #f1f1f1;
     padding: 3px;
