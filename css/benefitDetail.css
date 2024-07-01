@@ -58,11 +58,36 @@ main{
 .rightContainer{
     width:70%;
 }
+.heading{
+    background-color:blanchedalmond;
+    padding: 0.1rem 0;
+}
+.heading h1{
+    margin: 1rem auto;
+    width: fit-content;
+    background-color: var(--expRed);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+}
+.faq{
+    width: 80%;
+    margin: 0 auto;
+}
+.faq h3{
+    margin: 1rem auto 0 auto;
+    width: fit-content;
+    background-color: var(--expRed);
+    color: white;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    padding: 0.5rem 5rem;
+}
+
 
 .footer {
     background-color: #f1f1f1;
-    bottom:0;
-    position: fixed;
     padding: 3px;
     height: 25px;
     width: 100%;
