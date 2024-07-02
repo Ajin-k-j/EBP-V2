@@ -144,14 +144,14 @@ main{
     padding: 0.5rem 1rem;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
 }
-.discription{
+.description{
     margin: 0;
     background-color: white;
     font-size: 1rem;
     padding: 1rem;
     border-radius: 0 0 10px 10px;
 }
-#output{
+#benefit-content{
     margin:1rem auto ;
     /* margin-top: 20px;  */
     width: 100%;

@@ -41,8 +41,8 @@
             </h2>
             <!-- toggle the leftNavActive class to respective divs to give it a border  -->
             <div class="leftNavList w-100 mb-3 p-3">
-              <ul class="nav flex-column">
-                <li class="nav-item navItem">
+              <ul class="nav flex-column" id="benefit-menu">
+                <!-- <li class="nav-item navItem">
                   <a class="nav-link leftNavActive" href="#">Benefit 1</a>
                 </li>
                 <li class="nav-item navItem">
@@ -77,22 +77,22 @@
                 </li>
                 <li class="nav-item navItem">
                   <a class="nav-link" href="#">Benefit 12</a>
-                </li>
+                </li> -->
               </ul>
             </div>
             <!-- <div class="horizontalLine"></div> -->
         </div>
         <div class="rightContainer d-flex flex-column p-3">
         <div class="heading">
-            <h1>Benefit 1</h1>
+            <h1 id="benefit-title">Benefit 1</h1>
         </div>
-        <p class="discription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas, ea. Doloribus in id fugiat illum labore veniam nemo sunt pariatur eaque, dolorem veritatis explicabo laboriosam ipsa officiis ipsum quasi facere!</p>
+        <p class="description" id="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas, ea. Doloribus in id fugiat illum labore veniam nemo sunt pariatur eaque, dolorem veritatis explicabo laboriosam ipsa officiis ipsum quasi facere!</p>
         <!-- Div to display the content -->
-        <div id="output"></div>
+        <div id="benefit-content"></div>
 
         <div class="faq">
             <h3>FAQ</h3>
-            <div class="accordion" id="accordionExample">
+            <div class="accordion" id="accordionContainer">
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -148,6 +148,7 @@
     <!--Quill library -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="js/benefitDetails.js"></script>
+    <script src="js/data.js"></script>
 </body>
 
 </html>
