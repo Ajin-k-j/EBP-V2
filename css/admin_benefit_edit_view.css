@@ -111,8 +111,6 @@ header img {
 
 .footer {
   background-color: #f1f1f1;
-  bottom: 0;
-  position: fixed;
   padding: 3px;
   height: 25px;
   width: 100%;
@@ -129,18 +127,49 @@ header img {
   background-color: #f8f9fa;
   border-radius: 10px;
   padding: 1%;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4); */
+  border-color: #dc123c;
 }
-.add-benefit-button h3 {
+.add-benefit-button h4 {
   margin: 0;
+}
+.add-benefit-button:hover {
+  transform: scale(1.05);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.delete-benefit-button {
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  padding: 1%;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+.click-benifit {
+  background-color: #dc123c;
+  height: 2px;
+  padding: 0 5% 0 2px;
 }
-.delete-benefit-button h3 {
-  margin: 0;
+
+.underline-div {
+  width: 22%;
+  height: 3px;
+  /* padding-left: 25%; */
+  background-color: #dc123c;
+  margin: 0 auto;
 }
+/* .edit-description {
+  text-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+} */
+
+/* @media (max-width: 700px) {
+  .button-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .add-benefit-button,
+  .delete-benefit-button {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+
+  .edit-description {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+  }
+} */
