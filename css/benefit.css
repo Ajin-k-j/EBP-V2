@@ -40,9 +40,12 @@ header img{
 }
 
 .nav-link {
-    color: var(--expRed);
+    color: black;
     font-size: 1rem;
     font-weight: bold;
+}
+.nav-link:hover{
+    color: var(--expRed);
 }
 
 .hero-section {
