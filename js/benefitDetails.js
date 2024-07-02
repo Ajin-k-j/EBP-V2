@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
   displayContentBtn.addEventListener('click', function() {
     // Get the HTML content from the editor
     var content = quill.root.innerHTML;
+    console.log(content);
     // Display the content in the output div
     outputDiv.innerHTML = content;
   });

@@ -4,6 +4,23 @@
 html {
     font-size: 16px; /* Base font size */
 }
+@media (min-width: 768px) {
+    html {
+        font-size: 18px; /* Increase base font size for tablets */
+    }
+}
+
+@media (min-width: 1024px) {
+    html {
+        font-size: 19px; /* Increase base font size for desktops */
+    }
+}
+
+@media (min-width: 1440px) {
+    html {
+        font-size: 20px; /* Increase base font size for desktops */
+    }
+}
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -54,16 +71,46 @@ main{
 }
 .leftNav{
     width:30%;
-    display: flex;
+    /* display: flex;
     justify-content: top;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column; */
 }
 .leftNavBanner{
     width: 80%;
-    height: 200px;
-    background-color: var(--expRed);
+    height: fit-content;
+    /* background-color: var(--expRed); */
+    border: 2px solid var(--expRed);
     border-radius: 8px;
+    text-align: center;
+    /* justify-content: center;
+    align-items: center; */
+}
+.leftNavBanner h1{
+    font-size: 1.5rem;
+}
+.leftNavBanner i{
+    font-size: 5rem;
+    color: var(--expRed);
+}
+.leftNavList{
+    border-radius: 5px;
+    border: 1px solid var(--expRed);
+}
+.navItem{
+    font-size: 0.8rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+.navItem:hover{
+    border: 1px solid var(--expRed);
+    transform: scale(1.05);
+    border-radius: 5px;
+}
+.nav-link:hover{
+    border-radius: 5px;
+    background-color: var(--expRed);
+    color: white;
 }
 .horizontalLine{
     background-color: #343a40;
@@ -71,17 +118,67 @@ main{
     width: 100%;
 }
 .leftNavActive{
+    border-radius: 5px;
     border: 1px solid rgb(37, 33, 33);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    background-color: var(--expRed);
+    color: white;
+    transform: scale(1.05);
 }
 .rightContainer{
     width:70%;
+    background-color:#F1F1F1;
 }
-
+.heading{
+    background-color: var(--expRed);
+    padding: 0.1rem 0;
+    border-radius: 10px;
+}
+.heading h1{
+    margin: 1rem auto;
+    width: fit-content;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+}
+.discription{
+    margin: 0;
+    background-color: white;
+    font-size: 1rem;
+    padding: 1rem;
+    border-radius: 0 0 10px 10px;
+}
+#output{
+    margin:1rem auto ;
+    /* margin-top: 20px;  */
+    width: 100%;
+    padding: 1rem; 
+    /* border: 1px solid #ccc; */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+}
+.faq{
+    width: 85%;
+    margin: 0 auto;
+}
+.faq h3{
+    margin: 1rem auto 0 auto;
+    width: fit-content;
+    background-color: var(--expRed);
+    color: white;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    padding: 0.5rem 5vw;
+}
+.accordion-button:target-within{
+    background-color: lightgreen;
+}
 .footer {
     background-color: #f1f1f1;
-    bottom:0;
-    position: fixed;
     padding: 3px;
     height: 25px;
     width: 100%;
