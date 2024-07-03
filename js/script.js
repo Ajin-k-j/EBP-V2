@@ -53,9 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
-
 const searchInput = document.getElementById('benefit-search');
 const recommendations = document.getElementById('recommendations');
 
@@ -81,8 +78,9 @@ function performSearch() {
     const query = searchInput.value.toLowerCase();
     const result = benefits.find(benefit => benefit.name.toLowerCase() === query);
     if (result) {
-        alert(`${result.name}\n\nCategory: ${result.category}\nDescription: ${result.description}\nDetails: ${result.details}`);
+        window.location.href = `benefitDetails.html?id=${result.id}`;
     } else {
         alert('Benefit not found.');
     }
 }
+
