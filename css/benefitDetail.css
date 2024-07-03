@@ -18,7 +18,7 @@ html {
 
 @media (min-width: 1440px) {
     html {
-        font-size: 20px; /* Increase base font size for desktops */
+        font-size: 20px;
     }
 }
 body {
@@ -147,21 +147,20 @@ main{
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
 }
 .description{
-    margin: 0;
     background-color: white;
     font-size: 1rem;
     padding: 1rem;
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px 10px 0 0;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 #benefit-content{
-    margin:1rem auto ;
+    margin:0 auto 1rem auto;
     /* margin-top: 20px;  */
     width: 100%;
     padding: 1rem; 
     /* border: 1px solid #ccc; */
     background-color: white;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 .faq{
@@ -181,7 +180,7 @@ main{
     background-color: lightgreen;
 } */
 .accordion-body{
-    background-color: rgb(195, 237, 195);
+    background-color: rgb(231, 231, 231);
 }
 .footer {
     background-color: #f1f1f1;
