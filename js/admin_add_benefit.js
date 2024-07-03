@@ -1,26 +1,8 @@
+//Initialize Quill editor
 document.addEventListener("DOMContentLoaded", function() {
-    ClassicEditor
-        .create(document.querySelector('#editor'), {
-            toolbar: {
-                items: [
-                    'heading', '|',
-                    'bold', 'italic', 'underline', 'link', '|',
-                    'bulletedList', 'numberedList', 'blockQuote', '|',
-                    'textColor'
-                ]
-            },
-            language: 'en',
-            licenseKey: '',
-
-        })
-        .then(editor => {
-            window.editor = editor;
-        })
-        .catch(error => {
-            console.error('Oops, something went wrong!');
-            console.error('Please, report the following error.');
-            console.error(error);
-        });
+    var quill = new Quill('#editor-container', {
+      theme: 'snow'
+    });
 
     const form = document.getElementById('benefit-form');
     form.addEventListener('submit', function(event) {
@@ -29,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const formData = new FormData(form);
         const benefitName = formData.get('benefit-name');
         const description = formData.get('description');
-        const content = tinymce.get('content').getContent();
+        var content = quill.root.innerHTML;
         const iconImage = formData.get('icon-image');
 
         console.log('Benefit Name:', benefitName);
