@@ -1,37 +1,57 @@
 
-document.addEventListener('DOMContentLoaded', () => {
+// Function to sort benefits by views in descending order
+function sortBenefitsByViews(benefits) {
+    return benefits.sort((a, b) => b.views - a.views);
+}
+
+// Function to get the top N benefits
+function getTopBenefits(benefits, count) {
+    return benefits.slice(0, count);
+}
+
+// Function to update HTML elements with benefit values and IDs
+function updateBenefitCards(container, benefits) {
+    const benefitCards = container.querySelectorAll('.benefit-card');
+
+    benefits.forEach((benefit, index) => {
+        const card = benefitCards[index];
+        if (card) {
+            const icon = card.querySelector('.icon');
+            const title = card.querySelector('h5');
+
+            if (icon) {
+                icon.className = benefit.icon + ' icon';
+            }
+
+            if (title) {
+                title.textContent = benefit.name;
+            }
+
+            // Set href with benefitDetails.html and ID
+            card.href = `benefitDetails.html?id=${benefit.id}`;
+        }
+    });
+}
+
+// Function to initialize the benefits display
+function initBenefitsDisplay(benefits) {
     const popularBenefitsContainers = document.querySelectorAll('.popular-benefits');
 
-    // Sort benefits by views in descending order
-    const sortedBenefits = benefits.sort((a, b) => b.views - a.views);
+    // Sort benefits by views and get the top 8
+    const sortedBenefits = sortBenefitsByViews(benefits);
+    const top8Benefits = getTopBenefits(sortedBenefits, 8);
 
-    // Take only the top 8 elements
-    const top8Benefits = sortedBenefits.slice(0, 8);
-
-    // Update HTML elements with benefit values and IDs
-    popularBenefitsContainers.forEach(popularBenefitsContainer => {
-        const benefitCards = popularBenefitsContainer.querySelectorAll('.benefit-card');
-
-        top8Benefits.forEach((benefit, index) => {
-            const card = benefitCards[index];
-            if (card) {
-                const icon = card.querySelector('.icon');
-                const title = card.querySelector('h5');
-
-                if (icon) {
-                    icon.className = benefit.icon + ' icon';
-                }
-
-                if (title) {
-                    title.textContent = benefit.name;
-                }
-
-                // Set href with benefitDetails.html and ID
-                card.href = `benefitDetails.html?id=${benefit.id}`;
-            }
-        });
+    // Update each container with the top 8 benefits
+    popularBenefitsContainers.forEach(container => {
+        updateBenefitCards(container, top8Benefits);
     });
+}
+
+// Event listener for DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    initBenefitsDisplay(benefits);
 });
+
 
 
 
