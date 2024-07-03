@@ -87,6 +87,7 @@ main{
     align-items: center; */
 }
 .leftNavBanner h1{
+    margin-top: 1rem;
     font-size: 1.5rem;
 }
 .leftNavBanner i{
@@ -122,8 +123,8 @@ main{
     border: 1px solid rgb(37, 33, 33);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     background-color: var(--expRed);
-    color: white;
     transform: scale(1.05);
+    color: White;
 }
 .rightContainer{
     width:70%;
@@ -135,6 +136,7 @@ main{
     border-radius: 10px;
 }
 .heading h1{
+    font-size: 1.5rem;
     margin: 1rem auto;
     width: fit-content;
     background-color: white;
@@ -144,14 +146,15 @@ main{
     padding: 0.5rem 1rem;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
 }
-.discription{
+.description{
     margin: 0;
     background-color: white;
     font-size: 1rem;
     padding: 1rem;
     border-radius: 0 0 10px 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
-#output{
+#benefit-content{
     margin:1rem auto ;
     /* margin-top: 20px;  */
     width: 100%;
@@ -172,10 +175,13 @@ main{
     color: white;
     text-align: center;
     border-radius: 10px 10px 0 0;
-    padding: 0.5rem 5vw;
+    padding: 0.2rem 5vw;
 }
-.accordion-button:target-within{
+/* .accordion-button:target-within{
     background-color: lightgreen;
+} */
+.accordion-body{
+    background-color: rgb(195, 237, 195);
 }
 .footer {
     background-color: #f1f1f1;
