@@ -28,16 +28,15 @@
     </header>
 
     <main class="d-flex">
-        <div class="leftNav d-flex flex-column justify-content-center align-items-center p-2">
+        <div class="leftNav d-flex flex-column justify-content-top align-items-center p-2">
             <div class="leftNavBanner w-100 mt-3 mb-3 pt-3 pb-3">
               <!-- add image  -->
-              <!-- will make it a red box for now -->
               <i class="fa-solid fa-handshake"></i>
               <h1>Statutory Benefit</h1>
             </div>
             <div class="horizontalLine"></div>
             <h2 class="mt-3">
-              Menu List
+              Benefit List
             </h2>
             <!-- toggle the leftNavActive class to respective divs to give it a border  -->
             <div class="leftNavList w-100 mb-3 p-3">
@@ -82,7 +81,7 @@
             </div>
             <!-- <div class="horizontalLine"></div> -->
         </div>
-        <div class="rightContainer d-flex flex-column p-3">
+        <div class="rightContainer d-flex flex-column p-3 pb-5">
         <div class="heading">
             <h1 id="benefit-title">Benefit 1</h1>
         </div>
@@ -99,7 +98,7 @@
                     Who is eligible for the Employees' Provident Fund (EPF)?
                   </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionContainer">
                   <div class="accordion-body">
                     The EPF is mandatory for organizations with 20 or more employees.
                   </div>
@@ -111,7 +110,7 @@
                     What is the contribution percentage for both the employee and the employer towards the EPF?
                   </button>
                 </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionContainer">
                   <div class="accordion-body">
                     Both the employee and the employer contribute 12% of the employee’s monthly salary to the EPF.
                   </div>
@@ -123,7 +122,7 @@
                     Can employees contribute more than the mandatory percentage to the EPF?
                   </button>
                 </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionContainer">
                   <div class="accordion-body">
                     Yes, through the Voluntary Provident Fund, employees can contribute up to 100% of their basic salary and Dearness Allowance (DA).
                   </div>
@@ -131,8 +130,8 @@
               </div>
             </div>
         </div>
-        <div id="editor-container" style="height: 150px;"></div>
-        <button id="display-content-btn">Display Content</button>
+        <!-- <div id="editor-container" style="height: 150px;"></div>
+        <button id="display-content-btn">Display Content</button> -->
       </div>
     </main>
 
