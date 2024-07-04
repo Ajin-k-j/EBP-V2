@@ -1,5 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
+//for testing 
 // let id = 'epf'
 //Initialize Quill editor
 var quill = new Quill('#editor-container', {
@@ -11,15 +12,19 @@ var benefitData = benefits.find(item => item.id === id);
 document.addEventListener('DOMContentLoaded', () => {
     const beneftiName = document.getElementById('benefit-name')
     const description = document.getElementById('description')
+    const button = document.getElementById('dropdownButton');
     beneftiName.value = benefitData.name
     description.value = benefitData.description
+    button.textContent = benefitData.categoryId
     quill.root.innerHTML = benefitData.content
 
     iconSearchFunction();
     showFaqs();
     deleteFunctionToButtons();
     addFaqs();
+    dropdownFunctions();
 });
+
 //to show the faqs of the benefit in hand
 function showFaqs(){
     const faqContainer = document.getElementById("faqs-container")
@@ -35,7 +40,6 @@ function showFaqs(){
         faqContainer.insertAdjacentHTML('beforeend', faqHtmlData);
     })
 }
-
 //need some modifications
 function deleteFunctionToButtons(){
     document.querySelectorAll('.remove-faq').forEach((button) => {
@@ -91,5 +95,15 @@ function iconSearchFunction(){
         }
     });
 }
+//dropdown category menu functionality
+function dropdownFunctions(){
+    document.querySelectorAll('.dropdown-item').forEach(function(item) {
+        item.addEventListener('click', function(event) {
+            const button = document.getElementById('dropdownButton');
+            button.textContent = event.target.textContent;
+        });
+    });
+}
+
 
 
