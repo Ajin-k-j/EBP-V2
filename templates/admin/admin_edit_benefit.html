@@ -47,57 +47,27 @@
                 <div id="editor-container" style="height: 100px;"></div>
             </div>
             <div class="mb-3 row">
-                <label for="icon-image" class="col-sm-2 col-form-label">Icon/Image:</label>
+                <!-- <label for="icon-image" class="col-sm-2 col-form-label">Icon/Image:</label>
                 <div class="col-sm-10">
                     <input type="file" class="form-control" id="icon-image" name="icon-image" accept="image/*">
+                </div> -->
+                <label for="icon-image" class="col-sm-2 col-form-label">Icon/Image:</label>
+                <div class="icon-selector col-sm-10">
+                    <input type="text" class="form-control" id="icon-search" placeholder="Search for an icon...">
+                    <div id="icon-recommendations" class="icon-list"></div>
                 </div>
             </div>
             <h3>FAQs</h3>
             <div id="faqs-container">
-                <!-- <div class="faq">
-                    <label>Question:</label>
-                    <input type="text" name="faq-question" class="form-control" id="faq-question" required>
-                    <label>Answer:</label>
-                    <textarea name="faq-answer" id="faq-answer" required></textarea>
-                    <button type="button" class="remove-faq btn btn-outline-danger">Remove FAQ</button>
-                </div> -->
-            </div>
 
+            </div>
             <div class="text-center">
                 <button type="button" class="btn btn-dark" id="add-faq">Add FAQ</button>
             </div>
-            
-            <!-- <button type="submit">Save Benefit</button> -->
-
             <div class="text-center">
                 <button type="submit" class="btn btn-danger">Submit</button>
             </div>
-        </form>
-        <!-- admin/add-edit-benefit.html -->
-        <!-- <form id="benefit-form">
-            <label for="name">Benefit Name:</label>
-            <input type="text" id="name" name="name" required>
-        
-            <label for="icon">Benefit Icon (FontAwesome class or image URL):</label>
-            <input type="text" id="icon" name="icon" required>
-        
-            <label for="content">Benefit Content (HTML):</label>
-            <textarea id="content" name="content" required></textarea>
-        
-            <h3>FAQs</h3>
-            <div id="faqs-container">
-            <div class="faq">
-                <label>Question:</label>
-                <input type="text" name="faq-question" required>
-                <label>Answer:</label>
-                <textarea name="faq-answer" required></textarea>
-                <button type="button" class="remove-faq">Remove FAQ</button>
-            </div>
-            </div>
-            <button type="button" id="add-faq">Add FAQ</button>
-        
-            <button type="submit">Save Benefit</button>
-        </form> -->
+        </form>       
     </div>
 
     <footer class="footer bg-light mt-5">
