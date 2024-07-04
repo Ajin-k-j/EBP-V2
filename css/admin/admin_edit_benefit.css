@@ -85,6 +85,12 @@ input[type="text"], input[type="file"], textarea {
     border: 1px solid #ccc;
     width: 100%;
 }
+.dropdown-center{
+    width: 230px;
+}
+#dropdownButton{
+    width: 100%;
+}
 
 .icon-container {
     display: flex;
@@ -100,7 +106,6 @@ input[type="text"], input[type="file"], textarea {
     overflow-y: auto;
     position: absolute;
     background: white;
-    /* width: 100%; */
     z-index: 1;
 }
 .icon-item {
@@ -110,24 +115,19 @@ input[type="text"], input[type="file"], textarea {
 .icon-item:hover {
     background-color: #f0f0f0;
 }
-
-.submit-button {
-    text-align: center;
-    margin-top: 20px;
+#add-faq{
+    width: 180px;
 }
-
 .submit-button .btn {
     background-color: #DC123C;
     color: white;
-    padding: 10px 20px;
     border: none;
     cursor: pointer;
+    width: 200px;
 }
 
 .footer {
     background-color: #f1f1f1;
-    /* bottom:0; */
-    /* position: fixed; */
     padding: 3px;
     height: 25px;
     width: 100%;
@@ -135,8 +135,4 @@ input[type="text"], input[type="file"], textarea {
     text-align: center;
     border-top: 1px solid #e3e3e3;
 }
-
-/* .footer p {
-    margin: 0;
-} */
 
