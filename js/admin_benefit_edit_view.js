@@ -1,5 +1,9 @@
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
+
+//setting link for delete benefit button
+document.getElementById('deleteBenefit').setAttribute("href",`delete_benefit_form.html?id=${id}`);
+
 document.addEventListener('DOMContentLoaded', () => {
     const categoryData = categories.find(item => item.id === id);
     const categoryOtherData = categories.filter(item => item.id !== id);

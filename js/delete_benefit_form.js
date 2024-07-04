@@ -1,14 +1,20 @@
 // import { benefits } from './data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    let id = params.get('id');
+
     const benefitSelect = document.getElementById('benefit-select');
 
     // Populate the select element with benefit names
     benefits.forEach(benefit => {
+        console.log(id);
+        if(benefit.categoryId === id){
         const option = document.createElement('option');
         option.value = benefit.id;
         option.textContent = benefit.name;
         benefitSelect.appendChild(option);
+        }
     });
 
     document.getElementById('delete-benefit-form').addEventListener('submit', function(e) {
