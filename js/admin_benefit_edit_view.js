@@ -20,7 +20,7 @@ function createBenefitBox() {
     let myBenefits = benefits.sort((a, b) => b.views - a.views);
     myBenefits.forEach(item =>{
         if(item.categoryId === id){
-            htmlDataBenefit += `<a href="./benefitDetails.html?id=${item.id}">
+            htmlDataBenefit += `<a href="./admin_edit_benefit.html?id=${item.id}">
                                     <div class="benefit-card card">
                                         <i class="fas ${item.icon} fa-2x"></i>
                                         <h5>${item.name}</h5>
