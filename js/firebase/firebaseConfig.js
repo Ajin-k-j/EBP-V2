@@ -4,6 +4,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js"; // Import Firestore
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,5 +21,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const db = getFirestore(app); // Initialize Firestore
 
-export { auth };
+export { auth, db }; // Export Firestore instance along with other Firebase services

@@ -262,21 +262,7 @@ const benefits = [
 
   
 
-  //auth user data not neccessary now
 
-  const users = [
-    {
-      id: "user1",
-      email: "admin@example.com",
-      role: "admin"
-    },
-    {
-      id: "user2",
-      email: "user2@example.com",
-      role: "admin"
-    }
-  ];
-  
   const icons = [
     'fas fa-user',
     'fas fa-home',

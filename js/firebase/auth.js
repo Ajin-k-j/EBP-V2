@@ -15,7 +15,8 @@ function signIn() {
   const password = document.querySelector('#password').value;
   const errorMessageDiv = document.querySelector('#error-message');
 
-  errorMessageDiv.textContent = ''; // Clear any previous error message
+  // Clear any previous error message and set loading text
+  errorMessageDiv.textContent = 'Signing in...';
 
   // Check if fields are filled
   if (!email || !password) {
@@ -29,15 +30,12 @@ function signIn() {
     return;
   }
 
-
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Sign-in successful
       window.location.href = '/templates/admin/adminhome.html';
     })
     .catch((error) => {
-
-
       // Handle Errors here.
       const errorCode = error.code;
       let errorMessage = '';
@@ -65,6 +63,12 @@ function signIn() {
 
       errorMessageDiv.textContent = errorMessage;
     })
+    .finally(() => {
+      // Clear loading text if sign-in operation completes (whether success or error)
+      if (errorMessageDiv.textContent === 'Signing in...') {
+        errorMessageDiv.textContent = '';
+      }
+    });
 }
 
 // Function to handle forgot password
@@ -72,7 +76,8 @@ function forgotPassword() {
   const email = document.querySelector('#email').value;
   const errorMessageDiv = document.querySelector('#error-message');
 
-  errorMessageDiv.textContent = ''; // Clear any previous error message
+  // Clear any previous error message and set loading text
+  errorMessageDiv.textContent = 'Sending password reset email...';
 
   // Validate email format
   if (!validateEmail(email)) {
@@ -104,6 +109,12 @@ function forgotPassword() {
       }
 
       errorMessageDiv.textContent = errorMessage;
+    })
+    .finally(() => {
+      // Clear loading text if password reset operation completes (whether success or error)
+      if (errorMessageDiv.textContent === 'Sending password reset email...') {
+        errorMessageDiv.textContent = '';
+      }
     });
 }
 
