@@ -1,15 +1,22 @@
+import { db } from './firebase/firebaseConfig.js';
+import { fetchData, benefits } from './firebase/firebaseData.js';
+import { collection,where, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
 //for testing 
-// let id = 'epf'
+// let id = '1'
 //Initialize Quill editor
 var quill = new Quill('#editor-container', {
     theme: 'snow'
 });
-var benefitData = benefits.find(item => item.id === id);
 
 // to populate the texboxes and inputs
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    //fetching data
+    await fetchData();
+    var benefitData = benefits.find(item => item.id == id);
+    // displaying the benefit data in the form
     const beneftiName = document.getElementById('benefit-name')
     const description = document.getElementById('description')
     const button = document.getElementById('dropdownButton');
@@ -20,16 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     iconSearchFunction();
     if(benefitData.faqs){
-        showFaqs();
+        showFaqs(benefitData);
         deleteFunctionToButtons();
     }
-    
     addFaqs();
     dropdownFunctions();
 });
 
 //to show the faqs of the benefit in hand
-function showFaqs(){
+function showFaqs(benefitData){
     const faqContainer = document.getElementById("faqs-container")
     let faqHtmlData = '';
     benefitData.faqs.forEach((items)=>{
