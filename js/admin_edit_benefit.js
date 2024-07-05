@@ -33,7 +33,7 @@ function showFaqs(){
     const faqContainer = document.getElementById("faqs-container")
     let faqHtmlData = '';
     benefitData.faqs.forEach((items)=>{
-        faqHtmlData = `<div class="faq border border-danger rounded p-2 mb-3">
+        faqHtmlData = `<div class="faq border border-danger rounded p-3 mb-3">
                             <label>Question:</label>
                             <input type="text" name="faq-question" class="form-control faq-question" required value="${items.question}">
                             <label>Answer:</label>
