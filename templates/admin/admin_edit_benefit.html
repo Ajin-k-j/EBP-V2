@@ -29,20 +29,20 @@
         <div class="form-heading text-center text-white bg-danger mb-3">Edit Benefit</div>
         <form id="benefit-form">
             <div class="mb-3 row">
-                <label for="benefit-name" class="col-sm-2 col-form-label">Benefit Name:</label>
-                <div class="col-sm-10">
+                <label for="benefit-name" class="col-md-2 col-form-label">Benefit Name:</label>
+                <div class="col-md-10">
                     <input type="text" class="form-control" id="benefit-name" name="benefit-name" required>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="description" class="col-sm-2 col-form-label">Description:</label>
-                <div class="col-sm-10">
+                <label for="description" class="col-md-2 col-form-label">Description:</label>
+                <div class="col-md-10">
                     <input type="text" class="form-control" id="description" name="description" required>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="category" class="col-sm-2 col-form-label">Category:</label>
-                <div class="col-sm-10 dropdown-center">
+                <label for="category" class="col-md-2 col-form-label">Category:</label>
+                <div class="col-md-10 dropdown-center">
                     <button id="dropdownButton" class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Choose a category
                     </button>
@@ -54,13 +54,15 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="editor-container" class="col-sm-2 col-form-label">Content:</label>
+                <label for="editor-container" class="col-md-2 col-form-label">Content:</label>
                 <!-- quill editor -->
-                <div id="editor-container" style="height: 100px;"></div>
+                <div class="col-md-10">
+                    <div  id="editor-container" style="height: 100px;"></div>
+                </div>
             </div>
             <div class="mb-3 row">
-                <label for="icon-image" class="col-sm-2 col-form-label">Icon/Image:</label>
-                <div class="icon-selector col-sm-10">
+                <label for="icon-image" class="col-md-2 col-form-label">Icon/Image:</label>
+                <div class="icon-selector col-md-10">
                     <input type="text" class="form-control" id="icon-search" placeholder="Search for an icon (eg:user, home,etc)...">
                     <div id="icon-recommendations" class="icon-list"></div>
                 </div>
