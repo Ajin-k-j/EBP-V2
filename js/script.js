@@ -94,3 +94,5 @@ function performSearch() {
         alert('Benefit not found.');
     }
 }
+// Expose performSearch to the global scope
+window.performSearch = performSearch;
