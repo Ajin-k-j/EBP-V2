@@ -85,12 +85,12 @@ input[type="text"], input[type="file"], textarea {
     border: 1px solid #ccc;
     width: 100%;
 }
-.dropdown-center{
+/* .dropdown-center{
     width: 230px;
 }
 #dropdownButton{
     width: 100%;
-}
+} */
 
 .icon-container {
     display: flex;
@@ -115,6 +115,7 @@ input[type="text"], input[type="file"], textarea {
 .icon-item:hover {
     background-color: #f0f0f0;
 }
+
 .submit-button .btn {
     background-color: #DC123C;
     color: white;
