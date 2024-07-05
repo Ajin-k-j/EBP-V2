@@ -115,9 +115,6 @@ input[type="text"], input[type="file"], textarea {
 .icon-item:hover {
     background-color: #f0f0f0;
 }
-#add-faq{
-    width: 180px;
-}
 .submit-button .btn {
     background-color: #DC123C;
     color: white;

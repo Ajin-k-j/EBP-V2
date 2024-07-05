@@ -72,7 +72,7 @@ function addFaqs(){
                         <div class="mb-3 row">
                             <label class="col-sm-2">Answer:</label>
                             <div class="col-sm-10">
-                                <textarea name="faq-answer" class="rounded" placeholder="Add the FAQ answer..." required></textarea>
+                                <textarea name="faq-answer" class="form-control rounded" placeholder="Add the FAQ answer..." required></textarea>
                             </div>
                         </div>
                         <button type="button" class="remove-faq btn btn-outline-danger">Remove FAQ</button>
