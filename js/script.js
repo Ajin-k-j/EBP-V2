@@ -1,18 +1,20 @@
-// Event listener for window onload
-window.onload = () => {
+import { fetchData, benefits } from './firebase/firebaseData.js';
+
+window.onload = async () => {
     const loadingAnimation = document.getElementById('loading-animation');
 
     // Show loading animation initially
     loadingAnimation.style.display = 'flex';
 
+    // Fetch data from Firestore
+    await fetchData();
+
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
-    
+
     // Initialize benefits display after hiding loading animation
     initBenefitsDisplay(benefits);
 };
-
-
 
 // Function to sort benefits by views in descending order
 function sortBenefitsByViews(benefits) {
@@ -92,4 +94,3 @@ function performSearch() {
         alert('Benefit not found.');
     }
 }
-

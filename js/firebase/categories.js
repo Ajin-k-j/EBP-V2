@@ -1,27 +1,30 @@
-const categoriesForm = document.getElementById('categoriesForm');
+import { auth, db } from './firebaseConfig.js';
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-categoriesForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const categoryId = categoriesForm['categoryId'].value;
-  const categoryName = categoriesForm['categoryName'].value;
-  const categoryIcon = categoriesForm['categoryIcon'].value;
-  const categoryDescription = categoriesForm['categoryDescription'].value;
+// Function to handle form submission
+const handleFormSubmit = async (event) => {
+  event.preventDefault();
+  
+  const categoryId = document.getElementById('categoryId').value;
+  const name = document.getElementById('name').value;
+  const icon = document.getElementById('icon').value;
+  const description = document.getElementById('description').value;
 
   try {
-    // Add category to Firestore
-    const categoriesRef = db.collection('categories');
-    await categoriesRef.doc(categoryId).set({
+    // Add a new document with a generated ID
+    await addDoc(collection(db, 'categories'), {
       id: categoryId,
-      name: categoryName,
-      icon: categoryIcon,
-      description: categoryDescription
+      name: name,
+      icon: icon,
+      description: description
     });
 
-    alert('Category added successfully!');
-    categoriesForm.reset();
-  } catch (error) {
-    console.error('Error adding category: ', error);
-    alert('Error adding category. Check console for details.');
+    alert('Benefit added successfully!');
+  } catch (e) {
+    console.error('Error adding document: ', e);
+    alert('Error adding benefit. Please try again.');
   }
-});
+};
+
+// Attach event listener to the form
+document.getElementById('benefitsForm').addEventListener('submit', handleFormSubmit);
