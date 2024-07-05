@@ -39,16 +39,7 @@ const incrementViews = async (benefitId) => {
       });
 
       console.log(`Views incremented to ${currentViews + 1}`);
-    } else {
-      console.log('Benefit does not exist. Creating new benefit with views = 1.');
-
-      // Create new benefit with views = 1
-      await setDoc(benefitRef, {
-        views: 1
-      });
-
-      console.log('New benefit created with views = 1');
-    }
+    } 
   } catch (e) {
     console.error('Error updating views: ', e);
   }
