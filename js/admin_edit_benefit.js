@@ -19,8 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     quill.root.innerHTML = benefitData.content
 
     iconSearchFunction();
-    showFaqs();
-    deleteFunctionToButtons();
+    if(benefitData.faqs){
+        showFaqs();
+        deleteFunctionToButtons();
+    }
+    
     addFaqs();
     dropdownFunctions();
 });
@@ -30,11 +33,11 @@ function showFaqs(){
     const faqContainer = document.getElementById("faqs-container")
     let faqHtmlData = '';
     benefitData.faqs.forEach((items)=>{
-        faqHtmlData = `<div class="faq">
+        faqHtmlData = `<div class="faq border border-danger rounded p-2 mb-3">
                             <label>Question:</label>
                             <input type="text" name="faq-question" class="form-control faq-question" required value="${items.question}">
                             <label>Answer:</label>
-                            <textarea name="faq-answer"  class="faq-answer" required>${items.answer}</textarea>
+                            <textarea name="faq-answer"  class="faq-answer rounded" required>${items.answer}</textarea>
                             <button type="button" class="remove-faq btn btn-outline-danger">Remove FAQ</button>
                         </div>`;
         faqContainer.insertAdjacentHTML('beforeend', faqHtmlData);
