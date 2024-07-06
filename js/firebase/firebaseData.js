@@ -1,5 +1,5 @@
 import { db } from './firebaseConfig.js';
-import { collection, getDocs, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { collection, getDocs, doc, getDoc, updateDoc, setDoc, query, where, } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // Global arrays to store categories and benefits data
 let categories = [];
@@ -24,13 +24,16 @@ const fetchData = async () => {
 
 // Function to increment the views field
 const incrementViews = async (benefitId) => {
-  const benefitRef = doc(db, 'benefits', benefitId);
+  const benefitsCollection = collection(db, 'benefits');
+  const q = query(benefitsCollection, where('id', '==', benefitId));
 
   try {
-    const benefitSnapshot = await getDoc(benefitRef);
+    const querySnapshot = await getDocs(q);
 
-    if (benefitSnapshot.exists()) {
-      const benefitData = benefitSnapshot.data();
+    if (!querySnapshot.empty) {
+      const benefitDoc = querySnapshot.docs[0];
+      const benefitRef = benefitDoc.ref;
+      const benefitData = benefitDoc.data();
       const currentViews = benefitData.views || 0;
 
       // Increment views by 1
@@ -39,7 +42,9 @@ const incrementViews = async (benefitId) => {
       });
 
       console.log(`Views incremented to ${currentViews + 1}`);
-    } 
+    } else {
+      console.error('Benefit not found');
+    }
   } catch (e) {
     console.error('Error updating views: ', e);
   }
