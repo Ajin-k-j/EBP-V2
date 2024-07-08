@@ -1,45 +1,63 @@
-// import { benefits } from './data.js';
-import { db } from '/js/firebase/firebaseConfig.js';
-import { fetchData, categories, benefits} from './firebase/firebaseData.js';
-import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { db } from './firebase/firebaseConfig.js';
+import { collection, query, where, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-document.addEventListener('DOMContentLoaded', async() => {
+document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
-    let id = params.get('id');
-
-    await fetchData();
-
+    let id = params.get('id'); // This is the categoryId
     const benefitSelect = document.getElementById('benefit-select');
 
-    // Populate the select element with benefit names
-    benefits.forEach(benefit => {
-        console.log(id);
-        if(benefit.categoryId === id){
+    // Create a message box element
+    const messageBox = document.createElement('div');
+    messageBox.id = 'message-box';
+    messageBox.style.display = 'none';
+    benefitSelect.parentElement.appendChild(messageBox);
+
+    try {
+        // Fetch benefits from Firestore with the given categoryId
+        const benefitsRef = collection(db, 'benefits');
+        const q = query(benefitsRef, where('categoryId', '==', id));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+                const benefit = doc.data();
+                const option = document.createElement('option');
+                option.value = doc.id; // Use Firestore document ID as the value
+                option.textContent = benefit.name;
+                benefitSelect.appendChild(option);
+            });
+        } else {
             const option = document.createElement('option');
-            option.value = benefit.id;
-            option.textContent = benefit.name;
+            option.value = '';
+            option.textContent = 'No benefits found for this category';
             benefitSelect.appendChild(option);
         }
-    });
+    } catch (error) {
+        console.error('Error fetching benefits: ', error);
+    }
 
-    document.getElementById('delete-benefit-form').addEventListener('submit', function(e) {
+    document.getElementById('delete-benefit-form').addEventListener('submit', async function (e) {
         e.preventDefault();
         const selectedBenefitId = benefitSelect.value;
-        if (selectedBenefitId !== 'Choose') {
-            // Find the index of the selected benefit
-            const benefitIndex = benefits.findIndex(b => b.id === selectedBenefitId);
 
-            if (benefitIndex !== -1) {
-                const benefitName = benefits[benefitIndex].name;
-                // Remove the selected benefit from the array
-                benefits.splice(benefitIndex, 1);
-                // Reflect changes in the select element
+        if (selectedBenefitId && selectedBenefitId !== 'Choose') {
+            messageBox.style.display = 'block';
+            messageBox.textContent = 'Deleting...';
+
+            try {
+                // Delete the selected benefit from Firestore
+                await deleteDoc(doc(db, 'benefits', selectedBenefitId));
                 benefitSelect.options[benefitSelect.selectedIndex].remove();
                 benefitSelect.selectedIndex = 0;
+                messageBox.textContent = 'Benefit deleted successfully. Redirecting...';
 
-                alert(`Benefit "${benefitName}" deleted successfully.`);
-            } else {
-                alert('Benefit not found.');
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.history.back();
+                }, 1000);
+            } catch (error) {
+                console.error('Error deleting benefit: ', error);
+                messageBox.textContent = 'Error deleting benefit. Please try again.';
             }
         } else {
             alert('Please choose a benefit to delete.');
