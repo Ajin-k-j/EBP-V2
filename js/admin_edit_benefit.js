@@ -13,8 +13,16 @@ var quill = new Quill('#editor-container', {
 
 // to populate the texboxes and inputs
 document.addEventListener('DOMContentLoaded', async () => {
+    const loadingAnimation = document.getElementById('loading-animation');
+    // Show loading animation initially
+    loadingAnimation.style.display = 'flex';
+
     //fetching data
     await fetchData();
+    
+    // Hide loading animation after everything is loaded
+    loadingAnimation.style.display = 'none';
+
     const form = document.getElementById('benefit-form');
     var benefitData = benefits.find(item => item.id === parseInt(id,10));
     // displaying the benefit data in the form
@@ -64,7 +72,7 @@ function addFaqs(){
     const addFaqButton = document.getElementById("add-faq")
     const faqContainer = document.getElementById("faqs-container")
     addFaqButton.addEventListener("click",()=>{
-        let newFaq = `<div class="faq"">
+        let newFaq =    `<div class="faq"">
                             <label>Question:</label>
                             <input type="text" name="faq-question" class="form-control" required placeholder="Add the FAQ question...">
                             <label>Answer:</label>
@@ -73,8 +81,7 @@ function addFaqs(){
                         </div>`
         faqContainer.insertAdjacentHTML("beforeend", newFaq)
         deleteFunctionToButtons();
-    })
-    
+    })   
 }
 //to search icons
 function iconSearchFunction(){
@@ -115,48 +122,31 @@ function dropdownFunctions(){
         });
     });
 }
+//to update the data into the database once the submit button is pressed
 async function  submitEdits(event){
     event.preventDefault();
-
-    // const editedBenefit = {
-    //     id: newId,
-    //     name: document.getElementById('name').value,
-    //     icon: document.getElementById('icon').value,
-    //     description: document.getElementById('description').value,
-    //     content: document.getElementById('content').value,
-    //     faqs: [],
-    //     categoryId: document.getElementById('categoryId').value,
-    //     views: parseInt(document.getElementById('views').value, 10)
-    //   };
     let faqArray = pushFaqToDb();
-    // console.log(faqArray);
     const q = query(collection(db, "benefits"), where("id", "==", parseInt(id,10)));
     try {
         // Get query snapshot
         const querySnapshot = await getDocs(q);
-
         // Update the document if it exists
         querySnapshot.forEach(async (doc) => {
             await setDoc(doc.ref, {
-                // name: "Meal and Fuel Cards Vijin" // Replace with your updated field and value
-
                 name: document.getElementById('benefit-name').value,
                 icon: document.getElementById('icon-search').value,
                 description: document.getElementById('description').value,
                 content: quill.root.innerHTML,
                 categoryId : document.getElementById('dropdownButton').textContent,
                 faqs : faqArray
-
             }, { merge: true }); // Use merge option to merge new data with existing document
         });
-
         console.log("Document updated successfully!");
     } catch (error) {
         console.error("Error updating document: ", error);
     }
-      
 }
-
+//function to add faq data into the object to be updated into database
 function pushFaqToDb(){
     let faqArray = [];
     const faqElements = document.querySelectorAll('.faq');
