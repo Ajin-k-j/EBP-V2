@@ -1,4 +1,4 @@
-const params = new URLSearchParams(window.location.search);
+import { fetchData, categories, benefits } from './firebase/firebaseData.js';const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
 
 //setting link for delete benefit button
@@ -6,7 +6,12 @@ document.getElementById('deleteBenefit').setAttribute("href",`delete_benefit_for
 //setting link for add benefit button
 document.getElementById('addBenefit').setAttribute("href",`admin_add_benefit.html?id=${id}`);
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    const loadingAnimation = document.getElementById('loading-animation');
+
+    // Show loading animation initially
+    loadingAnimation.style.display = 'flex';
+    await fetchData();
     const categoryData = categories.find(item => item.id === id);
     const categoryOtherData = categories.filter(item => item.id !== id);
 
@@ -16,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     $(".sideHeadingBox:eq(0)").attr("href", `admin_benefit_edit_view.html?id=${categoryOtherData[0].id}`)
     $(".sideHeadingBox:eq(1)").html(categoryOtherData[1].name)
     $(".sideHeadingBox:eq(1)").attr("href", `admin_benefit_edit_view.html?id=${categoryOtherData[1].id}`)
+    // Hide loading animation after everything is loaded
+    loadingAnimation.style.display = 'none';
     createBenefitBox();
 })
 
