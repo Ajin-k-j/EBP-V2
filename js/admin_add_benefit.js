@@ -1,32 +1,37 @@
+import { db } from '/js/firebase/firebaseConfig.js';
+import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
 //for testing 
 // let id = 'epf'
-//Initialize Quill editor
-var quill = new Quill('#editor-container', {
-    theme: 'snow'
-});
 
+// Initialize Quill editor
+let quill;
 // to populate the texboxes and inputs
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('category').setAttribute("value",id);
     document.getElementById('category').setAttribute("placeholder",id);
+    quill = new Quill('#editor-container', {
+        theme: 'snow'
+    });
 
     iconSearchFunction();
     deleteFunctionToButtons();
     addFaqs();
-    dropdownFunctions();
+    // dropdownFunctions();
     
 });
 
-document.getElementById('benefit-form').addEventListener('submit', function(event) {
+document.getElementById('benefit-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
     const benefitName = document.getElementById('benefit-name').value;
     const icon = document.getElementById('icon-search').value;
     const description = document.getElementById('description').value;
     const categoryId = document.getElementById('category').value;
     
     const content = quill.root.innerHTML;
-
+    
     // Collect FAQs
     const faqs = [];
     document.querySelectorAll('.faq').forEach((faqElement) => {
@@ -35,8 +40,20 @@ document.getElementById('benefit-form').addEventListener('submit', function(even
         faqs.push({ question: question, answer: answer });
     });
 
+    // Get the highest current benefit ID
+    const benefitsCollection = collection(db, 'benefits');
+    const q = query(benefitsCollection, orderBy('id', 'desc'), limit(1));
+    const querySnapshot = await getDocs(q);
+    
+    let newId = 1;
+    if (!querySnapshot.empty) {
+        const highestBenefit = querySnapshot.docs[0].data();
+        newId = highestBenefit.id + 1;
+    }
+
     // Create a benefit object
     const benefit = {
+        id: newId,
         name: benefitName,
         icon: icon,
         description: description,
@@ -47,6 +64,15 @@ document.getElementById('benefit-form').addEventListener('submit', function(even
     };
     alert(JSON.stringify(benefit, null, 2));
     console.log(benefit);
+    try {
+        // Add a new document with a generated ID
+        await addDoc(benefitsCollection, benefit);
+    
+        alert('Benefit added successfully!');
+      } catch (e) {
+        console.error('Error adding document: ', e);
+        alert('Error adding benefit. Please try again.');
+      }
 });
 
 //need some modifications
