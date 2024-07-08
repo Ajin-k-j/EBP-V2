@@ -2,10 +2,10 @@ import { db } from './firebase/firebaseConfig.js';
 import { fetchData, benefits } from './firebase/firebaseData.js';
 import { collection,where, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-const params = new URLSearchParams(window.location.search);
-let id = params.get('id');
+// const params = new URLSearchParams(window.location.search);
+// let id = params.get('id');
 //for testing 
-// let id = '1'
+let id = '1';
 //Initialize Quill editor
 var quill = new Quill('#editor-container', {
     theme: 'snow'
@@ -15,7 +15,7 @@ var quill = new Quill('#editor-container', {
 document.addEventListener('DOMContentLoaded', async () => {
     //fetching data
     await fetchData();
-    var benefitData = benefits.find(item => item.id == id);
+    var benefitData = benefits.find(item => item.id === parseInt(id,10));
     // displaying the benefit data in the form
     const beneftiName = document.getElementById('benefit-name')
     const description = document.getElementById('description')
