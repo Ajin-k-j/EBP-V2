@@ -1,11 +1,11 @@
 import { db } from './firebase/firebaseConfig.js';
 import { fetchData, benefits } from './firebase/firebaseData.js';
-import { collection,where, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { collection,where, addDoc, query, orderBy, limit, getDocs,getDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // const params = new URLSearchParams(window.location.search);
 // let id = params.get('id');
 //for testing 
-let id = '1';
+let id = '2';
 //Initialize Quill editor
 var quill = new Quill('#editor-container', {
     theme: 'snow'
@@ -15,6 +15,7 @@ var quill = new Quill('#editor-container', {
 document.addEventListener('DOMContentLoaded', async () => {
     //fetching data
     await fetchData();
+    const form = document.getElementById('benefit-form');
     var benefitData = benefits.find(item => item.id === parseInt(id,10));
     // displaying the benefit data in the form
     const beneftiName = document.getElementById('benefit-name')
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     addFaqs();
     dropdownFunctions();
+    form.addEventListener('submit', submitEdits);
 });
 
 //to show the faqs of the benefit in hand
@@ -112,6 +114,58 @@ function dropdownFunctions(){
             button.textContent = event.target.textContent;
         });
     });
+}
+async function  submitEdits(event){
+    event.preventDefault();
+
+    // const editedBenefit = {
+    //     id: newId,
+    //     name: document.getElementById('name').value,
+    //     icon: document.getElementById('icon').value,
+    //     description: document.getElementById('description').value,
+    //     content: document.getElementById('content').value,
+    //     faqs: [],
+    //     categoryId: document.getElementById('categoryId').value,
+    //     views: parseInt(document.getElementById('views').value, 10)
+    //   };
+    let faqArray = pushFaqToDb();
+    // console.log(faqArray);
+    const q = query(collection(db, "benefits"), where("id", "==", parseInt(id,10)));
+    try {
+        // Get query snapshot
+        const querySnapshot = await getDocs(q);
+
+        // Update the document if it exists
+        querySnapshot.forEach(async (doc) => {
+            await setDoc(doc.ref, {
+                // name: "Meal and Fuel Cards Vijin" // Replace with your updated field and value
+
+                name: document.getElementById('benefit-name').value,
+                icon: document.getElementById('icon-search').value,
+                description: document.getElementById('description').value,
+                content: quill.root.innerHTML,
+                categoryId : document.getElementById('dropdownButton').textContent,
+                faqs : faqArray
+
+            }, { merge: true }); // Use merge option to merge new data with existing document
+        });
+
+        console.log("Document updated successfully!");
+    } catch (error) {
+        console.error("Error updating document: ", error);
+    }
+      
+}
+
+function pushFaqToDb(){
+    let faqArray = [];
+    const faqElements = document.querySelectorAll('.faq');
+    faqElements.forEach(faqElement => {
+        const question = faqElement.querySelector('input[name="faq-question"]').value;
+        const answer = faqElement.querySelector('textarea[name="faq-answer"]').value;
+        faqArray.push({ question, answer });
+    });
+  return faqArray;
 }
 
 
