@@ -4,6 +4,7 @@ import { collection, getDocs, doc, getDoc, updateDoc, setDoc, query, where, } fr
 // Global arrays to store categories and benefits data
 let categories = [];
 let benefits = [];
+let iconsData = [];
 
 // Function to fetch categories and benefits data from Firestore and store them in global arrays
 const fetchData = async () => {
@@ -50,4 +51,22 @@ const incrementViews = async (benefitId) => {
   }
 };
 
-export { fetchData, incrementViews, categories, benefits };
+// Function to retrieve icons from Firestore
+const retrieveIconsFromFirestore = async () => {
+  //console.log("hello");
+  try {
+    const iconsRef = doc(db, 'icons', 'iconList');
+    const docSnap = await getDoc(iconsRef);
+
+    if (docSnap.exists()) {
+      iconsData = docSnap.data().icons;
+      console.log(iconsData);
+    } else {
+      console.log('No such document!');
+    }
+  } catch (e) {
+    console.error('Error retrieving icons: ', e);
+  }
+};
+
+export { fetchData, incrementViews, retrieveIconsFromFirestore, categories, benefits, iconsData};
