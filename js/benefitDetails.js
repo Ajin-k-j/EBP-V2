@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", async() => {
     populateNavbanner(benefitId);
     // Populate the menu
     populateMenu(benefitId);
-    incrementViews(benefitId);
+    const incrementIntBenefitId = parseInt(benefitId, 10);
+    incrementViews(incrementIntBenefitId);
   }
 });
 
