@@ -1,8 +1,13 @@
 // import { benefits } from './data.js';
+import { db } from '/js/firebase/firebaseConfig.js';
+import { fetchData, categories, benefits} from './firebase/firebaseData.js';
+import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async() => {
     const params = new URLSearchParams(window.location.search);
     let id = params.get('id');
+
+    await fetchData();
 
     const benefitSelect = document.getElementById('benefit-select');
 
@@ -10,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     benefits.forEach(benefit => {
         console.log(id);
         if(benefit.categoryId === id){
-        const option = document.createElement('option');
-        option.value = benefit.id;
-        option.textContent = benefit.name;
-        benefitSelect.appendChild(option);
+            const option = document.createElement('option');
+            option.value = benefit.id;
+            option.textContent = benefit.name;
+            benefitSelect.appendChild(option);
         }
     });
 
