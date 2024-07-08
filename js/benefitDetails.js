@@ -1,14 +1,31 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { fetchData,incrementViews, categories, benefits} from './firebase/firebaseData.js';
+
+document.addEventListener("DOMContentLoaded", async() => {
+  // const loadingAnimation = document.getElementById('loading-animation');
+
+  // Show loading animation initially
+  // loadingAnimation.style.display = 'flex';
+
+  // Fetch data from Firestore
+  await fetchData();
+  // alert(JSON.stringify(benefits, null, 2));
+
+  // Hide loading animation after everything is loaded
+  // loadingAnimation.style.display = 'none';
+
   // Get benefit ID from URL and display corresponding details
   const benefitId = getBenefitIdFromURL();
 
   if (benefitId) {
+    
     //Display benefit details
     displayBenefitDetails(benefitId);
     //Populate nav banner
     populateNavbanner(benefitId);
     // Populate the menu
     populateMenu(benefitId);
+    const incrementIntBenefitId = parseInt(benefitId, 10);
+    incrementViews(incrementIntBenefitId);
   }
 });
 
@@ -19,19 +36,20 @@ function getBenefitIdFromURL() {
 }
 
 // Get benefit by benefit id
-function getBenefitById(benefitId) {
-  const benefit = benefits.find((b) => b.id === benefitId);
+function getBenefitById(benefits, benefitId) {
+  const benefit = benefits.find((b) => b.id == benefitId);
   return benefit;
 }
 
 // Get category details by categoryId
-function getCategoryById(categoryId) {
+function getCategoryById(categories, categoryId) {
   return categories.find((category) => category.id === categoryId);
 }
 
 //Populate nav banner
 function populateNavbanner(benefitId) {
-  const category = getCategoryById(getBenefitById(benefitId).categoryId);
+  const benefit = getBenefitById(benefits, benefitId);
+  const category = getCategoryById(categories, benefit.categoryId);
   if (category) {
     const banner = document.querySelector(".leftNavBanner");
     const iconElement = banner.querySelector("i");
@@ -50,10 +68,10 @@ function populateNavbanner(benefitId) {
 function populateMenu(benefitId) {
   const benefitsMenu = document.getElementById("benefit-menu");
   benefits.forEach((benefit) => {
-    if (benefit.categoryId === getBenefitById(benefitId).categoryId) {
+    if (benefit.categoryId == getBenefitById(benefits, benefitId).categoryId) {
       const menuItem = document.createElement("li");
       menuItem.classList.add("nav-item", "navItem");
-      if (benefit.id === benefitId) {
+      if (benefit.id == benefitId) {
         menuItem.innerHTML = `<a class="nav-link leftNavActive" href="?id=${benefit.id}">${benefit.name}</a>`;
       } else {
         menuItem.innerHTML = `<a class="nav-link" href="?id=${benefit.id}">${benefit.name}</a>`;
@@ -69,7 +87,7 @@ function displayBenefitDetails(benefitId) {
   const description = document.getElementById("description");
   const benefitContent = document.getElementById("benefit-content");
   const faqContainer = document.getElementById("accordionContainer");
-  const benefit = getBenefitById(benefitId);
+  const benefit = getBenefitById(benefits, benefitId);
   if (benefit) {
     benefitTitle.textContent = benefit.name;
     description.textContent = benefit.description;
