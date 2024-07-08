@@ -2,10 +2,10 @@ import { db } from './firebase/firebaseConfig.js';
 import { fetchData, benefits } from './firebase/firebaseData.js';
 import { collection,where, addDoc, query, orderBy, limit, getDocs,getDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-// const params = new URLSearchParams(window.location.search);
-// let id = params.get('id');
+const params = new URLSearchParams(window.location.search);
+let id = params.get('id');
 //for testing 
-let id = '2';
+// let id = '2';
 //Initialize Quill editor
 var quill = new Quill('#editor-container', {
     theme: 'snow'
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     //fetching data
     await fetchData();
-    
+
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
 
