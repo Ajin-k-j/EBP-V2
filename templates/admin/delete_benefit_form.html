@@ -11,7 +11,7 @@
 </head>
 <body>
     <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="https://experionglobal.com/"><img src="/images/logo-light.png" alt="Logo"></a>
+        <a class="navbar-brand" href="../../index.html"><img src="/images/logo-light.png" alt="Logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
         </div>
     </header>
 
-    <div class="container mt-5 pt-5">
+    <div class="form_body mt-5 pt-5">
         <div class="form-heading text-center text-white bg-danger mb-3">Delete A Benefit</div>
         <form id="delete-benefit-form">
             <div class="mb-3 text-center">
@@ -36,6 +36,8 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </div>
+            <div id="message-box" style="display: none;"></div>
+
         </form>
     </div>
 
@@ -45,7 +47,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-    <script src="/js/delete_benefit_form.js" defer></script>
+    <!-- <script src="/js/data.js"></script> -->
+    <script type="module" src="/js/delete_benefit_form.js" defer></script>
 </body>
 </html>

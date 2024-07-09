@@ -1,43 +1,64 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const benefits = [
-        { id: 1, name: 'Health Insurance' },
-        { id: 2, name: 'Paid Time Off' },
-        { id: 3, name: 'Retirement Plan' },
-        { id: 4, name: 'Work from Home' },
-        { id: 5, name: 'Gym Membership' },
-        { id: 6, name: 'Professional Development' },
-        { id: 7, name: 'Life Insurance' },
-        { id: 8, name: 'Dental Insurance' },
-        { id: 9, name: 'Vision Insurance' },
-        { id: 10, name: 'Mental Health Support' },
-        { id: 11, name: 'Flexible Schedule' },
-        { id: 12, name: 'Commuter Benefits' },
-        { id: 13, name: 'Pet Insurance' },
-        { id: 14, name: 'Paid Parental Leave' },
-        { id: 15, name: 'Stock Options' },
-        { id: 16, name: 'Employee Discounts' },
-        { id: 17, name: 'Tuition Reimbursement' },
-        { id: 18, name: 'On-site Childcare' },
-        { id: 19, name: 'Housing Allowance' },
-        { id: 20, name: 'Annual Bonus' }
-    ];
+import { db } from './firebase/firebaseConfig.js';
+import { collection, query, where, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
+document.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    let id = params.get('id'); // This is the categoryId
     const benefitSelect = document.getElementById('benefit-select');
 
-    benefits.forEach(benefit => {
-        const option = document.createElement('option');
-        option.value = benefit.id;
-        option.textContent = benefit.name;
-        benefitSelect.appendChild(option);
-    });
+    // Create a message box element
+    const messageBox = document.createElement('div');
+    messageBox.id = 'message-box';
+    messageBox.style.display = 'none';
+    benefitSelect.parentElement.appendChild(messageBox);
 
-    document.getElementById('delete-benefit-form').addEventListener('submit', function(e) {
+    try {
+        // Fetch benefits from Firestore with the given categoryId
+        const benefitsRef = collection(db, 'benefits');
+        const q = query(benefitsRef, where('categoryId', '==', id));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+                const benefit = doc.data();
+                const option = document.createElement('option');
+                option.value = doc.id; // Use Firestore document ID as the value
+                option.textContent = benefit.name;
+                benefitSelect.appendChild(option);
+            });
+        } else {
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = 'No benefits found for this category';
+            benefitSelect.appendChild(option);
+        }
+    } catch (error) {
+        console.error('Error fetching benefits: ', error);
+    }
+
+    document.getElementById('delete-benefit-form').addEventListener('submit', async function (e) {
         e.preventDefault();
-        const selectedBenefit = benefitSelect.value;
-        if (selectedBenefit !== 'Choose') {
-            const benefitName = benefits.find(b => b.id == selectedBenefit).name;
-            alert(`Benefit "${benefitName}" deleted successfully.`);
-            benefitSelect.selectedIndex = 0;
+        const selectedBenefitId = benefitSelect.value;
+
+        if (selectedBenefitId && selectedBenefitId !== 'Choose') {
+            messageBox.style.display = 'block';
+            messageBox.textContent = 'Deleting...';
+
+            try {
+                // Delete the selected benefit from Firestore
+                await deleteDoc(doc(db, 'benefits', selectedBenefitId));
+                benefitSelect.options[benefitSelect.selectedIndex].remove();
+                benefitSelect.selectedIndex = 0;
+                messageBox.textContent = 'Benefit deleted successfully. Redirecting...';
+
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.history.back();
+                }, 1000);
+            } catch (error) {
+                console.error('Error deleting benefit: ', error);
+                messageBox.textContent = 'Error deleting benefit. Please try again.';
+            }
         } else {
             alert('Please choose a benefit to delete.');
         }

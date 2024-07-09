@@ -18,7 +18,7 @@ html {
 
 @media (min-width: 1440px) {
     html {
-        font-size: 20px; /* Increase base font size for desktops */
+        font-size: 20px;
     }
 }
 body {
@@ -147,21 +147,20 @@ main{
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
 }
 .description{
-    margin: 0;
     background-color: white;
     font-size: 1rem;
     padding: 1rem;
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px 10px 0 0;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 #benefit-content{
-    margin:1rem auto ;
+    margin:0 auto 1rem auto;
     /* margin-top: 20px;  */
     width: 100%;
     padding: 1rem; 
     /* border: 1px solid #ccc; */
     background-color: white;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 .faq{
@@ -181,7 +180,7 @@ main{
     background-color: lightgreen;
 } */
 .accordion-body{
-    background-color: rgb(195, 237, 195);
+    background-color: rgb(231, 231, 231);
 }
 .footer {
     background-color: #f1f1f1;
@@ -191,4 +190,34 @@ main{
     font-size: 0.65rem;
     text-align: center;
     border-top: 1px solid #e3e3e3;
+}
+
+/* loading animation css */
+.loading-animation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background: linear-gradient(180deg, rgba(220,18,60,0.9) 39%, rgba(118,10,32,0.9) 71%);
+    color: #fff; /* White text color */
+}
+
+.loading-text {
+    margin-bottom: 1rem; /* Space between text and spinner */
+    font-size: 1.5rem; /* Adjust size of the text */
+    animation: scaleText 1s infinite alternate; /* Scale animation */
+}
+
+@keyframes scaleText {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+.loading-animation i {
+    font-size: 3rem; /* Adjust size of the spinner icon */
 }

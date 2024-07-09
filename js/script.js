@@ -1,3 +1,20 @@
+import { fetchData, benefits } from './firebase/firebaseData.js';
+
+window.onload = async () => {
+    const loadingAnimation = document.getElementById('loading-animation');
+
+    // Show loading animation initially
+    loadingAnimation.style.display = 'flex';
+
+    // Fetch data from Firestore
+    await fetchData();
+
+    // Hide loading animation after everything is loaded
+    loadingAnimation.style.display = 'none';
+
+    // Initialize benefits display after hiding loading animation
+    initBenefitsDisplay(benefits);
+};
 
 // Function to sort benefits by views in descending order
 function sortBenefitsByViews(benefits) {
@@ -47,15 +64,6 @@ function initBenefitsDisplay(benefits) {
     });
 }
 
-// Event listener for DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    initBenefitsDisplay(benefits);
-});
-
-
-
-
-
 const searchInput = document.getElementById('benefit-search');
 const recommendations = document.getElementById('recommendations');
 
@@ -81,8 +89,10 @@ function performSearch() {
     const query = searchInput.value.toLowerCase();
     const result = benefits.find(benefit => benefit.name.toLowerCase() === query);
     if (result) {
-        alert(`${result.name}\n\nCategory: ${result.category}\nDescription: ${result.description}\nDetails: ${result.details}`);
+        window.location.href = `benefitDetails.html?id=${result.id}`;
     } else {
         alert('Benefit not found.');
     }
 }
+// Expose performSearch to the global scope
+window.performSearch = performSearch;
