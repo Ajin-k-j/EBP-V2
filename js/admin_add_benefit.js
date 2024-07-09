@@ -1,5 +1,6 @@
 import { db } from '/js/firebase/firebaseConfig.js';
 import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { retrieveIconsFromFirestore, iconsData } from '/js/firebase/firebaseData.js';
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
@@ -10,6 +11,7 @@ let id = params.get('id');
 let quill;
 // to populate the texboxes and inputs
 document.addEventListener('DOMContentLoaded', () => {
+    retrieveIconsFromFirestore();
     document.getElementById('category').setAttribute("value",id);
     document.getElementById('category').setAttribute("placeholder",id);
     quill = new Quill('#editor-container', {
@@ -67,6 +69,7 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
     try {
         // Add a new document with a generated ID
         await addDoc(benefitsCollection, benefit);
+        console.log(iconsData[0]);
     
         alert('Benefit added successfully!');
       } catch (e) {
@@ -110,6 +113,8 @@ function addFaqs(){
 }
 //to search icons
 function iconSearchFunction(){
+    // retrieveIconsFromFirestore();
+    console.log("called");
     const iconSearch = document.getElementById('icon-search');
     const iconRecommendations = document.getElementById('icon-recommendations');
 
@@ -118,7 +123,7 @@ function iconSearchFunction(){
         iconRecommendations.innerHTML = '';
 
         if (searchTerm.length > 0) {
-            const filteredIcons = icons.filter(icon => icon.toLowerCase().includes(searchTerm));
+            const filteredIcons = iconsData.filter(icon => icon.toLowerCase().includes(searchTerm));
             filteredIcons.forEach(icon => {
                 const iconItem = document.createElement('div');
                 iconItem.className = 'icon-item icon-container';
