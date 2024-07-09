@@ -1,6 +1,6 @@
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { onAuthStateChanged, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 import { deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-import {auth,db} from "./firebaseConfig.js";
+import { auth, db } from "./firebaseConfig.js";
 
 // Check if the user is signed in
 onAuthStateChanged(auth, async (user) => {
@@ -12,7 +12,6 @@ onAuthStateChanged(auth, async (user) => {
 
     // Update the greeting
     document.getElementById("greeting").textContent = `Hi ${username}`;
-    
 
     // Update the email span
     document.getElementById("emailId").textContent = email;
@@ -26,12 +25,12 @@ onAuthStateChanged(auth, async (user) => {
           // Delete user from database
           await deleteUserData(user.uid);
 
-          // Sign out user
-          await signOut(auth);
+          // Delete user from authentication
+          await deleteUser(user);
 
           // Alert and redirect
           alert("Your account has been deleted successfully.");
-          window.location.href = "index.html";
+          window.location.href = "/index.html";
         } catch (error) {
           console.error("Error deleting user:", error);
           alert("Failed to delete your account. Please try again later.");
@@ -41,6 +40,7 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     // No user is signed in
     document.getElementById("greeting").textContent = "Hi guest";
+    document.getElementById("emailId").textContent = "@experionglobal.com"; // Reset to default if no user is signed in
   }
 });
 
