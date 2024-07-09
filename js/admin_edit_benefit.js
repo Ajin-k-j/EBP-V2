@@ -30,10 +30,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const beneftiName = document.getElementById('benefit-name')
     const description = document.getElementById('description')
     const button = document.getElementById('dropdownButton');
+    const iconSearchBar = document.getElementById('icon-search');
     beneftiName.value = benefitData.name
     description.value = benefitData.description
     button.textContent = benefitData.categoryId
     quill.root.innerHTML = benefitData.content
+    iconSearchBar.value = benefitData.icon
 
     iconSearchFunction();
     if(benefitData.faqs){
@@ -142,9 +144,15 @@ async function  submitEdits(event){
                 faqs : faqArray
             }, { merge: true }); // Use merge option to merge new data with existing document
         });
-        console.log("Document updated successfully!");
+        alert("Document updated successfully!");
+        setTimeout(() => {
+            window.history.back();
+        }, 300);
     } catch (error) {
-        console.error("Error updating document: ", error);
+        alert("Error updating document: ", error);
+        setTimeout(() => {
+            window.history.back();
+        }, 300);
     }
 }
 //function to add faq data into the object to be updated into database
