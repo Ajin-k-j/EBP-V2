@@ -26,6 +26,20 @@
     </header>
 
     <div class="container mt-3">
+        <!-- modal -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModal1Label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModal1Label"></h1>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button id="modalGoLastPage" type="button" class="btn btn-danger">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-heading text-center text-white bg-danger mb-3">Add Benefit</div>
         <form id="benefit-form">
             <div class="mb-3 row">
@@ -72,7 +86,7 @@
                 </div>
             </div>
             <div class="text-center submit-button mt-3">
-                <button type="submit" class="btn btn-danger">Submit</button>
+                <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Submit</button>
             </div>
         </form>       
     </div>
