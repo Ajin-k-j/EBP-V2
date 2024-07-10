@@ -129,6 +129,14 @@ function dropdownFunctions(){
 async function  submitEdits(event){
     event.preventDefault();
     let faqArray = pushFaqToDb();
+    const modalHeading = document.getElementById('exampleModal1Label');
+    const modalBody = document.getElementsByClassName('modal-body');
+    const goBackBtn = document.getElementById('modalGoLastPage');
+        goBackBtn.addEventListener("click",()=>{
+            setTimeout(() => {
+                window.history.back();
+            }, 100);
+        })
     const q = query(collection(db, "benefits"), where("id", "==", parseInt(id,10)));
     try {
         // Get query snapshot
@@ -144,15 +152,11 @@ async function  submitEdits(event){
                 faqs : faqArray
             }, { merge: true }); // Use merge option to merge new data with existing document
         });
-        alert("Document updated successfully!");
-        setTimeout(() => {
-            window.history.back();
-        }, 300);
+        modalHeading.innerHTML = "Updated succesfully";
+        modalBody[0].textContent = "Benefit data succesfully updated. Continue editing or go back";
     } catch (error) {
-        alert("Error updating document: ", error);
-        setTimeout(() => {
-            window.history.back();
-        }, 300);
+        modalHeading.innerHTML = "Error updating document";
+        modalBody[0].textContent = "An error occured! Try again.";
     }
 }
 //function to add faq data into the object to be updated into database
