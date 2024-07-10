@@ -72,9 +72,9 @@ function populateMenu(benefitId) {
       const menuItem = document.createElement("li");
       menuItem.classList.add("nav-item", "navItem");
       if (benefit.id == benefitId) {
-        menuItem.innerHTML = `<a class="nav-link leftNavActive" href="?id=${benefit.id}">${benefit.name}</a>`;
+        menuItem.innerHTML = `<a class="nav-link navLink leftNavActive" href="?id=${benefit.id}">${benefit.name}</a>`;
       } else {
-        menuItem.innerHTML = `<a class="nav-link" href="?id=${benefit.id}">${benefit.name}</a>`;
+        menuItem.innerHTML = `<a class="nav-link navLink" href="?id=${benefit.id}">${benefit.name}</a>`;
       }
       benefitsMenu.appendChild(menuItem);
     }
@@ -100,12 +100,12 @@ function displayBenefitDetails(benefitId) {
       faqItem.classList.add("accordion-item");
       faqItem.innerHTML = `
                 <h2 class="accordion-header" id="heading${index}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                    <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
                         ${faq.question}
                     </button>
                 </h2>
-                <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionContainer">
-                    <div class="accordion-body">
+                <div id="collapse${index}" class="accordion-collapse collapse m-0" aria-labelledby="heading${index}" data-bs-parent="#accordionContainer">
+                    <div class="accordion-body p-2">
                         ${faq.answer}
                     </div>
                 </div>

@@ -39,8 +39,6 @@ header img{
     padding: 8px 0;
 }
 .navbar {
-    background-color: #ffffff;
-    padding: 10px 15px;
     border-bottom: 1px solid #e3e3e3;
 }
 
@@ -53,7 +51,7 @@ header img{
 
 .nav-link {
     color: black;
-    font-size: 1rem;
+    font-size: 0.8rem;
     /* font-weight: bold; */
 }
 .nav-link:hover{
@@ -70,14 +68,13 @@ main{
     width: 100%;
 }
 .leftNav{
-    width:30%;
+    width:180px;
     /* display: flex;
     justify-content: top;
     align-items: center;
     flex-direction: column; */
 }
 .leftNavBanner{
-    width: 80%;
     height: fit-content;
     /* background-color: var(--expRed); */
     border: 2px solid var(--expRed);
@@ -87,11 +84,11 @@ main{
     align-items: center; */
 }
 .leftNavBanner h1{
-    margin-top: 1rem;
-    font-size: 1.5rem;
+    margin-top: 0.8rem;
+    font-size: 1rem;
 }
 .leftNavBanner i{
-    font-size: 5rem;
+    font-size: 3.5rem;
     color: var(--expRed);
 }
 .leftNavList{
@@ -99,16 +96,20 @@ main{
     border: 1px solid var(--expRed);
 }
 .navItem{
-    font-size: 0.8rem;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
+}
+.navLink{
+    padding: 0.3rem 0.15rem;
+    text-align: center;
+    font-size: 0.7rem;
 }
 .navItem:hover{
     border: 1px solid var(--expRed);
     transform: scale(1.05);
     border-radius: 5px;
 }
-.nav-link:hover{
+.navLink:hover{
     border-radius: 5px;
     background-color: var(--expRed);
     color: white;
@@ -127,54 +128,66 @@ main{
     color: White;
 }
 .rightContainer{
-    width:70%;
+    min-height: 83vh;
     background-color:#F1F1F1;
 }
 .heading{
     background-color: var(--expRed);
-    padding: 0.1rem 0;
+    padding: 0.5rem;
     border-radius: 10px;
 }
 .heading h1{
-    font-size: 1.5rem;
-    margin: 1rem auto;
+    font-size: 1.2rem;
+    margin: 0 auto;
     width: fit-content;
     background-color: white;
     color: black;
     text-align: center;
     border-radius: 10px;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
 }
 .description{
     background-color: white;
-    font-size: 1rem;
-    padding: 1rem;
+    font-size: 0.8rem;
+    padding: 0.8rem;
     border-radius: 10px 10px 0 0;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 #benefit-content{
-    margin:0 auto 1rem auto;
+    font-size: 0.8rem;
+    margin:0 auto;
     /* margin-top: 20px;  */
     width: 100%;
-    padding: 1rem; 
+    padding: 0.5rem 0.8rem; 
     /* border: 1px solid #ccc; */
     background-color: white;
     border-radius: 0 0 10px 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
-.faq{
-    width: 85%;
-    margin: 0 auto;
+#benefit-content *{
+    margin-bottom: 0.3rem;
 }
-.faq h3{
-    margin: 1rem auto 0 auto;
+.faq{
+    /* width: 35%; */
+    /* margin: 0 auto; */
+    font-size: 0.8rem;
+}
+.faq h5{
+    margin: 0 auto;
     width: fit-content;
     background-color: var(--expRed);
     color: white;
     text-align: center;
     border-radius: 10px 10px 0 0;
     padding: 0.2rem 5vw;
+}
+#accordionContainer{
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+}
+.accordion button{
+    font-size: 0.8rem;
 }
 /* .accordion-button:target-within{
     background-color: lightgreen;
@@ -191,7 +204,26 @@ main{
     text-align: center;
     border-top: 1px solid #e3e3e3;
 }
-
+.contact{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    font-size: 0.8rem;
+    background-color: white;
+}
+.contact a{
+    margin: 0;
+    font-size: 0.7rem;
+}
+.contact p{
+    background-color: var(--expRed);
+    color: white;
+    margin: 0;
+}
+.contact a{
+    border: 2px solid rgb(178, 178, 178);
+}
+.contact a:hover{
+    border: 2px solid var(--expRed);
+}
 /* loading animation css */
 .loading-animation {
     display: flex;
