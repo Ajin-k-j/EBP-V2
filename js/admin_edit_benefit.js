@@ -1,6 +1,6 @@
 import { auth } from './firebase/firebaseConfig.js';
 import { db } from './firebase/firebaseConfig.js';
-import { fetchData, benefits, retrieveIconsFromFirestore, iconsData } from './firebase/firebaseData.js';
+import { fetchData, benefits, iconsData } from './firebase/firebaseData.js';
 import { collection,where, query, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     checkAuth(); // Check authentication status on page load
     //fetching data
     await fetchData();
-    await retrieveIconsFromFirestore();
+
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
 
