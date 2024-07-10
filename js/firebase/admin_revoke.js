@@ -2,6 +2,8 @@ import {onAuthStateChanged,signOut,deleteUser,} from "https://www.gstatic.com/fi
 import {deleteDoc,doc, getDoc,setDoc,collection,} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 import { auth, db } from "./firebaseConfig.js";
 import { query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -131,33 +133,58 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-document.getElementById('deleteAdminButton').addEventListener('click', async () => {
-  const user = auth.currentUser;
-
+onAuthStateChanged(auth, async (user) => {
   if (user) {
-      try {
-          // Prompt the user to enter their password for re-authentication
-          const password = prompt("Please enter your password to delete your account:");
+    // User is signed in, get the user's email
+    const email = user.email;
+    const username = email.split("@")[0].split(".")[0];
 
+    // Update the greeting
+    document.getElementById("greeting").textContent = `Hi ${username}`;
+
+    // Handle delete button click
+    const deleteButton = document.getElementById("deleteAdminButton");
+    deleteButton.addEventListener("click", async () => {
+      // Confirm deletion
+      if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+        try {
           // Re-authenticate the user
+          const password = prompt("Please enter your password to confirm deletion:");
           const credential = EmailAuthProvider.credential(user.email, password);
           await reauthenticateWithCredential(user, credential);
 
-          // Delete the user from Authentication
-          await user.delete();
-          console.log(`User ${user.email} deleted from Authentication`);
+          // Delete user data from Firestore
+          await deleteUserData(user.uid);
 
-          // Delete the user's data from Firestore
-          await deleteDoc(doc(db, 'authenticated-users', user.uid));
-          console.log(`Data deleted from Firestore for ${user.email}`);
+          // Delete user from Authentication
+          await deleteUser(user);
 
-          alert(`User ${user.email} deleted successfully`);
-      } catch (error) {
-          console.error('Error deleting user:', error);
-          alert('Failed to delete user. Check console for error details.');
+          // Sign out user
+          await signOut(auth);
+
+          // Alert and redirect
+          alert("Your account has been deleted successfully.");
+          window.location.href = "index.html";
+        } catch (error) {
+          console.error("Error deleting user:", error);
+          alert("Failed to delete your account. Please try again later.");
+        }
       }
+    });
   } else {
-      console.log('No authenticated user found');
-      alert('No authenticated user found.');
+    // No user is signed in
+    document.getElementById("greeting").textContent = "Hi guest";
   }
 });
+
+// Function to delete user data
+async function deleteUserData(userId) {
+  try {
+    await deleteDoc(doc(db, "authenticated-users", userId));
+    console.log("User data deleted successfully");
+  } catch (error) {
+    console.error("Error deleting user data:", error);
+    throw error;
+  }
+}
+
