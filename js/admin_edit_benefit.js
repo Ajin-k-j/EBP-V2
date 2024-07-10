@@ -146,7 +146,7 @@ async function  submitEdits(event){
                 window.history.back();
             }, 100);
         })
-    const q = query(collection(db, "benefits"), where("id", "===", parseInt(id,10)));
+    const q = query(collection(db, "benefits"), where("id", "==", parseInt(id,10)));
     try {
         // Get query snapshot
         const querySnapshot = await getDocs(q);
