@@ -101,11 +101,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             deleteAdminButton.id = `deleteAdminButton-${docSnapshot.id}`;
             deleteAdminButton.textContent = 'Delete';
 
-            // Optionally, add event listeners to handle the button actions
-            addPermissionButton.addEventListener('click', () => {
-                // Handle add permission logic here
+            // Event listener for Add Permission button
+            addPermissionButton.addEventListener('click', async () => {
+                try {
+                    // Update Firestore document
+                    const userDocRef = doc(db, 'authenticated-users', docSnapshot.id);
+                    await setDoc(userDocRef, { role: 'super-admin' }, { merge: true });
+
+                    console.log(`Role updated successfully for ${email}`);
+                    alert(`Role updated successfully for ${email}`);
+                } catch (error) {
+                    console.error('Error updating role:', error);
+                    alert('Failed to update role. Check console for error details.');
+                }
             });
 
+            // Optionally, add event listeners to handle the delete button actions
             deleteAdminButton.addEventListener('click', () => {
                 // Handle delete logic here
             });
