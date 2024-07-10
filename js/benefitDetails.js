@@ -53,7 +53,7 @@ function populateNavbanner(benefitId) {
   if (category) {
     const banner = document.querySelector(".leftNavBanner");
     const iconElement = banner.querySelector("i");
-    const nameElement = banner.querySelector("h1");
+    const nameElement = banner.querySelector("h6");
     // Update icon class and name
     iconElement.className = category.icon;
     nameElement.textContent = category.name;
