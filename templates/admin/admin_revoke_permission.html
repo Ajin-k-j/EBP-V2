@@ -27,9 +27,15 @@
     <section class="admin-privileges p-4 m-4 rounded-4">  
         <h3 class="px-5" id="greeting"></h3>
         <div class="d-flex flex-column justify-content-center align-items-center mt-3 mt-lg-0 w-100">
-            <div class="input-wrapper d-flex align-items-center border border-black rounded px-2">
+            <div class="input-wrapper d-flex align-items-center border border-black rounded px-2 mb-3">
                 <span id="emailId">@experionglobal.com</span>
-                <button class="deleteAdminButton m-2 rounded" id="deleteAdminButton">Delete Admin</button>
+                <button class="revokeAdminButton m-2 rounded" id="deleteAdminButton">Delete Account</button>
+            </div>
+            <div class ="admin-display-list d-flex flex-column justify-content-center align-items-center mt-3 mt-lg-0 w-100" id="superAdminList">
+                <!-- The remaining super-admins will be shown here -->
+            </div>
+            <div class ="admin-display-list d-flex flex-column justify-content-center align-items-center mt-3 mt-lg-0 w-100" id="superAdminList">
+
             </div>
             <div id="error-message" class="text-danger"></div>
         </div>
@@ -37,7 +43,10 @@
 
     <section class="admin-list p-4 m-4 rounded-4">  
         <h3 class="px-5">All Users With Admin Privileges</h3>
-        <div class="admin-display-list d-flex flex-column justify-content-center align-items-center mt-3 mt-lg-0 w-100" id="adminList">
+        <!-- <div class ="admin-display-list d-flex flex-column justify-content-center align-items-center mt-3 mt-lg-0 w-100" id="superAdminList">
+            The remaining super-admins will be shown here
+        </div> -->
+        <div class="admin-display-list d-flex flex-column justify-content-center align-items-center mt-4 mt-lg-0 w-100" id="adminList">
             <!-- User divs will be dynamically populated here -->
         </div>
     </section>
