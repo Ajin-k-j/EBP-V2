@@ -161,9 +161,11 @@ async function  submitEdits(event){
                 faqs : faqArray
             }, { merge: true }); // Use merge option to merge new data with existing document
         });
+        $('#exampleModal1').modal('show');
         modalHeading.innerHTML = "Updated succesfully";
         modalBody[0].textContent = "Benefit data succesfully updated. Continue editing or go back";
     } catch (error) {
+        $('#exampleModal1').modal('show');
         modalHeading.innerHTML = "Error updating document";
         modalBody[0].textContent = "An error occured! Try again.";
     }

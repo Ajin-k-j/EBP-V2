@@ -70,7 +70,7 @@
             <div class="mb-3 row">
                 <label for="icon-image" class="col-sm-2 col-form-label">Icon/Image:</label>
                 <div class="icon-selector col-sm-10">
-                    <input type="text" class="form-control" id="icon-search" placeholder="Search for an icon (eg:user, home,etc)...">
+                    <input type="text" class="form-control" id="icon-search" placeholder="Search for an icon (eg:user, home,etc)..." required>
                     <div id="icon-recommendations" class="icon-list"></div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="text-center submit-button mt-3">
-                <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Submit</button>
+                <button id="submitButton" type="submit" class="btn btn-danger">Submit</button>
             </div>
         </form>       
     </div>

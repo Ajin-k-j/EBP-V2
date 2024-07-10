@@ -72,6 +72,7 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
         categoryId: categoryId,
         views: 0
     };
+    $('#exampleModal1').modal('show');
     try {
         modalHeading.innerHTML = "Saving...";
         // Add a new document with a generated ID
@@ -79,6 +80,7 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
         modalHeading.innerHTML = "Benefit Added Succesfully";
         modalBody[0].textContent = "Benefit data added succesfully. Click close to go back";
       } catch (e) {
+        console.log("error",e);
         modalHeading.innerHTML = "Error adding document";
         modalBody[0].textContent = "An error occured! Try again.";
       }
@@ -120,7 +122,6 @@ function addFaqs(){
 //to search icons
 function iconSearchFunction(){
     // retrieveIconsFromFirestore();
-    console.log("called");
     const iconSearch = document.getElementById('icon-search');
     const iconRecommendations = document.getElementById('icon-recommendations');
 

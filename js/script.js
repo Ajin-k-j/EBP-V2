@@ -1,4 +1,4 @@
-import { fetchData, benefits } from './firebase/firebaseData.js';
+import { forceFetchData, benefits } from './firebase/firebaseData.js';
 
 window.onload = async () => {
     const loadingAnimation = document.getElementById('loading-animation');
@@ -7,7 +7,7 @@ window.onload = async () => {
     loadingAnimation.style.display = 'flex';
 
     // Fetch data from Firestore
-    await fetchData();
+    await forceFetchData();
 
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
