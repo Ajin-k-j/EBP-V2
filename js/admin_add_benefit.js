@@ -31,6 +31,14 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
     const icon = document.getElementById('icon-search').value;
     const description = document.getElementById('description').value;
     const categoryId = document.getElementById('category').value;
+    const modalHeading = document.getElementById('exampleModal1Label');
+    const modalBody = document.getElementsByClassName('modal-body');
+    const goBackBtn = document.getElementById('modalGoLastPage');
+        goBackBtn.addEventListener("click",()=>{
+            setTimeout(() => {
+                window.history.back();
+            }, 100);
+        })
     
     const content = quill.root.innerHTML;
     
@@ -64,21 +72,19 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
         categoryId: categoryId,
         views: 0
     };
-    alert(JSON.stringify(benefit, null, 2));
-    console.log(benefit);
     try {
+        modalHeading.innerHTML = "Saving...";
         // Add a new document with a generated ID
         await addDoc(benefitsCollection, benefit);
-        console.log(iconsData[0]);
-    
-        alert('Benefit added successfully!');
+        modalHeading.innerHTML = "Benefit Added Succesfully";
+        modalBody[0].textContent = "Benefit data added succesfully. Click close to go back";
       } catch (e) {
-        console.error('Error adding document: ', e);
-        alert('Error adding benefit. Please try again.');
+        modalHeading.innerHTML = "Error adding document";
+        modalBody[0].textContent = "An error occured! Try again.";
       }
 });
 
-//need some modifications
+//to add delete function to faqs
 function deleteFunctionToButtons(){
     document.querySelectorAll('.remove-faq').forEach((button) => {
         button.addEventListener('click', function(event) {
