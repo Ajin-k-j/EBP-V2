@@ -1,4 +1,4 @@
-import { fetchData, categories, benefits } from './firebase/firebaseData.js';const params = new URLSearchParams(window.location.search);
+import { forceFetchData, categories, benefits } from './firebase/firebaseData.js';const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
 
 //setting link for delete benefit button
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Show loading animation initially
     loadingAnimation.style.display = 'flex';
-    await fetchData();
+    await forceFetchData();
     const categoryData = categories.find(item => item.id === id);
     const categoryOtherData = categories.filter(item => item.id !== id);
 

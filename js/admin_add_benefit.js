@@ -1,6 +1,6 @@
 import { db } from '/js/firebase/firebaseConfig.js';
 import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-import { retrieveIconsFromFirestore, iconsData } from '/js/firebase/firebaseData.js';
+import { fetchData, iconsData } from '/js/firebase/firebaseData.js';
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
@@ -11,7 +11,7 @@ let id = params.get('id');
 let quill;
 // to populate the texboxes and inputs
 document.addEventListener('DOMContentLoaded', () => {
-    retrieveIconsFromFirestore();
+    fetchData();
     document.getElementById('category').setAttribute("value",id);
     document.getElementById('category').setAttribute("placeholder",id);
     quill = new Quill('#editor-container', {
