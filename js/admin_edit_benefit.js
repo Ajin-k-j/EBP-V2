@@ -1,3 +1,4 @@
+import { auth } from './firebase/firebaseConfig.js';
 import { db } from './firebase/firebaseConfig.js';
 import { fetchData, benefits, retrieveIconsFromFirestore, iconsData } from './firebase/firebaseData.js';
 import { collection,where, query, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
@@ -16,11 +17,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadingAnimation = document.getElementById('loading-animation');
     // Show loading animation initially
     loadingAnimation.style.display = 'flex';
-
+    checkAuth(); // Check authentication status on page load
     //fetching data
     await fetchData();
     await retrieveIconsFromFirestore();
-
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
 
@@ -47,6 +47,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     form.addEventListener('submit', submitEdits);
 });
 
+//to check if the user thats signed in is authorized
+function checkAuth() {
+    auth.onAuthStateChanged(user => {
+        if (!user) {
+            // User is not logged in, redirect to login page
+            window.location.href = '/login.html';
+        }
+    });
+}
 //to show the faqs of the benefit in hand
 function showFaqs(benefitData){
     const faqContainer = document.getElementById("faqs-container")
@@ -137,7 +146,7 @@ async function  submitEdits(event){
                 window.history.back();
             }, 100);
         })
-    const q = query(collection(db, "benefits"), where("id", "==", parseInt(id,10)));
+    const q = query(collection(db, "benefits"), where("id", "===", parseInt(id,10)));
     try {
         // Get query snapshot
         const querySnapshot = await getDocs(q);
