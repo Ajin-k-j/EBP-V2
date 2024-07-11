@@ -113,7 +113,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // Query Firestore for users with the role 'normal-admin'
-    const q = query(usersRef, where("role", "in", ["normal-user", "normal-admin"]));
+    const q = query(
+      usersRef,
+      where("role", "in", ["normal-user", "normal-admin"])
+    );
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((docSnapshot) => {
@@ -221,7 +224,6 @@ onAuthStateChanged(auth, async (user) => {
           "greeting"
         ).textContent = `Hi ${capitalizedUsername}`;
         document.getElementById("emailId").textContent = email;
-        // Your additional code for super-admin
       } else {
         window.location.href = "adminhome.html"; // Redirect to home page
         alert("You do not have the necessary permissions to access this page.");

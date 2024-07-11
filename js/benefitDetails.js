@@ -1,6 +1,11 @@
-import { fetchData,incrementViews, categories, benefits} from './firebase/firebaseData.js';
+import {
+  fetchData,
+  incrementViews,
+  categories,
+  benefits,
+} from "./firebase/firebaseData.js";
 
-document.addEventListener("DOMContentLoaded", async() => {
+document.addEventListener("DOMContentLoaded", async () => {
   // const loadingAnimation = document.getElementById('loading-animation');
 
   // Show loading animation initially
@@ -17,7 +22,6 @@ document.addEventListener("DOMContentLoaded", async() => {
   const benefitId = getBenefitIdFromURL();
 
   if (benefitId) {
-    
     //Display benefit details
     displayBenefitDetails(benefitId);
     //Populate nav banner

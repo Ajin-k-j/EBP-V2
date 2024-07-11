@@ -1,5 +1,14 @@
-import { db } from './firebaseConfig.js';
-import { collection, getDocs, doc, getDoc, updateDoc, setDoc, query, where, } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { db } from "./firebaseConfig.js";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  setDoc,
+  query,
+  where,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // Global arrays to store categories and benefits data
 let categories = [];
@@ -10,23 +19,29 @@ let iconsData = [];
 const fetchData = async () => {
   try {
     // Fetch categories data
-    const categoriesSnapshot = await getDocs(collection(db, 'categories'));
-    categories = categoriesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    console.log('Categories:', categories);
+    const categoriesSnapshot = await getDocs(collection(db, "categories"));
+    categories = categoriesSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log("Categories:", categories);
 
     // Fetch benefits data
-    const benefitsSnapshot = await getDocs(collection(db, 'benefits'));
-    benefits = benefitsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    console.log('Benefits:', benefits);
+    const benefitsSnapshot = await getDocs(collection(db, "benefits"));
+    benefits = benefitsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log("Benefits:", benefits);
   } catch (e) {
-    console.error('Error fetching data: ', e);
+    console.error("Error fetching data: ", e);
   }
 };
 
 // Function to increment the views field
 const incrementViews = async (benefitId) => {
-  const benefitsCollection = collection(db, 'benefits');
-  const q = query(benefitsCollection, where('id', '==', benefitId));
+  const benefitsCollection = collection(db, "benefits");
+  const q = query(benefitsCollection, where("id", "==", benefitId));
 
   try {
     const querySnapshot = await getDocs(q);
@@ -39,15 +54,15 @@ const incrementViews = async (benefitId) => {
 
       // Increment views by 1
       await updateDoc(benefitRef, {
-        views: currentViews + 1
+        views: currentViews + 1,
       });
 
       console.log(`Views incremented to ${currentViews + 1}`);
     } else {
-      console.error('Benefit not found');
+      console.error("Benefit not found");
     }
   } catch (e) {
-    console.error('Error updating views: ', e);
+    console.error("Error updating views: ", e);
   }
 };
 
@@ -55,18 +70,25 @@ const incrementViews = async (benefitId) => {
 const retrieveIconsFromFirestore = async () => {
   //console.log("hello");
   try {
-    const iconsRef = doc(db, 'icons', 'iconList');
+    const iconsRef = doc(db, "icons", "iconList");
     const docSnap = await getDoc(iconsRef);
 
     if (docSnap.exists()) {
       iconsData = docSnap.data().icons;
       console.log(iconsData);
     } else {
-      console.log('No such document!');
+      console.log("No such document!");
     }
   } catch (e) {
-    console.error('Error retrieving icons: ', e);
+    console.error("Error retrieving icons: ", e);
   }
 };
 
-export { fetchData, incrementViews, retrieveIconsFromFirestore, categories, benefits, iconsData};
+export {
+  fetchData,
+  incrementViews,
+  retrieveIconsFromFirestore,
+  categories,
+  benefits,
+  iconsData,
+};

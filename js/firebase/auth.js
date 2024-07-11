@@ -131,9 +131,16 @@
 
 // auth.js
 
-import { auth } from './firebaseConfig.js';
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { auth } from "./firebaseConfig.js";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // Initialize Firestore
 const db = getFirestore();
@@ -146,22 +153,23 @@ function validateEmail(email) {
 
 // Function to handle sign-in
 function signIn() {
-  const email = document.querySelector('#email').value;
-  const password = document.querySelector('#password').value;
-  const errorMessageDiv = document.querySelector('#error-message');
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
+  const errorMessageDiv = document.querySelector("#error-message");
 
   // Clear any previous error message and set loading text
-  errorMessageDiv.textContent = 'Signing in...';
+  errorMessageDiv.textContent = "Signing in...";
 
   // Check if fields are filled
   if (!email || !password) {
-    errorMessageDiv.textContent = 'Please enter both email and password.';
+    errorMessageDiv.textContent = "Please enter both email and password.";
     return;
   }
 
   // Validate email format
   if (!validateEmail(email)) {
-    errorMessageDiv.textContent = 'Please enter a valid @experionglobal.com email address.';
+    errorMessageDiv.textContent =
+      "Please enter a valid @experionglobal.com email address.";
     return;
   }
 
@@ -170,48 +178,51 @@ function signIn() {
       // Get user ID
       const userId = userCredential.user.uid;
       // Get user document from Firestore
-      const userDoc = await getDoc(doc(db, 'authenticated-users', userId));
+      const userDoc = await getDoc(doc(db, "authenticated-users", userId));
 
       if (userDoc.exists()) {
         const userData = userDoc.data();
         // Check user role
-        if (userData.role === 'normal-admin' || userData.role === 'super-admin') {
+        if (
+          userData.role === "normal-admin" ||
+          userData.role === "super-admin"
+        ) {
           // Sign-in successful
-          window.location.href = '/templates/admin/adminhome.html';
+          window.location.href = "/templates/admin/adminhome.html";
         } else {
           // User is not authorized
-          errorMessageDiv.textContent = 'You are not authorized.';
+          errorMessageDiv.textContent = "You are not authorized.";
           auth.signOut();
         }
       } else {
         // No such document
-        errorMessageDiv.textContent = 'You are not authorized.';
+        errorMessageDiv.textContent = "You are not authorized.";
         auth.signOut();
       }
     })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
-      let errorMessage = '';
+      let errorMessage = "";
 
       switch (errorCode) {
-        case 'auth/invalid-email':
-          errorMessage = 'Invalid email format.';
+        case "auth/invalid-email":
+          errorMessage = "Invalid email format.";
           break;
-        case 'auth/user-disabled':
-          errorMessage = 'User account is disabled.';
+        case "auth/user-disabled":
+          errorMessage = "User account is disabled.";
           break;
-        case 'auth/user-not-found':
-          errorMessage = 'No user found with this email.';
+        case "auth/user-not-found":
+          errorMessage = "No user found with this email.";
           break;
-        case 'auth/wrong-password':
-          errorMessage = 'Incorrect password.';
+        case "auth/wrong-password":
+          errorMessage = "Incorrect password.";
           break;
-        case 'auth/invalid-credential':
-          errorMessage = 'Invalid credential.';
+        case "auth/invalid-credential":
+          errorMessage = "Invalid credential.";
           break;
         default:
-          errorMessage = 'An error occurred. Please try again.';
+          errorMessage = "An error occurred. Please try again.";
           break;
       }
 
@@ -219,23 +230,24 @@ function signIn() {
     })
     .finally(() => {
       // Clear loading text if sign-in operation completes (whether success or error)
-      if (errorMessageDiv.textContent === 'Signing in...') {
-        errorMessageDiv.textContent = '';
+      if (errorMessageDiv.textContent === "Signing in...") {
+        errorMessageDiv.textContent = "";
       }
     });
 }
 
 // Function to handle forgot password
 function forgotPassword() {
-  const email = document.querySelector('#email').value;
-  const errorMessageDiv = document.querySelector('#error-message');
+  const email = document.querySelector("#email").value;
+  const errorMessageDiv = document.querySelector("#error-message");
 
   // Clear any previous error message and set loading text
-  errorMessageDiv.textContent = 'Sending password reset email...';
+  errorMessageDiv.textContent = "Sending password reset email...";
 
   // Validate email format
   if (!validateEmail(email)) {
-    errorMessageDiv.textContent = 'Please enter a valid @experionglobal.com email address.';
+    errorMessageDiv.textContent =
+      "Please enter a valid @experionglobal.com email address.";
     return;
   }
 
@@ -243,22 +255,23 @@ function forgotPassword() {
   sendPasswordResetEmail(auth, email)
     .then(() => {
       // Password reset email sent successfully
-      errorMessageDiv.textContent = 'Password reset email sent. Check your inbox.';
+      errorMessageDiv.textContent =
+        "Password reset email sent. Check your inbox.";
     })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
-      let errorMessage = '';
+      let errorMessage = "";
 
       switch (errorCode) {
-        case 'auth/invalid-email':
-          errorMessage = 'Invalid email format.';
+        case "auth/invalid-email":
+          errorMessage = "Invalid email format.";
           break;
-        case 'auth/user-not-found':
-          errorMessage = 'No user found with this email.';
+        case "auth/user-not-found":
+          errorMessage = "No user found with this email.";
           break;
         default:
-          errorMessage = 'An error occurred. Please try again.';
+          errorMessage = "An error occurred. Please try again.";
           break;
       }
 
@@ -266,19 +279,19 @@ function forgotPassword() {
     })
     .finally(() => {
       // Clear loading text if password reset operation completes (whether success or error)
-      if (errorMessageDiv.textContent === 'Sending password reset email...') {
-        errorMessageDiv.textContent = '';
+      if (errorMessageDiv.textContent === "Sending password reset email...") {
+        errorMessageDiv.textContent = "";
       }
     });
 }
 
 // Event listeners
-document.querySelector('#signInButton').addEventListener('click', (e) => {
+document.querySelector("#signInButton").addEventListener("click", (e) => {
   e.preventDefault();
   signIn();
 });
 
-document.querySelector('#forgotPasswordLink').addEventListener('click', (e) => {
+document.querySelector("#forgotPasswordLink").addEventListener("click", (e) => {
   e.preventDefault();
   forgotPassword();
 });
