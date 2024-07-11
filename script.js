@@ -1,4 +1,4 @@
-import { forceFetchData, benefits } from './firebase/firebaseData.js';
+import { forceFetchData, benefits } from '/firebase/firebaseData.js';
 
 window.onload = async () => {
     const loadingAnimation = document.getElementById('loading-animation');

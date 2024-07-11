@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Displaying names of category in the heading
     document.querySelector(".headingBox h1").textContent = categoryData.name;
     document.querySelector(".sideHeadingBox:nth-of-type(1)").textContent = categoryOtherData[0].name;
-    document.querySelector(".sideHeadingBox:nth-of-type(1)").setAttribute("href", `./benefit.html?id=${categoryOtherData[0].id}`);
+    document.querySelector(".sideHeadingBox:nth-of-type(1)").setAttribute("href", `/user/benefit/benefit.html?id=${categoryOtherData[0].id}`);
     document.querySelector(".sideHeadingBox:nth-of-type(2)").textContent = categoryOtherData[1].name;
-    document.querySelector(".sideHeadingBox:nth-of-type(2)").setAttribute("href", `./benefit.html?id=${categoryOtherData[1].id}`);
+    document.querySelector(".sideHeadingBox:nth-of-type(2)").setAttribute("href", `/user/benefit/benefit.html?id=${categoryOtherData[1].id}`);
 
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
