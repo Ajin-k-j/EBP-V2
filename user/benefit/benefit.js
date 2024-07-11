@@ -1,4 +1,4 @@
-import { fetchData, categories, benefits } from './firebase/firebaseData.js';
+import { fetchData, categories, benefits } from '/firebase/firebaseData.js';
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
@@ -36,7 +36,7 @@ function createBenefitBox() {
     myBenefits.forEach(item => {
         if (item.categoryId === id) {
             htmlDataBenefit += `
-                <a href="./benefitDetails.html?id=${item.id}">
+                <a href="/user/benefitDetails/benefitDetails.html?id=${item.id}">
                     <div class="benefit-card card">
                         <i class="fas ${item.icon} fa-2x"></i>
                         <h5>${item.name}</h5>
