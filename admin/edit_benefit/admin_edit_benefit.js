@@ -1,6 +1,6 @@
-import { auth } from './firebase/firebaseConfig.js';
-import { db } from './firebase/firebaseConfig.js';
-import { fetchData, benefits, iconsData } from './firebase/firebaseData.js';
+import { auth } from '/firebase/firebaseConfig.js';
+import { db } from '/firebase/firebaseConfig.js';
+import { fetchData, benefits, iconsData } from '/firebase/firebaseData.js';
 import { collection,where, query, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -52,7 +52,7 @@ function checkAuth() {
     auth.onAuthStateChanged(user => {
         if (!user) {
             // User is not logged in, redirect to login page
-            window.location.href = '/login.html';
+            window.location.href = '/admin/login/login.html';
         }
     });
 }
