@@ -49,12 +49,12 @@ header img{
     font-weight: bold;
 }
 
-.nav-link {
+.topNavLink {
     color: black;
     font-size: 0.8rem;
     /* font-weight: bold; */
 }
-.nav-link:hover{
+.topNavLink:hover{
     color: var(--expRed);
 }
 
@@ -88,27 +88,22 @@ main{
     border-radius: 5px;
     border: 1px solid var(--expRed);
 }
-.navItem{
+.leftNavItem{
     /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
     border-radius: 5px;
     margin:3px;
 }
-.navLink{
+.leftNavLink{
     border-radius: 5px;
-    padding: 0.3rem 0.15rem;
+    padding: 0.3rem 0.1rem;
     text-align: center;
+    color: black;
     font-size: 0.6rem;
     border:1.35px solid black;
 }
-/* .navItem:hover{
-    border: 1px solid var(--expRed);
-    transform: scale(1.01);
-    color: White;
-} */
-.navLink:hover{
+.leftNavLink:hover{
     background-color: var(--expRed);
     color: white;
-    border: hidden;
 }
 .leftNavActive{
     border-radius: 5px;

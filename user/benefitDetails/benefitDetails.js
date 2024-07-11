@@ -70,11 +70,11 @@ function populateMenu(benefitId) {
   benefits.forEach((benefit) => {
     if (benefit.categoryId == getBenefitById(benefits, benefitId).categoryId) {
       const menuItem = document.createElement("li");
-      menuItem.classList.add("nav-item", "navItem");
+      menuItem.classList.add("nav-item", "leftNavItem");
       if (benefit.id == benefitId) {
-        menuItem.innerHTML = `<a class="nav-link navLink leftNavActive" href="?id=${benefit.id}">${benefit.name}</a>`;
+        menuItem.innerHTML = `<a class="nav-link leftNavLink leftNavActive" href="?id=${benefit.id}">${benefit.name}</a>`;
       } else {
-        menuItem.innerHTML = `<a class="nav-link navLink" href="?id=${benefit.id}">${benefit.name}</a>`;
+        menuItem.innerHTML = `<a class="nav-link leftNavLink" href="?id=${benefit.id}">${benefit.name}</a>`;
       }
       benefitsMenu.appendChild(menuItem);
     }
