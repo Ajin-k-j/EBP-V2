@@ -1,8 +1,8 @@
 // auth.js
 
-import { auth } from '../../firebase/firebaseConfig.js';
+import { auth } from '/firebase/firebaseConfig.js';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-
+/firebase/firebaseConfig.js
 // Function to validate email
 function validateEmail(email) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@experionglobal\.com$/;
@@ -33,7 +33,7 @@ function signIn() {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Sign-in successful
-      window.location.href = '/templates/admin/adminhome.html';
+      window.location.href = '/admin/home/adminhome.html';
     })
     .catch((error) => {
       // Handle Errors here.
