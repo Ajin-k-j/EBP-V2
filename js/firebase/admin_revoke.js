@@ -94,12 +94,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             const addPermissionButton = document.createElement('button');
             addPermissionButton.className = 'subscribe-button m-2 rounded';
             addPermissionButton.id = `addAdminButton-${docSnapshot.id}`;
-            addPermissionButton.textContent = 'Add Permission';
+            addPermissionButton.textContent = 'Make SuperAdmin';
 
             const deleteAdminButton = document.createElement('button');
             deleteAdminButton.className = 'subscribe-button m-2 rounded';
             deleteAdminButton.id = `deleteAdminButton-${docSnapshot.id}`;
-            deleteAdminButton.textContent = 'Delete';
+            deleteAdminButton.textContent = 'Revoke Permission';
 
             // Event listener for Add Permission button
             addPermissionButton.addEventListener('click', async () => {
