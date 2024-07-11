@@ -1,4 +1,4 @@
-import { auth, db } from './firebaseConfig.js';
+import { auth, db } from '../firebase/firebaseConfig.js';
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // Function to handle form submission

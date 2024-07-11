@@ -1,6 +1,6 @@
 // adminhome.js
 
-import { auth } from './firebaseConfig.js';
+import { auth } from '../../firebase/firebaseConfig.js';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
