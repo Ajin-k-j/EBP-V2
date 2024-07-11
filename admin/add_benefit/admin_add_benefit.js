@@ -1,6 +1,6 @@
-import { db } from '/js/firebase/firebaseConfig.js';
+import { db } from '/firebase/firebaseConfig.js';
 import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-import { fetchData, iconsData } from '/js/firebase/firebaseData.js';
+import { fetchData, iconsData } from '/firebase/firebaseData.js';
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
