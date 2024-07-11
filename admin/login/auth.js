@@ -2,7 +2,7 @@
 
 import { auth } from '/firebase/firebaseConfig.js';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-/firebase/firebaseConfig.js
+
 // Function to validate email
 function validateEmail(email) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@experionglobal\.com$/;

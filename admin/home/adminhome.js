@@ -20,7 +20,7 @@ function checkAuth() {
     auth.onAuthStateChanged(user => {
         if (!user) {
             // User is not logged in, redirect to login page
-            window.location.href = '/login.html';
+            window.location.href = '/admin/login/login.html';
         }
     });
 }
