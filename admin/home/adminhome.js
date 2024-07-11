@@ -1,9 +1,13 @@
 // adminhome.js
 
-import { auth } from '/firebase/firebaseConfig.js';
+import { auth, db } from '/firebase/firebaseConfig.js';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
+import { hrContactDetails, fetchData } from '/firebase/firebaseData.js';
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    await fetchData(); // Fetch data on page load
+
     checkAuth(); // Check authentication status on page load
 
     document.querySelector('#addAdminButton').addEventListener('click', function() {
@@ -13,6 +17,42 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#logoutLink').addEventListener('click', function(e) {
         e.preventDefault();
         logout();
+    });
+
+    // Attach event listener to the "Edit HR Contact" button to open the modal and pre-fill fields
+    document.getElementById('editHrContactButton').addEventListener('click', function() {
+        preFillModal();
+        $('#editHrContactModal').modal('show');
+    });
+
+    document.getElementById('saveChangesButton').addEventListener('click', function() {
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var teamsMail = document.getElementById('teamsMail').value;
+
+        if (hrContactDetails.length === 0) {
+            console.error("HR contact details are not loaded.");
+            return;
+        }
+
+        // Get the document ID for the HR contact details
+        var hrContactDetailId = hrContactDetails[0].id; // Assuming there's only one document
+
+        // Reference to the document in Firestore
+        var docRef = doc(db, "HR-contact-details", hrContactDetailId);
+
+        // Update the document
+        setDoc(docRef, {
+            email: email,
+            contactnumber: phone,
+            teamsmail: teamsMail
+        }).then(() => {
+            console.log("Document successfully updated!");
+            // Close the modal after saving changes
+            $('#editHrContactModal').modal('hide');
+        }).catch((error) => {
+            console.error("Error updating document: ", error);
+        });
     });
 });
 
@@ -86,4 +126,18 @@ function validateEmail(email) {
 
 function sendPasswordReset(email) {
     return sendPasswordResetEmail(auth, email);
+}
+
+// Function to pre-fill modal fields with existing HR contact details
+function preFillModal() {
+    if (hrContactDetails.length === 0) {
+        console.error("HR contact details are not loaded.");
+        return;
+    }
+
+    const hrContactDetail = hrContactDetails[0]; // Assuming there's only one document
+
+    document.getElementById('email').value = hrContactDetail.email || '';
+    document.getElementById('phone').value = hrContactDetail.contactnumber || '';
+    document.getElementById('teamsMail').value = hrContactDetail.teamsmail || '';
 }
