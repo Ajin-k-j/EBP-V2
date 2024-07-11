@@ -45,7 +45,7 @@ function updateBenefitCards(container, benefits) {
             }
 
             // Set href with benefitDetails.html and ID
-            card.href = `/user/benefitDetails/benebenefitDetails.html?id=${benefit.id}`;
+            card.href = `/user/benefitDetails/benefitDetails.html?id=${benefit.id}`;
         }
     });
 }

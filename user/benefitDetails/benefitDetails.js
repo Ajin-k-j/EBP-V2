@@ -1,4 +1,4 @@
-import { fetchData,incrementViews, categories, benefits} from './firebase/firebaseData.js';
+import { fetchData,incrementViews, categories, benefits} from '/firebase/firebaseData.js';
 
 document.addEventListener("DOMContentLoaded", async() => {
   // const loadingAnimation = document.getElementById('loading-animation');
