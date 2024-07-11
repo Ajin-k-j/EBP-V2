@@ -45,7 +45,7 @@ function updateBenefitCards(container, benefits) {
             }
 
             // Set href with benefitDetails.html and ID
-            card.href = `benefitDetails.html?id=${benefit.id}`;
+            card.href = `/user/benefitDetails/benebenefitDetails.html?id=${benefit.id}`;
         }
     });
 }
@@ -89,7 +89,7 @@ function performSearch() {
     const query = searchInput.value.toLowerCase();
     const result = benefits.find(benefit => benefit.name.toLowerCase() === query);
     if (result) {
-        window.location.href = `benefitDetails.html?id=${result.id}`;
+        window.location.href = `/user/benefitDetails/benefitDetails.html?id=${result.id}`;
     } else {
         alert('Benefit not found.');
     }
