@@ -87,3 +87,6 @@ function validateEmail(email) {
 function sendPasswordReset(email) {
     return sendPasswordResetEmail(auth, email);
 }
+
+
+
