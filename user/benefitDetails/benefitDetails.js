@@ -1,4 +1,4 @@
-import { fetchData,incrementViews, categories, benefits} from '/firebase/firebaseData.js';
+import { fetchData,incrementViews, categories, benefits, hrContactDetails} from '/firebase/firebaseData.js';
 
 document.addEventListener("DOMContentLoaded", async() => {
   // const loadingAnimation = document.getElementById('loading-animation');
@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async() => {
     populateMenu(benefitId);
     const incrementIntBenefitId = parseInt(benefitId, 10);
     incrementViews(incrementIntBenefitId);
+    populateHRdetails(benefitId);
   }
 });
 
@@ -112,7 +113,22 @@ function displayBenefitDetails(benefitId) {
             `;
       faqContainer.appendChild(faqItem);
     });
+    document.getElementById('collapse0').classList.add("show");
   }
+}
+
+//function to populate hr contact details
+function populateHRdetails(benefitId){
+  // console.log("details:",hrContactDetails[0].teamsmail);
+  const phoneNo = document.getElementById("phoneNo");
+  const email = document.getElementById("email");
+  const teamsMessage = document.getElementById("teamsMessage");
+  phoneNo.textContent = hrContactDetails[0].contactnumber;
+  phoneNo.parentElement.setAttribute("href","tel:"+hrContactDetails[0].contactnumber);
+  email.textContent= hrContactDetails[0].email;
+  email.parentElement.setAttribute("href","mailto:"+hrContactDetails[0].email);
+  const benefitName = getBenefitById(benefits, benefitId).name;
+  teamsMessage.setAttribute("href","https://teams.microsoft.com/l/chat/0/0?users="+hrContactDetails[0].teamsmail+"&message=Hello%20I%20had%20a%20query%20on%20"+benefitName);
 }
 
 // Initialize Quill editor

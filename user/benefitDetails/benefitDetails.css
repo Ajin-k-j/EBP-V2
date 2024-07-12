@@ -6,13 +6,13 @@ html {
 }
 @media (min-width: 768px) {
     html {
-        font-size: 18px; /* Increase base font size for tablets */
+        font-size: 17px; /* Increase base font size for tablets */
     }
 }
 
 @media (min-width: 1024px) {
     html {
-        font-size: 19px; /* Increase base font size for desktops */
+        font-size: 18px; /* Increase base font size for desktops */
     }
 }
 
@@ -119,7 +119,7 @@ main{
     margin:0.7rem 0;
 }
 .rightContainer{
-    min-height: 83vh;
+    /* min-height: 83vh; */
     background-color:#F1F1F1;
 }
 .heading{
@@ -182,7 +182,11 @@ main{
     background-color: lightgreen;
 } */
 .accordion-body{
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(231, 255, 231);
+    border-top: 0.5px solid rgb(154, 154, 154);
+}
+.accordion-button:not(.collapsed){
+    background-color: rgb(193, 255, 193);
 }
 .footer {
     background-color: #f1f1f1;
