@@ -6,13 +6,13 @@ html {
 }
 @media (min-width: 768px) {
     html {
-        font-size: 18px; /* Increase base font size for tablets */
+        font-size: 17px; /* Increase base font size for tablets */
     }
 }
 
 @media (min-width: 1024px) {
     html {
-        font-size: 19px; /* Increase base font size for desktops */
+        font-size: 18px; /* Increase base font size for desktops */
     }
 }
 
