@@ -51,14 +51,14 @@
                 <p>Enter Experion mail id's of employees who need to have admin privileges</p>
                 <div class="input-wrapper d-flex justify-content-center align-items-center">
                     <input type="email" placeholder="Enter Experion mail id" class="email-input">
-                    <button class="subscribe-button" id="addAdminButton">Add Admin</button>
+                    <button class="subscribe-button" id="addAdminButton" data-bs-toggle="modal" data-bs-target="#passwordModal">Add Admin</button>
                 </div>
                 <div id="error-message" class="text-danger"></div>
             </div>
             <hr class="vertical-divider1">
             <div class="d-flex flex-column justify-content-center align-items-center mt-3 mt-lg-0">
                 <div class="d-flex justify-content-center align-items-center mt-5 mt-lg-0">
-                    <button class="subscribe-button">View All Admins</button>
+                    <button class="subscribe-button" onclick="window.location.href='/admin/list_all_admins/admin_revoke_permission.html'">View All Admins</button>
                 </div>
             </div>
             <hr class="vertical-divider2">
@@ -72,7 +72,7 @@
         <p>&copy; 2024 Employee Benefits Portal. All Rights Reserved.</p>
     </footer>
 
-    <!-- Modal -->
+    <!-- Edit HR Contact Modal -->
     <div class="modal fade" id="editHrContactModal" tabindex="-1" aria-labelledby="editHrContactModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -105,11 +105,33 @@
         </div>
     </div>
 
+<!-- Password Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="passwordModalLabel">Enter Password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Please enter your password for <span id="userEmail"></span> to confirm:</p>
+          <input type="password" id="passwordInput" class="form-control" placeholder="Enter your password">
+          <div id="error-message" class="text-danger mt-2"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="passwordModalCloseButton" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="passwordSubmitButton" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script type="module" src="/admin/home/adminhome.js"></script>
-
-    
 </body>
 </html>

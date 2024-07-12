@@ -1,7 +1,5 @@
-// adminhome.js
-
 import { auth, db } from '/firebase/firebaseConfig.js';
-import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
 import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
 import { hrContactDetails, fetchData, forceFetchData } from '/firebase/firebaseData.js';
 
@@ -11,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     checkAuth(); // Check authentication status on page load
 
     document.querySelector('#addAdminButton').addEventListener('click', function() {
-        addAdmin();
+        openPasswordModal();
     });
 
     document.querySelector('#logoutLink').addEventListener('click', function(e) {
@@ -54,15 +52,27 @@ document.addEventListener('DOMContentLoaded', async function() {
             setTimeout(() => {
                 $('#editHrContactModal').modal('hide');
                 document.getElementById('result').textContent = "";
-              }, 1500);
+            }, 1500);
         }).catch((error) => {
-            document.getElementById('result').textContent = 'Error updating data!'; 
+            document.getElementById('result').textContent = 'Error updating data!';
             console.error("Error updating document: ", error);
             setTimeout(() => {
                 $('#editHrContactModal').modal('hide');
                 document.getElementById('result').textContent = "";
-              }, 2000);
+            }, 2000);
         });
+    });
+
+    // Handle the password submission for adding admin
+    document.getElementById('passwordSubmitButton').addEventListener('click', async function() {
+        
+        $('#passwordModal').modal('hide'); // Manually close the modal after adding admin
+        await addAdmin();
+    });
+
+    // Manually close the modal when the close button is clicked
+    document.getElementById('passwordModalCloseButton').addEventListener('click', function() {
+        $('#passwordModal').modal('hide');
     });
 });
 
@@ -75,7 +85,7 @@ function checkAuth() {
     });
 }
 
-function addAdmin() {
+async function addAdmin() {
     const email = document.querySelector('.email-input').value.trim();
     const errorMessageDiv = document.querySelector('#error-message');
     const addAdminButton = document.querySelector('#addAdminButton');
@@ -90,34 +100,49 @@ function addAdmin() {
         return;
     }
 
-    // Create a new user with a default password
-    createUserWithEmailAndPassword(auth, email, 'defaultpassword')
-        .then((userCredential) => {
-            // User created successfully
-            const user = userCredential.user;
-            // Send email to user to set password
-            sendPasswordReset(email)
-                .then(() => {
-                    errorMessageDiv.textContent = `Admin privilege added for ${email}. Check your email to set the password.`;
-                })
-                .catch((error) => {
-                    errorMessageDiv.textContent = `Error sending password reset email: ${error.message}`;
-                });
-        })
-        .catch((error) => {
-            // Handle specific errors
-            switch (error.code) {
-                case 'auth/email-already-in-use':
-                    errorMessageDiv.textContent = 'Email already in use.';
-                    break;
-                default:
-                    errorMessageDiv.textContent = `Error adding admin: ${error.message}`;
-                    break;
-            }
-        })
-        .finally(() => {
-            addAdminButton.disabled = false; // Re-enable the button after operation
-        });
+    // Save the current user's authentication state
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+        errorMessageDiv.textContent = 'No authenticated user found.';
+        return;
+    }
+    const currentUserEmail = currentUser.email;
+
+    // Get the entered password from the modal
+    const currentUserPassword = document.getElementById('passwordInput').value.trim();
+    if (!currentUserPassword) {
+        errorMessageDiv.textContent = 'Password is required to re-authenticate.';
+        return;
+    }
+
+    try {
+        // Re-authenticate the current user
+        await signInWithEmailAndPassword(auth, currentUserEmail, currentUserPassword);
+
+        // Create the new user with a default password
+        const userCredential = await createUserWithEmailAndPassword(auth, email, 'defaultpassword');
+
+        // Send email to the new user to set password
+        await sendPasswordResetEmail(auth, email);
+        errorMessageDiv.textContent = `Admin privilege added for ${email}. Check your email to set the password.`;
+
+        // Re-sign in the original user
+        await signInWithEmailAndPassword(auth, currentUserEmail, currentUserPassword);
+
+        // Close the password modal
+        $('#passwordModal').modal('hide');
+    } catch (error) {
+        switch (error.code) {
+            case 'auth/email-already-in-use':
+                errorMessageDiv.textContent = 'Email already in use.';
+                break;
+            default:
+                errorMessageDiv.textContent = `Error adding admin: ${error.message}`;
+                break;
+        }
+    } finally {
+        addAdminButton.disabled = false; // Re-enable the button after operation
+    }
 }
 
 function logout() {
@@ -134,10 +159,6 @@ function validateEmail(email) {
     return emailPattern.test(email);
 }
 
-function sendPasswordReset(email) {
-    return sendPasswordResetEmail(auth, email);
-}
-
 // Function to pre-fill modal fields with existing HR contact details
 function preFillModal() {
     if (hrContactDetails.length === 0) {
@@ -150,4 +171,13 @@ function preFillModal() {
     document.getElementById('email').value = hrContactDetail.email || '';
     document.getElementById('phone').value = hrContactDetail.contactnumber || '';
     document.getElementById('teamsMail').value = hrContactDetail.teamsmail || '';
+}
+
+// Function to open the password modal and display the user's email
+function openPasswordModal() {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+        document.getElementById('userEmail').textContent = currentUser.email;
+        $('#passwordModal').modal('show');
+    }
 }
