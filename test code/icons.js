@@ -1,4 +1,4 @@
-import { db } from './firebaseConfig.js';
+import { db } from '../firebase/firebaseConfig.js';
 import { setDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // Array of icons

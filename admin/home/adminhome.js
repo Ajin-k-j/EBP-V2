@@ -1,6 +1,6 @@
 // adminhome.js
 
-import { auth } from './firebaseConfig.js';
+import { auth } from '/firebase/firebaseConfig.js';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -20,7 +20,7 @@ function checkAuth() {
     auth.onAuthStateChanged(user => {
         if (!user) {
             // User is not logged in, redirect to login page
-            window.location.href = '/login.html';
+            window.location.href = '/admin/login/login.html';
         }
     });
 }

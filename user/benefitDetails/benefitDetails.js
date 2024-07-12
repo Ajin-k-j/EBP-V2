@@ -1,4 +1,4 @@
-import { fetchData,incrementViews, categories, benefits} from './firebase/firebaseData.js';
+import { fetchData,incrementViews, categories, benefits} from '/firebase/firebaseData.js';
 
 document.addEventListener("DOMContentLoaded", async() => {
   // const loadingAnimation = document.getElementById('loading-animation');
@@ -53,7 +53,7 @@ function populateNavbanner(benefitId) {
   if (category) {
     const banner = document.querySelector(".leftNavBanner");
     const iconElement = banner.querySelector("i");
-    const nameElement = banner.querySelector("h1");
+    const nameElement = banner.querySelector("h6");
     // Update icon class and name
     iconElement.className = category.icon;
     nameElement.textContent = category.name;
@@ -70,11 +70,11 @@ function populateMenu(benefitId) {
   benefits.forEach((benefit) => {
     if (benefit.categoryId == getBenefitById(benefits, benefitId).categoryId) {
       const menuItem = document.createElement("li");
-      menuItem.classList.add("nav-item", "navItem");
+      menuItem.classList.add("nav-item", "leftNavItem");
       if (benefit.id == benefitId) {
-        menuItem.innerHTML = `<a class="nav-link leftNavActive" href="?id=${benefit.id}">${benefit.name}</a>`;
+        menuItem.innerHTML = `<a class="nav-link leftNavLink leftNavActive" href="?id=${benefit.id}">${benefit.name}</a>`;
       } else {
-        menuItem.innerHTML = `<a class="nav-link" href="?id=${benefit.id}">${benefit.name}</a>`;
+        menuItem.innerHTML = `<a class="nav-link leftNavLink" href="?id=${benefit.id}">${benefit.name}</a>`;
       }
       benefitsMenu.appendChild(menuItem);
     }
@@ -100,12 +100,12 @@ function displayBenefitDetails(benefitId) {
       faqItem.classList.add("accordion-item");
       faqItem.innerHTML = `
                 <h2 class="accordion-header" id="heading${index}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                    <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
                         ${faq.question}
                     </button>
                 </h2>
-                <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionContainer">
-                    <div class="accordion-body">
+                <div id="collapse${index}" class="accordion-collapse collapse m-0" aria-labelledby="heading${index}" data-bs-parent="#accordionContainer">
+                    <div class="accordion-body p-2">
                         ${faq.answer}
                     </div>
                 </div>

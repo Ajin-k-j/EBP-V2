@@ -1,6 +1,6 @@
-import { db } from '/js/firebase/firebaseConfig.js';
+import { db } from '/firebase/firebaseConfig.js';
 import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-import { retrieveIconsFromFirestore, iconsData } from '/js/firebase/firebaseData.js';
+import { fetchData, iconsData } from '/firebase/firebaseData.js';
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
@@ -11,7 +11,7 @@ let id = params.get('id');
 let quill;
 // to populate the texboxes and inputs
 document.addEventListener('DOMContentLoaded', () => {
-    retrieveIconsFromFirestore();
+    fetchData();
     document.getElementById('category').setAttribute("value",id);
     document.getElementById('category').setAttribute("placeholder",id);
     quill = new Quill('#editor-container', {
@@ -31,6 +31,14 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
     const icon = document.getElementById('icon-search').value;
     const description = document.getElementById('description').value;
     const categoryId = document.getElementById('category').value;
+    const modalHeading = document.getElementById('exampleModal1Label');
+    const modalBody = document.getElementsByClassName('modal-body');
+    const goBackBtn = document.getElementById('modalGoLastPage');
+        goBackBtn.addEventListener("click",()=>{
+            setTimeout(() => {
+                window.history.back();
+            }, 100);
+        })
     
     const content = quill.root.innerHTML;
     
@@ -64,21 +72,21 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
         categoryId: categoryId,
         views: 0
     };
-    alert(JSON.stringify(benefit, null, 2));
-    console.log(benefit);
+    $('#exampleModal1').modal('show');
     try {
+        modalHeading.innerHTML = "Saving...";
         // Add a new document with a generated ID
         await addDoc(benefitsCollection, benefit);
-        console.log(iconsData[0]);
-    
-        alert('Benefit added successfully!');
+        modalHeading.innerHTML = "Benefit Added Succesfully";
+        modalBody[0].textContent = "Benefit data added succesfully. Click close to go back";
       } catch (e) {
-        console.error('Error adding document: ', e);
-        alert('Error adding benefit. Please try again.');
+        console.log("error",e);
+        modalHeading.innerHTML = "Error adding document";
+        modalBody[0].textContent = "An error occured! Try again.";
       }
 });
 
-//need some modifications
+//to add delete function to faqs
 function deleteFunctionToButtons(){
     document.querySelectorAll('.remove-faq').forEach((button) => {
         button.addEventListener('click', function(event) {
@@ -114,7 +122,6 @@ function addFaqs(){
 //to search icons
 function iconSearchFunction(){
     // retrieveIconsFromFirestore();
-    console.log("called");
     const iconSearch = document.getElementById('icon-search');
     const iconRecommendations = document.getElementById('icon-recommendations');
 

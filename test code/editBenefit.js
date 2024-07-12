@@ -1,4 +1,4 @@
-import { db } from './firebaseConfig.js';
+import { db } from '../firebase/firebaseConfig.js';
 import { collection, query, where, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // Function to get benefit details and populate the form

@@ -1,4 +1,4 @@
-import { fetchData, benefits } from './firebase/firebaseData.js';
+import { forceFetchData, benefits } from '/firebase/firebaseData.js';
 
 window.onload = async () => {
     const loadingAnimation = document.getElementById('loading-animation');
@@ -7,7 +7,7 @@ window.onload = async () => {
     loadingAnimation.style.display = 'flex';
 
     // Fetch data from Firestore
-    await fetchData();
+    await forceFetchData();
 
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
@@ -45,7 +45,7 @@ function updateBenefitCards(container, benefits) {
             }
 
             // Set href with benefitDetails.html and ID
-            card.href = `benefitDetails.html?id=${benefit.id}`;
+            card.href = `/user/benefitDetails/benefitDetails.html?id=${benefit.id}`;
         }
     });
 }
@@ -89,7 +89,7 @@ function performSearch() {
     const query = searchInput.value.toLowerCase();
     const result = benefits.find(benefit => benefit.name.toLowerCase() === query);
     if (result) {
-        window.location.href = `benefitDetails.html?id=${result.id}`;
+        window.location.href = `/user/benefitDetails/benefitDetails.html?id=${result.id}`;
     } else {
         alert('Benefit not found.');
     }

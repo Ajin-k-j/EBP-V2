@@ -1,5 +1,6 @@
-import { db } from './firebase/firebaseConfig.js';
-import { fetchData, benefits, retrieveIconsFromFirestore, iconsData } from './firebase/firebaseData.js';
+import { auth } from '/firebase/firebaseConfig.js';
+import { db } from '/firebase/firebaseConfig.js';
+import { fetchData, benefits, iconsData } from '/firebase/firebaseData.js';
 import { collection,where, query, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -16,10 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadingAnimation = document.getElementById('loading-animation');
     // Show loading animation initially
     loadingAnimation.style.display = 'flex';
-
+    checkAuth(); // Check authentication status on page load
     //fetching data
     await fetchData();
-    await retrieveIconsFromFirestore();
 
     // Hide loading animation after everything is loaded
     loadingAnimation.style.display = 'none';
@@ -47,6 +47,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     form.addEventListener('submit', submitEdits);
 });
 
+//to check if the user thats signed in is authorized
+function checkAuth() {
+    auth.onAuthStateChanged(user => {
+        if (!user) {
+            // User is not logged in, redirect to login page
+            window.location.href = '/admin/login/login.html';
+        }
+    });
+}
 //to show the faqs of the benefit in hand
 function showFaqs(benefitData){
     const faqContainer = document.getElementById("faqs-container")
@@ -129,6 +138,14 @@ function dropdownFunctions(){
 async function  submitEdits(event){
     event.preventDefault();
     let faqArray = pushFaqToDb();
+    const modalHeading = document.getElementById('exampleModal1Label');
+    const modalBody = document.getElementsByClassName('modal-body');
+    const goBackBtn = document.getElementById('modalGoLastPage');
+        goBackBtn.addEventListener("click",()=>{
+            setTimeout(() => {
+                window.history.back();
+            }, 100);
+        })
     const q = query(collection(db, "benefits"), where("id", "==", parseInt(id,10)));
     try {
         // Get query snapshot
@@ -144,15 +161,13 @@ async function  submitEdits(event){
                 faqs : faqArray
             }, { merge: true }); // Use merge option to merge new data with existing document
         });
-        alert("Document updated successfully!");
-        setTimeout(() => {
-            window.history.back();
-        }, 300);
+        $('#exampleModal1').modal('show');
+        modalHeading.innerHTML = "Updated succesfully";
+        modalBody[0].textContent = "Benefit data succesfully updated. Continue editing or go back";
     } catch (error) {
-        alert("Error updating document: ", error);
-        setTimeout(() => {
-            window.history.back();
-        }, 300);
+        $('#exampleModal1').modal('show');
+        modalHeading.innerHTML = "Error updating document";
+        modalBody[0].textContent = "An error occured! Try again.";
     }
 }
 //function to add faq data into the object to be updated into database
