@@ -124,7 +124,7 @@ function populateHRdetails(benefitId){
   const email = document.getElementById("email");
   const teamsMessage = document.getElementById("teamsMessage");
   phoneNo.textContent = hrContactDetails[0].contactnumber;
-  phoneNo.parentElement.setAttribute("href","callto:"+hrContactDetails[0].contactnumber);
+  phoneNo.parentElement.setAttribute("href","tel:"+hrContactDetails[0].contactnumber);
   email.textContent= hrContactDetails[0].email;
   email.parentElement.setAttribute("href","mailto:"+hrContactDetails[0].email);
   const benefitName = getBenefitById(benefits, benefitId).name;
