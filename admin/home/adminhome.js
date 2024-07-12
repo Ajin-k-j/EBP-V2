@@ -3,7 +3,7 @@
 import { auth, db } from '/firebase/firebaseConfig.js';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
 import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
-import { hrContactDetails, fetchData } from '/firebase/firebaseData.js';
+import { hrContactDetails, fetchData, forceFetchData } from '/firebase/firebaseData.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     await fetchData(); // Fetch data on page load
@@ -47,11 +47,21 @@ document.addEventListener('DOMContentLoaded', async function() {
             contactnumber: phone,
             teamsmail: teamsMail
         }).then(() => {
+            document.getElementById('result').textContent = 'Details successfully updated!';
             console.log("Document successfully updated!");
             // Close the modal after saving changes
-            $('#editHrContactModal').modal('hide');
+            forceFetchData();
+            setTimeout(() => {
+                $('#editHrContactModal').modal('hide');
+                document.getElementById('result').textContent = "";
+              }, 1500);
         }).catch((error) => {
+            document.getElementById('result').textContent = 'Error updating data!'; 
             console.error("Error updating document: ", error);
+            setTimeout(() => {
+                $('#editHrContactModal').modal('hide');
+                document.getElementById('result').textContent = "";
+              }, 2000);
         });
     });
 });
