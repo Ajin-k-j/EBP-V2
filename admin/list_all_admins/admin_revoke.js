@@ -209,10 +209,10 @@ import {
       const userDocSnap = await getDoc(userDocRef);
    
       const email = user.email;
-      const username = email.split("@")[0].split(".")[0];
-      const capitalizedUsername =
-        username.charAt(0).toUpperCase() + username.slice(1);
-      console.log(email);
+      // const username = email.split("@")[0].split(".")[0];
+      // const capitalizedUsername =
+      //   username.charAt(0).toUpperCase() + username.slice(1);
+      // console.log(email);
    
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
@@ -239,9 +239,13 @@ import {
       // User is signed in, get the user's email
       const email = user.email;
       const username = email.split("@")[0].split(".")[0];
-   
+      const capitalizedUsername =
+        username.charAt(0).toUpperCase() + username.slice(1);
+        console.log("username",capitalizedUsername);
       // Update the greeting
-      document.getElementById("greeting").textContent = `Hi ${username}`;
+      document.getElementById("greeting").textContent = `Hi ${capitalizedUsername}`;
+
+
    
       // Handle delete button click
       const deleteButton = document.getElementById("deleteAdminButton");
