@@ -113,6 +113,7 @@ function displayBenefitDetails(benefitId) {
             `;
       faqContainer.appendChild(faqItem);
     });
+    document.getElementById('collapse0').classList.add("show");
   }
 }
 
