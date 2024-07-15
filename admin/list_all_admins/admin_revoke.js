@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Get elements to display admin and super admin lists
     const adminListElement = document.getElementById("adminList");
     const superAdminListElement = document.getElementById("superAdminList");
+    const inactiveAdminListElement = document.getElementById("inactiveadminList");
 
     // Reference to the authenticated-users collection in Firestore
     const usersRef = collection(db, "authenticated-users");
@@ -39,6 +40,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Query for super-admin users
         const q1 = query(usersRef, where("role", "==", "super-admin"));
         const querySnapshots = await getDocs(q1);
+        const superAdminHeader = document.createElement("h3");
+        superAdminHeader.textContent = "Super-Admins";
+        superAdminHeader.className = "px-5 align-self-start";
+
+// Append the header to the super admin list element
+      superAdminListElement.appendChild(superAdminHeader);
         
         querySnapshots.forEach((docSnapshot) => {
           const userData = docSnapshot.data();
@@ -108,12 +115,14 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         });
 
-        // Query for normal-user and normal-admin users
-        const q = query(usersRef, where("role", "in", ["normal-user", "normal-admin"]));
+        // Query for normal-admin users
+        const q = query(usersRef, where("role", "==", "normal-admin"));
         const querySnapshot = await getDocs(q);
-
+        
         querySnapshot.forEach((docSnapshot) => {
+          
           const userData = docSnapshot.data();
+          // console.log(userData.role);
           const email = userData.email;
 
           // Create elements to display normal users info
@@ -145,7 +154,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           } else {
             deleteAdminButton.textContent = "Add Permission";
           }
-
+          // quesry for normal-user
+          const qq = query(usersRef, where("role", "==", "normal-user"));
+          
           // Add event listener to add permission button
           addPermissionButton.addEventListener("click", async () => {
             try {
@@ -187,6 +198,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               
               alert("Failed to update role. Check console for error details.");
             }
+            location.reload();
           });
 
           // Append elements to the DOM
@@ -195,6 +207,98 @@ document.addEventListener("DOMContentLoaded", async () => {
           userWrapper.appendChild(emailSpan);
           userWrapper.appendChild(buttonContainer);
           adminListElement.appendChild(userWrapper);
+        });
+        //Query for normal-users
+        const qq = query(usersRef, where("role", "==", "normal-user"));
+        const querySnapshot1 = await getDocs(qq);
+        
+        querySnapshot1.forEach((docSnapshot) => {
+          
+          const userData = docSnapshot.data();
+          console.log(userData.role);
+          const email = userData.email;
+
+          // Create elements to display normal users info
+          const userWrapper = document.createElement("div");
+          userWrapper.className =
+            "input-wrapper d-flex justify-content-between align-items-center border border-black rounded px-2";
+
+          const emailSpan = document.createElement("span");
+          emailSpan.id = `emailId-${docSnapshot.id}`;
+          emailSpan.textContent = email;
+
+          const buttonContainer = document.createElement("div");
+          buttonContainer.className = "d-flex align-end";
+
+          const addPermissionButton = document.createElement("button");
+          addPermissionButton.className = "subscribe-button m-2 rounded";
+          addPermissionButton.id = `addAdminButton-${docSnapshot.id}`;
+          addPermissionButton.textContent = "Make Super Admin";
+
+          const deleteAdminButton = document.createElement("button");
+          deleteAdminButton.className = "subscribe-button m-2 rounded";
+          deleteAdminButton.id = `deleteAdminButton-${docSnapshot.id}`;
+          deleteAdminButton.textContent = "Revoke Permission";
+
+          // Set initial button text based on current role
+          const currentRole = userData.role;
+          if (currentRole === "normal-admin") {
+            deleteAdminButton.textContent = "Revoke Permission";
+          } else {
+            deleteAdminButton.textContent = "Add Permission";
+          }
+          
+          
+          // Add event listener to add permission button
+          addPermissionButton.addEventListener("click", async () => {
+            try {
+              const userDocRef = doc(db, "authenticated-users", docSnapshot.id);
+              await setDoc(userDocRef, { role: "super-admin" }, { merge: true });
+
+              console.log(`Role updated successfully for ${email}`);
+              alert(`Role updated successfully for ${email}`);
+            } catch (error) {
+              console.error("Error updating role:", error);
+              alert("Failed to update role. Check console for error details.");
+            }
+            location.reload();
+
+          });
+
+          // Add event listener to delete permission button
+          deleteAdminButton.addEventListener("click", async () => {
+            const userEmail = emailSpan.textContent.trim();
+
+            try {
+              const userDocRef = doc(db, "authenticated-users", docSnapshot.id);
+              const userDocSnap = await getDoc(userDocRef);
+              const currentRole = userDocSnap.data().role;
+
+              const newRole =
+                currentRole === "normal-admin" ? "normal-user" : "normal-admin";
+              const newButtonText =
+                newRole === "normal-admin" ? "Revoke Permission" : "Add Permission";
+
+              // Update user role in Firestore
+              await setDoc(userDocRef, { role: newRole }, { merge: true });
+
+              deleteAdminButton.textContent = newButtonText;
+
+              
+              alert(`Role updated successfully for ${userEmail}`);
+            } catch (error) {
+              
+              alert("Failed to update role. Check console for error details.");
+            }
+            location.reload();
+          });
+
+          // Append elements to the DOM
+          buttonContainer.appendChild(addPermissionButton);
+          buttonContainer.appendChild(deleteAdminButton);
+          userWrapper.appendChild(emailSpan);
+          userWrapper.appendChild(buttonContainer);
+          inactiveAdminListElement.appendChild(userWrapper);
         });
       }
     });
