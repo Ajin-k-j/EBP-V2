@@ -51,15 +51,15 @@ header img{
 
 .topNavLink {
     color: black;
-    font-size: 0.8rem;
-    /* font-weight: bold; */
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 .topNavLink:hover{
     color: var(--expRed);
 }
 
 .activeColor{
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--expRed);
     font-weight: bolder;
 }
@@ -167,6 +167,19 @@ main{
 }
 #benefit-content *{
     margin-bottom: 0.3rem;
+}
+/* quill align */
+.ql-align-left{
+    text-align: left;
+}
+.ql-align-right{
+    text-align: right;
+}
+.ql-align-center{
+    text-align: center;
+}
+.ql-align-justify{
+    text-align:justify;
 }
 .faq{
     /* width: 35%; */
