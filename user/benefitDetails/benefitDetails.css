@@ -145,6 +145,17 @@ main{
     border-radius: 10px 10px 0 0;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
+#div2Pdf{
+    margin: 0 auto;
+}
+#div2Pdf button{
+    background-color: var(--expRed);
+    border: none;
+    color: white;
+}
+#div2Pdf button:hover{
+    transform: scale(1.2);
+}
 #benefit-content{
     font-size: 0.8rem;
     margin:0 auto;
