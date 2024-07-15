@@ -1,8 +1,14 @@
 // auth.js
 
-import { auth } from '/firebase/firebaseConfig.js';
+import { auth ,db} from '/firebase/firebaseConfig.js';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import {
 
+  collection,
+
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+const usersRef = collection(db, "authenticated-users");
+console.log(usersRef.role);
 // Function to validate email
 function validateEmail(email) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@experionglobal\.com$/;

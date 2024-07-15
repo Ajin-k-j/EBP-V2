@@ -17,26 +17,37 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 import { auth, db } from "/firebase/firebaseConfig.js";
 
+// Execute when the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+    // Get elements to display admin and super admin lists
     const adminListElement = document.getElementById("adminList");
     const superAdminListElement = document.getElementById("superAdminList");
 
+    // Reference to the authenticated-users collection in Firestore
     const usersRef = collection(db, "authenticated-users");
 
+    // Listen for changes in authentication state
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const currentUserUid = user.uid;
-        console.log("Current User UID:", currentUserUid); // Debugging log
+        const currentUsermail = user.email;
 
+        let spanElement = document.getElementById('currentSuperAdmin');
+        spanElement.textContent = currentUsermail;
+
+        // Query for super-admin users
         const q1 = query(usersRef, where("role", "==", "super-admin"));
         const querySnapshots = await getDocs(q1);
-
+        
         querySnapshots.forEach((docSnapshot) => {
           const userData = docSnapshot.data();
-          if (docSnapshot.id !== currentUserUid) {
+          
+          if (userData.email !== currentUsermail) {
+            
             const email = userData.email;
 
+            // Create elements to display super-admin user info
             const userWrapper = document.createElement("div");
             userWrapper.className =
               "input-wrapper d-flex justify-content-between align-items-center border border-black rounded px-2";
@@ -53,11 +64,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             revokePermissionButton.id = `revokePermissionButton-${docSnapshot.id}`;
             revokePermissionButton.textContent = "Revoke Permission";
 
+            // Append elements to the DOM
             buttonContainer.appendChild(revokePermissionButton);
             userWrapper.appendChild(emailSpan);
             userWrapper.appendChild(buttonContainer);
             superAdminListElement.appendChild(userWrapper);
 
+            // Add event listener to revoke permission button
             revokePermissionButton.addEventListener("click", async () => {
               const userEmail = emailSpan.textContent.trim();
 
@@ -75,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     ? "Revoke Permission"
                     : "Add Permission";
 
+                // Update user role in Firestore
                 await setDoc(userDocRef, { role: newRole }, { merge: true });
 
                 revokePermissionButton.textContent = newButtonText;
@@ -86,11 +100,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 alert(
                   "Failed to update role. Check console for error details."
                 );
+              
               }
+              location.reload();
+
             });
           }
         });
 
+        // Query for normal-user and normal-admin users
         const q = query(usersRef, where("role", "in", ["normal-user", "normal-admin"]));
         const querySnapshot = await getDocs(q);
 
@@ -98,6 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           const userData = docSnapshot.data();
           const email = userData.email;
 
+          // Create elements to display normal users info
           const userWrapper = document.createElement("div");
           userWrapper.className =
             "input-wrapper d-flex justify-content-between align-items-center border border-black rounded px-2";
@@ -127,6 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             deleteAdminButton.textContent = "Add Permission";
           }
 
+          // Add event listener to add permission button
           addPermissionButton.addEventListener("click", async () => {
             try {
               const userDocRef = doc(db, "authenticated-users", docSnapshot.id);
@@ -138,8 +158,11 @@ document.addEventListener("DOMContentLoaded", async () => {
               console.error("Error updating role:", error);
               alert("Failed to update role. Check console for error details.");
             }
+            location.reload();
+
           });
 
+          // Add event listener to delete permission button
           deleteAdminButton.addEventListener("click", async () => {
             const userEmail = emailSpan.textContent.trim();
 
@@ -153,18 +176,20 @@ document.addEventListener("DOMContentLoaded", async () => {
               const newButtonText =
                 newRole === "normal-admin" ? "Revoke Permission" : "Add Permission";
 
+              // Update user role in Firestore
               await setDoc(userDocRef, { role: newRole }, { merge: true });
 
               deleteAdminButton.textContent = newButtonText;
 
-              console.log(`Role updated successfully for ${userEmail}`);
+              
               alert(`Role updated successfully for ${userEmail}`);
             } catch (error) {
-              console.error("Error updating role:", error);
+              
               alert("Failed to update role. Check console for error details.");
             }
           });
 
+          // Append elements to the DOM
           buttonContainer.appendChild(addPermissionButton);
           buttonContainer.appendChild(deleteAdminButton);
           userWrapper.appendChild(emailSpan);
@@ -180,6 +205,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
+// Listen for changes in authentication state to update UI
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const uid = user.uid;
@@ -188,8 +214,6 @@ onAuthStateChanged(auth, async (user) => {
 
     const email = user.email;
     const username = email.split("@")[0].split(".")[0];
-    const capitalizedUsername =
-      username.charAt(0).toUpperCase() + username.slice(1);
 
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
@@ -197,7 +221,7 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById(
           "greeting"
         ).textContent = `Hi ${capitalizedUsername}`;
-        document.getElementById("emailId").textContent = email;
+        document.getElementById("emailId").textContent = email; // Update email span here
       } else {
         window.location.href = "adminhome.html";
         alert("You do not have the necessary permissions to access this page.");
@@ -210,15 +234,19 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+// Listen for changes in authentication state to handle user actions
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const email = user.email;
     const username = email.split("@")[0].split(".")[0];
+    const capitalizedUsername =
+    username.charAt(0).toUpperCase() + username.slice(1);
 
-    document.getElementById("greeting").textContent = `Hi ${username}`;
+    document.getElementById("greeting").textContent = `Hi ${capitalizedUsername}`;
 
     const deleteButton = document.getElementById("deleteAdminButton");
     if (deleteButton) {
+      // Add event listener to delete account button
       deleteButton.addEventListener("click", async () => {
         if (
           confirm(
@@ -257,6 +285,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+// Function to delete user data from Firestore
 async function deleteUserData(uid) {
   const userDocRef = doc(db, "authenticated-users", uid);
   await deleteDoc(userDocRef);
