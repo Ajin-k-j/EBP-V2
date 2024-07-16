@@ -22,9 +22,6 @@ html {
     }
 }
 body {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: space-around; */
     /* height: 100vh; */
     margin: 0;
     font-family: Arial, sans-serif;
@@ -83,7 +80,12 @@ header img{
     color: #e3e3e3;
 }
 .welcome-search h1{
-    font-size: 2.3rem;
+    font-size: 2.07rem;
+    text-align: center;
+}
+.welcome-search p{
+    font-size: 0.9rem;
+    text-align: center;
 }
 .main-categories {
     display: flex;
@@ -113,16 +115,17 @@ header img{
     transform: scale(1.05);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
 }
-/* .main-category div{
-    width:100%;
-    background-color: #ffffff;
-} */
 .main-category h5{
     border:2px solid var(--expRed);
     border-radius: 0.4rem 0.4rem 0 0;
     padding: .5rem;
     font-weight: bolder;
     color: var(--expRed);
+}
+@media (max-width: 885px) {
+    .main-category h5{
+        font-size: 0.7rem;
+    }
 }
 .main-category p{
     color: black;
@@ -152,14 +155,6 @@ header img{
 .edit-button:hover{
     background-color: var(--expRed);
 }
-/* .admin-privileges {
-    background-color: white;
-    padding: 30px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}*/
 
 .subscribe-button {
     
@@ -182,9 +177,6 @@ header img{
     background-image: url('/images/image\ 17\ \(2\).png');
     background-size: cover;
     background-position: center;
-    /* padding: 30px;
-    margin: 20px;
-    border-radius: 10px;*/
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: rgb(13, 12, 12); /* Ensure text is readable on the background image */
@@ -200,14 +192,6 @@ header img{
     font-size: 0.85rem;
 }
 
-/* .input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 10px;
-} */
 .vertical-divider1 {
     border: none;
     border-left: 2px solid #000; /* Color and thickness of the vertical bar */
@@ -252,18 +236,7 @@ header img{
     border-top: 1px solid #e3e3e3;
 }
 
-.icon1{
-    color: black;
-}
 @media (max-width: 990px) {
-    /* .admin-privileges {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    } */
-    #tax-saving{
-        font-size: 18px;
-    }
     .mailheading {
         padding-right: 0; /* Remove padding when stacked */
     }
@@ -271,10 +244,4 @@ header img{
     .vertical-divider1, .vertical-divider2{
         display: none; /* Hide the vertical divider */
     }
-    
-    /* .input-wrapper {
-        width: 100%; 
-        max-width: none;
-        margin-top: 20px;
-    } */
 }
