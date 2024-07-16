@@ -327,7 +327,7 @@ onAuthStateChanged(auth, async (user) => {
         ).textContent = `Hi ${capitalizedUsername}`;
         document.getElementById("emailId").textContent = email; // Update email span here
       } else {
-        window.location.href = "adminhome.html";
+        window.location.href = '/index.html';
         alert("You do not have the necessary permissions to access this page.");
       }
     } else {
