@@ -285,7 +285,18 @@ interface Category {
     role: string;
   }
   
-  
+  const users: User[] = [
+    {
+      id: "user1",
+      email: "admin@example.com",
+      role: "admin"
+    },
+    {
+      id: "user2",
+      email: "user2@example.com",
+      role: "admin"
+    }
+  ];
   
   const icons: string[] = [
     'fas fa-user',
