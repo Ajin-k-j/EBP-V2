@@ -25,6 +25,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const superAdminListElement = document.getElementById("superAdminList");
     const inactiveAdminListElement = document.getElementById("inactiveadminList");
 
+    const modalHeading = document.getElementById("exampleModal1Label");
+    const modalBody = document.getElementsByClassName("modal-body");
+    const goBackBtn = document.getElementById("modalGoLastPage");
+
+    goBackBtn.addEventListener("click", () => {
+        setTimeout(() => {
+          location.reload();
+        }, 100);
+      });
+
     // Reference to the authenticated-users collection in Firestore
     const usersRef = collection(db, "authenticated-users");
 
@@ -52,8 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // Create elements to display super-admin user info
             const userWrapper = document.createElement("div");
-            userWrapper.className =
-              "input-wrapper d-flex justify-content-between align-items-center border border-black rounded px-2";
+            userWrapper.className = "input-wrapper d-flex justify-content-between align-items-center border border-black rounded px-2";
 
             const emailSpan = document.createElement("span");
             emailSpan.id = `emailID-superAdmin-${docSnapshot.id}`;
@@ -75,21 +84,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // Add event listener to revoke permission button
             revokePermissionButton.addEventListener("click", async () => {
+              
               const userEmail = emailSpan.textContent.trim();
 
               try {
+                console.log("Attempting to update role for", userEmail);
+
                 const userDocRef = doc(db, "authenticated-users", docSnapshot.id);
                 const userDocSnap = await getDoc(userDocRef);
                 const currentRole = userDocSnap.data().role;
 
-                const newRole =
-                  currentRole === "super-admin"
-                    ? "normal-admin"
-                    : "super-admin";
-                const newButtonText =
-                  newRole === "super-admin"
-                    ? "Revoke Permission"
-                    : "Add Permission";
+                const newRole = currentRole === "super-admin" ? "normal-admin" : "super-admin";
+                const newButtonText = newRole === "super-admin" ? "Revoke Permission" : "Add Permission";
 
                 // Update user role in Firestore
                 await setDoc(userDocRef, { role: newRole }, { merge: true });
@@ -97,17 +103,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 revokePermissionButton.textContent = newButtonText;
 
                 console.log(`Role updated successfully for ${userEmail}`);
-                alert(`Role updated successfully for ${userEmail}`);
+                modalHeading.innerHTML = "Updated Successfully";
+                modalBody[0].textContent = "Admin Role has been updated!";
               } catch (error) {
                 console.error("Error updating role:", error);
-                alert(
-                  "Failed to update role. Check console for error details."
-                );
-              
+                modalHeading.innerHTML = "Error updating role";
+                modalBody[0].textContent = "An error occurred! Please try again.";
               }
-              location.reload();
-
-            });
+              // Show modal and reload page after a short delay to ensure modal shows first
+                  $("#exampleModal1").modal("show");
+              });
           }
         });
 
@@ -160,18 +165,23 @@ document.addEventListener("DOMContentLoaded", async () => {
               await setDoc(userDocRef, { role: "super-admin" }, { merge: true });
 
               console.log(`Role updated successfully for ${email}`);
-              alert(`Role updated successfully for ${email}`);
+              // alert(`Role updated successfully for ${email}`);
+              modalHeading.innerHTML = "Updated Successfully";
+              modalBody[0].textContent = "Admin Role has been updated!";  
+
             } catch (error) {
               console.error("Error updating role:", error);
-              alert("Failed to update role. Check console for error details.");
+              // alert("Failed to update role. Check console for error details.");
+              modalHeading.innerHTML = "Error updating role";
+              modalBody[0].textContent = "An error occurred! Please try again.";
             }
-            location.reload();
+            $("#exampleModal1").modal("show");
 
           });
 
           // Add event listener to delete permission button
           deleteAdminButton.addEventListener("click", async () => {
-            const userEmail = emailSpan.textContent.trim();
+            // const userEmail = emailSpan.textContent.trim();
 
             try {
               const userDocRef = doc(db, "authenticated-users", docSnapshot.id);
@@ -187,14 +197,19 @@ document.addEventListener("DOMContentLoaded", async () => {
               await setDoc(userDocRef, { role: newRole }, { merge: true });
 
               deleteAdminButton.textContent = newButtonText;
-
               
-              alert(`Role updated successfully for ${userEmail}`);
+              modalHeading.innerHTML = "Updated Successfully";
+              modalBody[0].textContent = "Admin Role has been updated!"; 
+
+              // alert(`Role updated successfully for ${userEmail}`);
             } catch (error) {
               
-              alert("Failed to update role. Check console for error details.");
+              modalHeading.innerHTML = "Error updating role";
+              modalBody[0].textContent = "An error occurred! Please try again.";
+
+              // alert("Failed to update role. Check console for error details.");
             }
-            location.reload();
+            $("#exampleModal1").modal("show");
           });
 
           // Append elements to the DOM
@@ -252,13 +267,14 @@ document.addEventListener("DOMContentLoaded", async () => {
               await setDoc(userDocRef, { role: "super-admin" }, { merge: true });
 
               console.log(`Role updated successfully for ${email}`);
-              alert(`Role updated successfully for ${email}`);
+              modalHeading.innerHTML = "Updated Successfully";
+              modalBody[0].textContent = "Admin Role has been updated!"; 
             } catch (error) {
               console.error("Error updating role:", error);
-              alert("Failed to update role. Check console for error details.");
+              modalHeading.innerHTML = "Error updating role";
+              modalBody[0].textContent = "An error occurred! Please try again.";
             }
-            location.reload();
-
+            $("#exampleModal1").modal("show");
           });
 
           // Add event listener to delete permission button
@@ -280,13 +296,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
               deleteAdminButton.textContent = newButtonText;
 
-              
-              alert(`Role updated successfully for ${userEmail}`);
+              modalHeading.innerHTML = "Updated Successfully";
+              modalBody[0].textContent = "Admin Role has been updated!";
             } catch (error) {
-              
-              alert("Failed to update role. Check console for error details.");
+              modalHeading.innerHTML = "Error updating role";
+              modalBody[0].textContent = "An error occurred! Please try again.";
             }
-            location.reload();
+            $("#exampleModal1").modal("show");
           });
 
           // Append elements to the DOM
