@@ -141,12 +141,10 @@ function displayBenefitDetails(benefitId) {
 
 //function to populate hr contact details
 function populateHRdetails(benefitId){
-  // console.log("details:",hrContactDetails[0].teamsmail);
-  const phoneNo = document.getElementById("phoneNo");
+  const teamsCall = document.getElementById("teamsCall");
   const email = document.getElementById("email");
   const teamsMessage = document.getElementById("teamsMessage");
-  phoneNo.textContent = hrContactDetails[0].contactnumber;
-  phoneNo.parentElement.setAttribute("href","tel:"+hrContactDetails[0].contactnumber);
+  teamsCall.parentElement.setAttribute("href","https://teams.microsoft.com/l/call/0/0?users="+hrContactDetails[0].teamsCall);
   email.textContent= hrContactDetails[0].email;
   const benefitName = getBenefitById(benefits, benefitId).name;
   email.parentElement.setAttribute("href","mailto:"+hrContactDetails[0].email+"?subject=Query on " + benefitName);
