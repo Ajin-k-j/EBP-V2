@@ -88,7 +88,6 @@ main {
   border: 1px solid var(--expRed);
 }
 .leftNavItem {
-  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
   border-radius: 5px;
   margin: 3px;
 }
@@ -118,7 +117,6 @@ main {
   margin: 0.7rem 0;
 }
 .rightContainer {
-  /* min-height: 83vh; */
   background-color: #f1f1f1;
 }
 .heading {
@@ -166,19 +164,6 @@ main {
 }
 #benefit-content * {
   margin-bottom: 0.3rem;
-}
-/* quill align */
-.ql-align-left {
-  text-align: left;
-}
-.ql-align-right {
-  text-align: right;
-}
-.ql-align-center {
-  text-align: center;
-}
-.ql-align-justify {
-  text-align: justify;
 }
 .faq {
   font-size: 0.8rem;
@@ -234,37 +219,4 @@ main {
 }
 .contact a:hover {
   border: 2px solid var(--expRed);
-}
-/* loading animation css */
-.loading-animation {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
-  background: linear-gradient(
-    180deg,
-    rgba(220, 18, 60, 0.9) 39%,
-    rgba(118, 10, 32, 0.9) 71%
-  );
-  color: #fff; /* White text color */
-}
-
-.loading-text {
-  margin-bottom: 1rem; /* Space between text and spinner */
-  font-size: 1.5rem; /* Adjust size of the text */
-  animation: scaleText 1s infinite alternate; /* Scale animation */
-}
-
-@keyframes scaleText {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
-}
-
-.loading-animation i {
-  font-size: 3rem; /* Adjust size of the spinner icon */
 }

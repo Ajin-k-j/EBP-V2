@@ -1,24 +1,19 @@
-import { fetchData,incrementViews, categories, benefits, hrContactDetails} from '/firebase/firebaseData.js';
+import {
+  fetchData,
+  incrementViews,
+  categories,
+  benefits,
+  hrContactDetails,
+} from "/firebase/firebaseData.js";
 
 const benefitId = getBenefitIdFromURL();
-document.addEventListener("DOMContentLoaded", async() => {
-  // const loadingAnimation = document.getElementById('loading-animation');
-
-  // Show loading animation initially
-  // loadingAnimation.style.display = 'flex';
-
+document.addEventListener("DOMContentLoaded", async () => {
   // Fetch data from Firestore
   await fetchData();
-  // alert(JSON.stringify(benefits, null, 2));
-
-  // Hide loading animation after everything is loaded
-  // loadingAnimation.style.display = 'none';
-
   // Get benefit ID from URL and display corresponding details
   const benefitId = getBenefitIdFromURL();
 
   if (benefitId) {
-    
     //Display benefit details
     displayBenefitDetails(benefitId);
     //Populate nav banner
@@ -32,21 +27,25 @@ document.addEventListener("DOMContentLoaded", async() => {
 });
 
 //download feature
-const downloadButton = document.getElementById('downloadButton');
-downloadButton.addEventListener('click', function () {
-  downloadButton.style.display = 'none';
+const downloadButton = document.getElementById("downloadButton");
+downloadButton.addEventListener("click", function () {
+  downloadButton.style.display = "none";
   const benefitName = getBenefitById(benefits, benefitId).name;
   var opt = {
-    margin:       0.3, // Margin around the content in inches
-    filename:     `${benefitName}.pdf`, // Name of the generated PDF file
-    image:        { type: 'jpeg', quality: 0.98 }, // Image settings for the PDF
-    html2canvas:  { scale: 4 }, // Scaling factor for html2canvas to improve quality
-    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' } // PDF settings
+    margin: 0.3, // Margin around the content in inches
+    filename: `${benefitName}.pdf`, // Name of the generated PDF file
+    image: { type: "jpeg", quality: 0.98 }, // Image settings for the PDF
+    html2canvas: { scale: 4 }, // Scaling factor for html2canvas to improve quality
+    jsPDF: { unit: "in", format: "a4", orientation: "portrait" }, // PDF settings
   };
-  var element = document.getElementById('div2Pdf');
-  html2pdf().from(element).set(opt).save().then(function() {
-    downloadButton.style.display = 'block';
-  });
+  var element = document.getElementById("div2Pdf");
+  html2pdf()
+    .from(element)
+    .set(opt)
+    .save()
+    .then(function () {
+      downloadButton.style.display = "block";
+    });
 });
 
 // Function to get the benefit ID from the URL
@@ -132,43 +131,34 @@ function displayBenefitDetails(benefitId) {
             `;
       faqContainer.appendChild(faqItem);
     });
-    if(document.getElementById('collapse0'))
-      {
-    document.getElementById('collapse0').classList.add("show");
-      }
+    if (document.getElementById("collapse0")) {
+      document.getElementById("collapse0").classList.add("show");
+    }
   }
 }
 
 //function to populate hr contact details
-function populateHRdetails(benefitId){
+function populateHRdetails(benefitId) {
   // console.log("details:",hrContactDetails[0].teamsmail);
   const phoneNo = document.getElementById("phoneNo");
   const email = document.getElementById("email");
   const teamsMessage = document.getElementById("teamsMessage");
   phoneNo.textContent = hrContactDetails[0].contactnumber;
-  phoneNo.parentElement.setAttribute("href","tel:"+hrContactDetails[0].contactnumber);
-  email.textContent= hrContactDetails[0].email;
+  phoneNo.parentElement.setAttribute(
+    "href",
+    "tel:" + hrContactDetails[0].contactnumber
+  );
+  email.textContent = hrContactDetails[0].email;
   const benefitName = getBenefitById(benefits, benefitId).name;
-  email.parentElement.setAttribute("href","mailto:"+hrContactDetails[0].email+"?subject=Query on " + benefitName);
-  teamsMessage.setAttribute("href","https://teams.microsoft.com/l/chat/0/0?users="+hrContactDetails[0].teamsmail+"&message=Hello%20I%20had%20a%20query%20on%20"+benefitName);
+  email.parentElement.setAttribute(
+    "href",
+    "mailto:" + hrContactDetails[0].email + "?subject=Query on " + benefitName
+  );
+  teamsMessage.setAttribute(
+    "href",
+    "https://teams.microsoft.com/l/chat/0/0?users=" +
+      hrContactDetails[0].teamsmail +
+      "&message=Hello%20I%20had%20a%20query%20on%20" +
+      benefitName
+  );
 }
-
-// Initialize Quill editor
-// document.addEventListener("DOMContentLoaded", function() {
-//     var quill = new Quill('#editor-container', {
-//       theme: 'snow'
-//     });
-
-//   // Get the display content button and output div
-//   var displayContentBtn = document.getElementById('display-content-btn');
-//   var outputDiv = document.getElementById('output');
-
-//   // Add click event listener to the button
-//   displayContentBtn.addEventListener('click', function() {
-//     // Get the HTML content from the editor
-//     var content = quill.root.innerHTML;
-//     console.log(content);
-//     // Display the content in the output div
-//     outputDiv.innerHTML = content;
-//   });
-// });
