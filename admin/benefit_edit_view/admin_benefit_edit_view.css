@@ -60,7 +60,6 @@ body {
   color: #343a40;
   margin: 0;
   padding: 0;
-  /* overflow: hidden; */
   height: 100%;
 }
 
@@ -119,7 +118,6 @@ header img {
   padding: 1vw 1.6vw;
   height: fit-content;
   font-size: 1.13rem;
-  /* min-width: 160px; */
   background-color: #f8f9fa;
   border-radius: 10px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
@@ -146,7 +144,6 @@ header img {
   text-decoration: none;
   background-color: #f8f9fa;
   border-radius: 10px;
-  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4); */
 }
 .add-benefit-button h4 {
   margin: 0;

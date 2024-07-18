@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Listen for changes in authentication state
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const currentUserUid = user.uid;
         const currentUsermail = user.email;
 
         let spanElement = document.getElementById('currentSuperAdmin');

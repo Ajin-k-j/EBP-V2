@@ -4,8 +4,6 @@ import { fetchData, iconsData } from '/firebase/firebaseData.js';
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
-//for testing 
-// let id = 'epf'
 
 // Initialize Quill editor
 let quill;
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
               [{ header: [1, 2, 3, false] }],
               ['bold', 'italic', 'underline', 'link'],  // Text styling options
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],  // List options
-            //   ['image'],  // Link and image insertion
               [{ 'color': [] }, { 'background': [] }],  // Font color and background color
               [{ 'align': [] }],  // Text alignment
               ['blockquote'],  // Quote and code block
@@ -34,8 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     iconSearchFunction();
     deleteFunctionToButtons();
     addFaqs();
-    // dropdownFunctions();
-    
 });
 
 document.getElementById('benefit-form').addEventListener('submit', async function(event) {
@@ -134,7 +129,6 @@ function addFaqs(){
 }
 //to search icons
 function iconSearchFunction(){
-    // retrieveIconsFromFirestore();
     const iconSearch = document.getElementById('icon-search');
     const iconRecommendations = document.getElementById('icon-recommendations');
 

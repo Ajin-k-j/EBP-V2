@@ -5,8 +5,6 @@ import { collection,where, query, getDocs, setDoc } from "https://www.gstatic.co
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
-//for testing 
-// let id = '2';
 //Initialize Quill editor
 var quill = new Quill('#editor-container', {
     modules: {
@@ -14,7 +12,6 @@ var quill = new Quill('#editor-container', {
             [{ header: [1, 2, 3, false] }],
             ['bold', 'italic', 'underline', 'link'],  // Text styling options
             [{ 'list': 'ordered'}, { 'list': 'bullet' }],  // List options
-        //   ['image'],  // Link and image insertion
             [{ 'color': [] }, { 'background': [] }],  // Font color and background color
             [{ 'align': [] }],  // Text alignment
             ['blockquote'],  // Quote and code block
