@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     .getElementById("saveChangesButton")
     .addEventListener("click", function () {
       var email = document.getElementById("email").value;
-      var phone = document.getElementById("phone").value;
+      var teamsCall = document.getElementById("teamsCall").value;
       var teamsMail = document.getElementById("teamsMail").value;
 
       if (hrContactDetails.length === 0) {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       // Update the document
       setDoc(docRef, {
         email: email,
-        contactnumber: phone,
+        teamsCall: teamsCall,
         teamsmail: teamsMail,
       })
         .then(() => {
@@ -214,7 +214,7 @@ function preFillModal() {
   const hrContactDetail = hrContactDetails[0]; // Assuming there's only one document
 
   document.getElementById("email").value = hrContactDetail.email || "";
-  document.getElementById("phone").value = hrContactDetail.contactnumber || "";
+  document.getElementById("teamsCall").value = hrContactDetail.teamsCall || "";
   document.getElementById("teamsMail").value = hrContactDetail.teamsmail || "";
 }
 
