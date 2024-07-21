@@ -1,5 +1,6 @@
-import { auth, db } from "/firebase/firebaseConfig.js";
+import { auth, db, storage } from "/firebase/firebaseConfig.js";
 import { fetchData, benefits, iconsData } from "/firebase/firebaseData.js";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
 import {
   collection,
   where,
@@ -11,21 +12,49 @@ import {
 const params = new URLSearchParams(window.location.search);
 let id = params.get("id");
 //Initialize Quill editor
-let quill = new Quill("#editor-container", {
+let quill = new Quill('#editor-container', {
   modules: {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      ["bold", "italic", "underline", "link"], // Text styling options
-      [{ list: "ordered" }, { list: "bullet" }], // List options
-      [{ color: [] }, { background: [] }], // Font color and background color
-      [{ align: [] }], // Text alignment
-      ["blockquote"], // Quote and code block
-      ["clean"], // Remove formatting
-    ],
+      toolbar: {
+          container: [
+              [{ header: [1, 2, 3, false] }],
+              ['bold', 'italic', 'underline', 'link'],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              [{ 'color': [] }, { 'background': [] }],
+              [{ 'align': [] }],
+              ['blockquote'],
+              ['image'], // Add image button
+              ['clean']
+          ],
+          handlers: {
+              'image': imageHandler
+          }
+      }
   },
-  placeholder: "Add benefit details...",
-  theme: "snow",
+  placeholder: 'Add benefit details...',
+  theme: 'snow'
 });
+
+async function imageHandler() {
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+
+  input.onchange = async () => {
+      const file = input.files[0];
+      if (file) {
+          const storageRef = ref(storage, `benefits/${Date.now()}_${file.name}`);
+          try {
+              const snapshot = await uploadBytes(storageRef, file);
+              const url = await getDownloadURL(snapshot.ref);
+              quill.insertEmbed(quill.getSelection().index, 'image', url);
+              imageRefs.push(storageRef.fullPath); // Track uploaded image
+          } catch (error) {
+              console.error('Image upload failed:', error);
+          }
+      }
+  };
+}
 
 // to populate the texboxes and inputs
 document.addEventListener("DOMContentLoaded", async () => {
