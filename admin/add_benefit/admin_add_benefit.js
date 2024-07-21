@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     iconSearchFunction();
     deleteFunctionToButtons();
     addFaqs();
+    addEmailDetails();
 });
 
 document.getElementById('benefit-form').addEventListener('submit', async function(event) {
@@ -57,6 +58,9 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
         const answer = faqElement.querySelector('textarea[name="faq-answer"]').value;
         faqs.push({ question: question, answer: answer });
     });
+    
+    //collect email details
+    let emailDetails = collectEmailDetailsFromForm();
 
     // Get the highest current benefit ID
     const benefitsCollection = collection(db, 'benefits');
@@ -77,6 +81,7 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
         description: description,
         content: content,
         faqs: faqs,
+        emails: emailDetails,
         categoryId: categoryId,
         views: 0
     };
@@ -127,6 +132,53 @@ function addFaqs(){
     })
     
 }
+
+//to add Email details
+function addEmailDetails() {
+    const addEmailDetailsBtn = document.getElementById("addEmailDetailsBtn");
+    const emailsContainer = document.getElementById("emailsContainer");
+    addEmailDetailsBtn.addEventListener("click", () => {
+      addEmailDetailsBtn.style.display = "none";
+      let newEmailDetails = `<div id="emailDetailsContainer" class="rounded p-3 w-100">
+                              <label>To:</label>
+                              <input type="text" name="To" class="form-control" placeholder="Add recipient of email..." required>
+                              <label>CC:</label>
+                              <input type="text" name="CC" class="form-control" placeholder="Add CC recipient of email...">
+                              <label>Subject:</label>
+                              <input type="text" name="subject" class="form-control" placeholder="Add Subject here..." required>
+                              <label>Content:</label>
+                              <textarea name="content" class="rounded" placeholder="Add body of email..." required></textarea>
+                              
+                              <button type="button" id="emailDetailsContainerRemoveBtn" class="btn btn-outline-danger">Remove Email Details</button>
+                          </div>`;
+      emailsContainer.insertAdjacentHTML("beforeend", newEmailDetails);
+      deleteFunctionToEmailContainer();
+    });
+  }
+
+  //adding functionality to remove Email details container
+  function deleteFunctionToEmailContainer(){
+    const addEmailDetailsBtn = document.getElementById("addEmailDetailsBtn");
+    document.getElementById("emailDetailsContainerRemoveBtn").addEventListener("click",function(){
+      document.getElementById("emailDetailsContainer").remove();
+      addEmailDetailsBtn.style.display = "flex";
+    })
+  }
+
+  function collectEmailDetailsFromForm(){
+    let emailDetails = [];
+    const emailDetailsContainer = document.getElementById("emailDetailsContainer");
+    if(emailDetailsContainer){
+      const to = emailDetailsContainer.querySelector('input[name="To"]').value;
+      const cc = emailDetailsContainer.querySelector('input[name="CC"]').value;
+      const subject = emailDetailsContainer.querySelector('input[name="subject"]').value;
+      const content = emailDetailsContainer.querySelector('textarea[name="content"]').value;
+      emailDetails.push({to, cc, subject, content});
+    };
+    console.log(emailDetails);
+    return emailDetails;
+  }
+
 //to search icons
 function iconSearchFunction(){
     const iconSearch = document.getElementById('icon-search');

@@ -1,5 +1,4 @@
-import { auth } from "/firebase/firebaseConfig.js";
-import { db } from "/firebase/firebaseConfig.js";
+import { auth, db } from "/firebase/firebaseConfig.js";
 import { fetchData, benefits, iconsData } from "/firebase/firebaseData.js";
 import {
   collection,
@@ -12,7 +11,7 @@ import {
 const params = new URLSearchParams(window.location.search);
 let id = params.get("id");
 //Initialize Quill editor
-var quill = new Quill("#editor-container", {
+let quill = new Quill("#editor-container", {
   modules: {
     toolbar: [
       [{ header: [1, 2, 3, false] }],
@@ -41,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadingAnimation.style.display = "none";
 
   const form = document.getElementById("benefit-form");
-  var benefitData = benefits.find((item) => item.id === parseInt(id, 10));
+  let benefitData = benefits.find((item) => item.id === parseInt(id, 10));
   // displaying the benefit data in the form
   const beneftiName = document.getElementById("benefit-name");
   const description = document.getElementById("description");
@@ -58,7 +57,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     showFaqs(benefitData);
     deleteFunctionToButtons();
   }
+  if(benefitData.emails){
+    showEmail(benefitData);
+  }
   addFaqs();
+  addEmailDetails();
   dropdownFunctions();
   form.addEventListener("submit", submitEdits);
 });
@@ -95,6 +98,28 @@ function deleteFunctionToButtons() {
     });
   });
 }
+//show email
+function showEmail(benefitData) {
+  const addEmailDetailsBtn = document.getElementById("addEmailDetailsBtn");
+  const emailsContainer = document.getElementById("emailsContainer");
+  if(benefitData.emails[0]){
+    addEmailDetailsBtn.style.display = "none";
+    let newEmailDetails = `<div id="emailDetailsContainer" class="rounded p-3 w-100">
+                            <label>To:</label>
+                            <input type="text" name="To" class="form-control" placeholder="Add recipient of email..." required value="${benefitData.emails[0].to}">
+                            <label>CC:</label>
+                            <input type="text" name="CC" class="form-control" placeholder="Add CC recipient of email..." value="${benefitData.emails[0].cc}">
+                            <label>Subject:</label>
+                            <input type="text" name="subject" class="form-control" placeholder="Add Subject here..." required value="${benefitData.emails[0].subject}">
+                            <label>Content:</label>
+                            <textarea name="content" class="rounded" placeholder="Add body of email..." required>${benefitData.emails[0].content}</textarea>
+                            
+                            <button type="button" id="emailDetailsContainerRemoveBtn" class="btn btn-outline-danger">Remove Email Details</button>
+                        </div>`;
+    emailsContainer.insertAdjacentHTML("beforeend", newEmailDetails);
+    deleteFunctionToEmailContainer();
+  };
+}
 //to add faqs
 function addFaqs() {
   const addFaqButton = document.getElementById("add-faq");
@@ -111,6 +136,38 @@ function addFaqs() {
     deleteFunctionToButtons();
   });
 }
+
+//to add Email details
+function addEmailDetails() {
+  const addEmailDetailsBtn = document.getElementById("addEmailDetailsBtn");
+  const emailsContainer = document.getElementById("emailsContainer");
+  addEmailDetailsBtn.addEventListener("click", () => {
+    addEmailDetailsBtn.style.display = "none";
+    let newEmailDetails = `<div id="emailDetailsContainer" class="rounded p-3 w-100">
+                            <label>To:</label>
+                            <input type="text" name="To" class="form-control" placeholder="Add recipient of email..." required>
+                            <label>CC:</label>
+                            <input type="text" name="CC" class="form-control" placeholder="Add CC recipient of email...">
+                            <label>Subject:</label>
+                            <input type="text" name="subject" class="form-control" placeholder="Add Subject here..." required>
+                            <label>Content:</label>
+                            <textarea name="content" class="rounded" placeholder="Add body of email..." required></textarea>
+                            
+                            <button type="button" id="emailDetailsContainerRemoveBtn" class="btn btn-outline-danger">Remove Email Details</button>
+                        </div>`;
+    emailsContainer.insertAdjacentHTML("beforeend", newEmailDetails);
+    deleteFunctionToEmailContainer();
+  });
+}
+//adding functionality to remove Email details container
+function deleteFunctionToEmailContainer(){
+  const addEmailDetailsBtn = document.getElementById("addEmailDetailsBtn");
+  document.getElementById("emailDetailsContainerRemoveBtn").addEventListener("click",function(){
+    document.getElementById("emailDetailsContainer").remove();
+    addEmailDetailsBtn.style.display = "flex";
+  })
+}
+
 //to search icons
 function iconSearchFunction() {
   const iconSearch = document.getElementById("icon-search");
@@ -159,6 +216,7 @@ function dropdownFunctions() {
 async function submitEdits(event) {
   event.preventDefault();
   let faqArray = pushFaqToDb();
+  let emailDetails = collectEmailDetailsFromForm();
   const modalHeading = document.getElementById("exampleModal1Label");
   const modalBody = document.getElementsByClassName("modal-body");
   const goBackBtn = document.getElementById("modalGoLastPage");
@@ -185,6 +243,7 @@ async function submitEdits(event) {
           content: quill.root.innerHTML,
           categoryId: document.getElementById("dropdownButton").textContent,
           faqs: faqArray,
+          emails: emailDetails,
         },
         { merge: true }
       ); // Use merge option to merge new data with existing document
@@ -213,4 +272,19 @@ function pushFaqToDb() {
     faqArray.push({ question, answer });
   });
   return faqArray;
+}
+
+function collectEmailDetailsFromForm(){
+  let emailDetails = [];
+  
+  const emailDetailsContainer = document.getElementById("emailDetailsContainer");
+  if(emailDetailsContainer){
+    const to = emailDetailsContainer.querySelector('input[name="To"]').value;
+    const cc = emailDetailsContainer.querySelector('input[name="CC"]').value;
+    const subject = emailDetailsContainer.querySelector('input[name="subject"]').value;
+    const content = emailDetailsContainer.querySelector('textarea[name="content"]').value;
+    emailDetails.push({to, cc, subject, content});
+  };
+  console.log(emailDetails);
+  return emailDetails;
 }
