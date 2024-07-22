@@ -121,7 +121,8 @@ function displayBenefitDetails(benefitId) {
     
     if(benefit.emails[0]){
       document.getElementById("customMailBox").style.display= 'flex';
-      document.getElementById("customMail").setAttribute("href","mailto:"+benefit.emails[0].to+"?cc="+benefit.emails[0].cc+"&subject="+benefit.emails[0].subject+"&body="+benefit.emails[0].content);
+      const encodedBody = encodeURIComponent(benefit.emails[0].content).replace(/%0A/g, '%0D%0A');
+      document.getElementById("customMail").setAttribute("href","mailto:"+benefit.emails[0].to+"?cc="+benefit.emails[0].cc+"&subject="+benefit.emails[0].subject+"&body="+encodedBody);
     }
     // Clear and populate FAQs
     faqContainer.innerHTML = "";
