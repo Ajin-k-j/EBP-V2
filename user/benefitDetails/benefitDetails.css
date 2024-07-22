@@ -190,6 +190,7 @@ main {
 }
 .faq {
   font-size: 0.8rem;
+  display: none;
 }
 .faq h5 {
   margin: 0 auto;
@@ -203,6 +204,9 @@ main {
 #accordionContainer {
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+}
+.accordion-item{
+  border: none;
 }
 .accordion button {
   font-size: 0.8rem;
