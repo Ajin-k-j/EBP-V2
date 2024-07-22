@@ -12,7 +12,7 @@ import {
 const params = new URLSearchParams(window.location.search);
 let id = params.get("id");
 //Initialize Quill editor
-let quill = new Quill('#editor-container', {
+let quill = new Quill('#editor', {
   modules: {
       toolbar: {
           container: [
@@ -29,6 +29,25 @@ let quill = new Quill('#editor-container', {
               'image': imageHandler
           }
       }
+  },
+  modules: {
+    table: false,  // disable table module
+    'better-table': {
+      operationMenu: {
+        items: {
+          unmergeCells: {
+            text: 'Another unmerge cells name'
+          }
+        },
+        color: {
+          colors: ['#fff', 'red', 'rgb(0, 0, 0)'],  // colors in operationMenu
+          text: 'Background Colors'  // subtitle
+        } 
+      }
+    },
+    keyboard: {
+      bindings: QuillBetterTable.keyboardBindings
+    }
   },
   placeholder: 'Add benefit details...',
   theme: 'snow'

@@ -132,7 +132,7 @@ input[type="text"], input[type="file"], textarea {
 #dropdownButton{
     width: 100%;
 }
-#editor-container{
+#editor{
     height: 300px;
 }
 .icon-container {
