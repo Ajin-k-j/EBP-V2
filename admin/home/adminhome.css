@@ -47,6 +47,14 @@ header img{
     border-bottom: 1px solid #e3e3e3;
 }
 
+/* .admin_userId{
+    margin-bottom: -20px;
+  }
+
+  #adminUserName{
+    font-size: 15px;
+  } */
+
 .navbar-brand {
     font-size: 1.5rem;
     color: var(--expRed);

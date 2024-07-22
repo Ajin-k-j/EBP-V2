@@ -1,3 +1,8 @@
+import { auth } from "/firebase/firebaseConfig.js";
+import {
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
 import {
   forceFetchData,
   categories,
@@ -55,3 +60,19 @@ function createBenefitBox() {
   });
   linkContainer[0].innerHTML = htmlDataBenefit;
 }
+
+function displayUsername(){
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const email = user.email;
+      const username = email.split("@")[0].split(".")[0];
+      const capitalizedUsername =
+      username.charAt(0).toUpperCase() + username.slice(1);
+  
+      document.getElementById("adminUserName").textContent = `Admin (${capitalizedUsername})`;
+    } else {
+      console.log("No user is signed in");
+    }
+  });
+}
+displayUsername()
