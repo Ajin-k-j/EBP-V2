@@ -1,6 +1,10 @@
-import { db } from '/firebase/firebaseConfig.js';
+import { auth, db } from '/firebase/firebaseConfig.js';
 import { collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 import { fetchData, iconsData } from '/firebase/firebaseData.js';
+
+import {
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
@@ -157,3 +161,20 @@ function iconSearchFunction(){
         }
     });
 }
+
+function displayUsername(){
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const email = user.email;
+        const username = email.split("@")[0].split(".")[0];
+        const capitalizedUsername =
+        username.charAt(0).toUpperCase() + username.slice(1);
+    
+        document.getElementById("adminUserName").textContent = `Admin (${capitalizedUsername})`;
+      } else {
+        console.log("No user is signed in");
+      }
+    });
+  }
+  
+  displayUsername();

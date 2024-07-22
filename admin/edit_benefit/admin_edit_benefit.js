@@ -9,6 +9,10 @@ import {
   setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
+import {
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
 const params = new URLSearchParams(window.location.search);
 let id = params.get("id");
 //Initialize Quill editor
@@ -214,3 +218,19 @@ function pushFaqToDb() {
   });
   return faqArray;
 }
+
+function displayUsername(){
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const email = user.email;
+      const username = email.split("@")[0].split(".")[0];
+      const capitalizedUsername =
+      username.charAt(0).toUpperCase() + username.slice(1);
+  
+      document.getElementById("adminUserName").textContent = `Admin (${capitalizedUsername})`;
+    } else {
+      console.log("No user is signed in");
+    }
+  });
+}
+ displayUsername();
