@@ -7,7 +7,7 @@ import {
   getDocs,
   setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-
+let faqCount=0;
 const params = new URLSearchParams(window.location.search);
 let id = params.get("id");
 //Initialize Quill editor
@@ -80,14 +80,34 @@ function showFaqs(benefitData) {
   const faqContainer = document.getElementById("faqs-container");
   let faqHtmlData = "";
   benefitData.faqs.forEach((items) => {
+    faqCount++;
     faqHtmlData = `<div class="faq border border-danger rounded p-3 mb-3">
                             <label>Question:</label>
-                            <input type="text" name="faq-question" class="form-control faq-question" required value="${items.question}">
+                            <input type="text" name="faq-question" class="form-control faq-question" placeholder="Add the FAQ question..." required value="${items.question}">
                             <label>Answer:</label>
-                            <textarea name="faq-answer"  class="faq-answer rounded" required>${items.answer}</textarea>
+                            <div id="faqQuill${faqCount}" class="mb-3" name="faq-answer"></div>
                             <button type="button" class="remove-faq btn btn-outline-danger">Remove FAQ</button>
                         </div>`;
     faqContainer.insertAdjacentHTML("beforeend", faqHtmlData);
+    let faqQuillId = `#faqQuill${faqCount}`
+        faqQuillId = new Quill(faqQuillId, {
+            modules: {
+                toolbar: [
+                  [{ header: [1, 2, 3, false] }],
+                  ['bold', 'italic', 'underline', 'link'],  // Text styling options
+                  [{ 'list': 'ordered'}, { 'list': 'bullet' }],  // List options
+                  [{ 'color': [] }, { 'background': [] }],  // Font color and background color
+                  [{ 'align': [] }],  // Text alignment
+                  ['blockquote'],  // Quote and code block
+                  ['clean'],  // Remove formatting
+                  ['table'],  // Table functionality
+                ],
+                table: true, // Enable the better-table module
+              },
+              placeholder: 'Answer here...',
+            theme: 'snow'
+        });
+        faqQuillId.root.innerHTML=items.answer;
   });
 }
 //apply delete functionality to delete faq button
@@ -125,14 +145,33 @@ function addFaqs() {
   const addFaqButton = document.getElementById("add-faq");
   const faqContainer = document.getElementById("faqs-container");
   addFaqButton.addEventListener("click", () => {
+    faqCount++;
     let newFaq = `<div class="faq border border-danger rounded p-3 mb-3">
                             <label>Question:</label>
                             <input type="text" name="faq-question" class="form-control" required placeholder="Add the FAQ question...">
                             <label>Answer:</label>
-                            <textarea name="faq-answer" class="rounded" placeholder="Add the FAQ answer..." required></textarea>
+                            <div id="faqQuill${faqCount}" class="mb-3" name="faq-answer"></div>
                             <button type="button" class="remove-faq btn btn-outline-danger">Remove FAQ</button>
                         </div>`;
-    faqContainer.insertAdjacentHTML("beforeend", newFaq);
+    faqContainer.insertAdjacentHTML("beforeend", newFaq);                    
+    let faqQuillId = `#faqQuill${faqCount}`;
+    let faqQuill = new Quill(faqQuillId, {
+        modules: {
+            toolbar: [
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              ['bold', 'italic', 'underline', 'link'],  // Text styling options
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],  // List options
+              [{ 'color': [] }, { 'background': [] }],  // Font color and background color
+              [{ 'align': [] }],  // Text alignment
+              ['blockquote'],  // Quote and code block
+              ['clean'],  // Remove formatting
+              ['table'],  // Table functionality
+            ],
+            table: true, // Enable the better-table module
+          },
+          placeholder: 'Answer here...',
+        theme: 'snow'
+    });
     deleteFunctionToButtons();
   });
 }
@@ -267,8 +306,8 @@ function pushFaqToDb() {
       'input[name="faq-question"]'
     ).value;
     const answer = faqElement.querySelector(
-      'textarea[name="faq-answer"]'
-    ).value;
+      'div[name="faq-answer"]'
+    ).firstChild.innerHTML;
     faqArray.push({ question, answer });
   });
   return faqArray;
@@ -285,6 +324,5 @@ function collectEmailDetailsFromForm(){
     const content = emailDetailsContainer.querySelector('textarea[name="content"]').value;
     emailDetails.push({to, cc, subject, content});
   };
-  console.log(emailDetails);
   return emailDetails;
 }

@@ -5,7 +5,7 @@ import {
   benefits,
   hrContactDetails,
 } from "/firebase/firebaseData.js";
-
+let faqCount=0;
 const benefitId = getBenefitIdFromURL();
 document.addEventListener("DOMContentLoaded", async () => {
   // Fetch data from Firestore
@@ -104,17 +104,29 @@ function populateMenu(benefitId) {
 function displayBenefitDetails(benefitId) {
   const benefitTitle = document.getElementById("benefit-title");
   const description = document.getElementById("description");
-  const benefitContent = document.getElementById("benefit-content");
   const faqContainer = document.getElementById("accordionContainer");
   const benefit = getBenefitById(benefits, benefitId);
   if (benefit) {
     benefitTitle.textContent = benefit.name;
     description.textContent = benefit.description;
-    benefitContent.innerHTML = benefit.content;
-
+    const options = {
+      readOnly: true,
+      modules: {
+        toolbar: null
+      },
+      theme: 'snow'
+    };
+    const quill = new Quill('#benefit-content', options);
+    quill.root.innerHTML = benefit.content;
+    
+    if(benefit.emails[0]){
+      document.getElementById("customMailBox").style.display= 'flex';
+      document.getElementById("customMail").setAttribute("href","mailto:"+benefit.emails[0].to+"?cc="+benefit.emails[0].cc+"&subject="+benefit.emails[0].subject+"&body="+benefit.emails[0].content);
+    }
     // Clear and populate FAQs
     faqContainer.innerHTML = "";
     benefit.faqs.forEach((faq, index) => {
+      faqCount++;
       const faqItem = document.createElement("div");
       faqItem.classList.add("accordion-item");
       faqItem.innerHTML = `
@@ -124,12 +136,22 @@ function displayBenefitDetails(benefitId) {
                     </button>
                 </h2>
                 <div id="collapse${index}" class="accordion-collapse collapse m-0" aria-labelledby="heading${index}" data-bs-parent="#accordionContainer">
-                    <div class="accordion-body p-2">
-                        ${faq.answer}
+                    <div class="accordion-body p-0">
+                    <div id="faqQuill${faqCount}" name="faq-answer"></div>
                     </div>
                 </div>
             `;
       faqContainer.appendChild(faqItem);
+      let faqQuillId = `#faqQuill${faqCount}`
+      const options = {
+        readOnly: true,
+        modules: {
+          toolbar: null
+        },
+        theme: 'snow'
+      };
+      faqQuillId = new Quill(faqQuillId, options);
+      faqQuillId.root.innerHTML=faq.answer;
     });
     if (document.getElementById("collapse0")) {
       document.getElementById("collapse0").classList.add("show");

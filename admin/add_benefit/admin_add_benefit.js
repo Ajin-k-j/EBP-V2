@@ -4,7 +4,7 @@ import { fetchData, iconsData } from '/firebase/firebaseData.js';
 
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
-
+let faqCount = 0;
 // Initialize Quill editor
 let quill;
 // to populate the texboxes and inputs
@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
               [{ 'align': [] }],  // Text alignment
               ['blockquote'],  // Quote and code block
               ['clean'],  // Remove formatting
+              ['table'],  // Table functionality
             ],
+            table: true, // Enable the better-table module
           },
           placeholder: 'Add benefit details...',
         theme: 'snow'
@@ -55,7 +57,7 @@ document.getElementById('benefit-form').addEventListener('submit', async functio
     const faqs = [];
     document.querySelectorAll('.faq').forEach((faqElement) => {
         const question = faqElement.querySelector('input[name="faq-question"]').value;
-        const answer = faqElement.querySelector('textarea[name="faq-answer"]').value;
+        const answer = faqElement.querySelector('div[name="faq-answer"]').firstChild.innerHTML;
         faqs.push({ question: question, answer: answer });
     });
     
@@ -112,6 +114,7 @@ function addFaqs(){
     const addFaqButton = document.getElementById("add-faq")
     const faqContainer = document.getElementById("faqs-container")
     addFaqButton.addEventListener("click",()=>{
+        faqCount++;
         let newFaq = `<div class="faq border border-danger p-3 rounded-2 mb-2">
                         <div class="mb-3 row">
                             <label class="col-sm-2">Question:</label>
@@ -121,13 +124,31 @@ function addFaqs(){
                         </div>
                         <div class="mb-3 row">
                             <label class="col-sm-2">Answer:</label>
-                            <div class="col-sm-10">
-                                <textarea name="faq-answer" class="form-control rounded" placeholder="Add the FAQ answer..." required></textarea>
+                            <div class="col-sm-10" style="height: fit-content;">
+                                <div id="faqQuill${faqCount}" name="faq-answer"></div>
                             </div>
                         </div>
                         <button type="button" class="remove-faq btn btn-outline-danger">Remove FAQ</button>
                     </div>`
-        faqContainer.insertAdjacentHTML("beforeend", newFaq)
+        faqContainer.insertAdjacentHTML("beforeend", newFaq);
+        let faqQuillId = `#faqQuill${faqCount}`;
+        let faqQuill = new Quill(faqQuillId, {
+            modules: {
+                toolbar: [
+                  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                  ['bold', 'italic', 'underline', 'link'],  // Text styling options
+                  [{ 'list': 'ordered'}, { 'list': 'bullet' }],  // List options
+                  [{ 'color': [] }, { 'background': [] }],  // Font color and background color
+                  [{ 'align': [] }],  // Text alignment
+                  ['blockquote'],  // Quote and code block
+                  ['clean'],  // Remove formatting
+                  ['table'],  // Table functionality
+                ],
+                table: true, // Enable the better-table module
+              },
+              placeholder: 'Answer here...',
+            theme: 'snow'
+        });
         deleteFunctionToButtons();
     })
     
@@ -175,7 +196,6 @@ function addEmailDetails() {
       const content = emailDetailsContainer.querySelector('textarea[name="content"]').value;
       emailDetails.push({to, cc, subject, content});
     };
-    console.log(emailDetails);
     return emailDetails;
   }
 

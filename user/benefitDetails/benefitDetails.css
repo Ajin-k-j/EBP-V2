@@ -159,13 +159,33 @@ main {
   font-size: 0.8rem;
   margin: 0 auto;
   width: 100%;
-  padding: 0.5rem 0.8rem;
+  height: fit-content;
   background-color: white;
   border-radius: 0 0 10px 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
-#benefit-content * {
-  margin-bottom: 0.3rem;
+#customMailBox{
+  display: none;
+  background-image: url('/images/image\ 17\ \(2\).png');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+  background-color: white;
+  font-size: 0.8rem;
+}
+#customMailBox p{
+  font-size: 1rem;
+  text-align: center;
+}
+#customMail{
+  border: 2px solid var(--expRed);
+  text-decoration: none;
+  color: black;
+}
+#customMail:hover{
+  color: white;
+  background-color: var(--expRed);
+
 }
 .faq {
   font-size: 0.8rem;
@@ -210,14 +230,12 @@ main {
 .contact a {
   margin: 0;
   font-size: 0.7rem;
+  border: 2px solid rgb(178, 178, 178);
 }
 .contact p {
   background-color: var(--expRed);
   color: white;
   margin: 0;
-}
-.contact a {
-  border: 2px solid rgb(178, 178, 178);
 }
 .contact a:hover {
   border: 2px solid var(--expRed);
