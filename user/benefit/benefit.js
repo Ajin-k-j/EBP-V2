@@ -1,17 +1,18 @@
 import { fetchData, categories, benefits } from "/firebase/firebaseData.js";
 
-const params = new URLSearchParams(window.location.search);
-let id = params.get("id");
+
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  let id = params.get("id");
   const loadingAnimation = document.getElementById("loading-animation");
   // Show loading animation initially
   loadingAnimation.style.display = "flex";
   // Fetch data from Firestore
   await fetchData();
   let myBenefits = benefits.sort((a, b) => b.views - a.views);
-  const categoryData = categories.find((item) => item.id === id);
-  const categoryOtherData = categories.filter((item) => item.id !== id);
+  // const categoryData = categories.find((item) => item.id === id);
+  // const categoryOtherData = categories.filter((item) => item.id !== id);
 
   // Displaying names of category in the heading
   // document.querySelector(".headingBox h1").textContent = categoryData.name;
@@ -35,18 +36,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Hide loading animation after everything is loaded
   loadingAnimation.style.display = "none";
 
-  createBenefitBox();
-  howerOnHeading(myBenefits);
+  createBenefitBox(myBenefits,id);
+  howerOnHeading(myBenefits,id);
 });
 
 // Function to create the benefit boxes
-function createBenefitBox() {
+function createBenefitBox(myBenefits,urlID) {
   const linkContainer = document.querySelectorAll(".popular-benefits");
   let htmlDataBenefit = "";
-  let myBenefits = benefits.sort((a, b) => b.views - a.views);
+  // let myBenefits = benefits.sort((a, b) => b.views - a.views);
 
   myBenefits.forEach((item) => {
-    if (item.categoryId === id) {
+    if (item.categoryId === urlID) {
       htmlDataBenefit += `
                 <a href="/user/benefitDetails/benefitDetails.html?id=${item.id}">
                     <div class="benefit-card card">
@@ -59,12 +60,16 @@ function createBenefitBox() {
   linkContainer[0].innerHTML = htmlDataBenefit;
 }
 // function to update the page when howering on a specific category and to go back to the current page when mouse leaves
-function howerOnHeading(myBenefits){
+function howerOnHeading(myBenefits,urlID){
   const headingElement = document.querySelectorAll('.step');
   headingElement.forEach(step =>{
+    const href = step.getAttribute('href');
+    const categoryLinkId = href.split('=').pop();
+    if (categoryLinkId === urlID) {
+      step.classList.add('activeStep')
+    }
     step.addEventListener('mouseover',()=>{
-      const href = step.getAttribute('href');
-      const categoryLinkId = href.split('=').pop();
+      
       const linkContainer = document.querySelectorAll(".popular-benefits");
       let htmlDataBenefit = "";
       myBenefits.forEach((item) => {
@@ -80,6 +85,8 @@ function howerOnHeading(myBenefits){
       })
       linkContainer[0].innerHTML = htmlDataBenefit;
     })
-    step.addEventListener('mouseleave',createBenefitBox);
+    step.addEventListener('mouseleave', function(){
+        createBenefitBox(myBenefits,urlID);
+    });
   })
 }

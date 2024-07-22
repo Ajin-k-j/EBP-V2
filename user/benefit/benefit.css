@@ -103,14 +103,17 @@ header img {
 .hero-section {
   padding: 1.5%;
   background-color: var(--expRed);
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4); */
 }
 
-.headingBox {
+/* .headingBox {
   background-color: #f8f9fa;
   border-radius: 10px;
   padding: 1.3vw 2vw;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
-}
+} */
 .step {
   margin: 5px;
   padding: 1vw 1.6vw;
@@ -124,15 +127,19 @@ header img {
   text-align: center;
 }
 
-.hero-section h1 {
+/* .hero-section h1 {
   margin: 0;
   font-size: 1.5rem;
   text-align: center;
+} */
+.activeStep{
+  background-color: #a0bdda;
 }
 .step:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
-  background-color: #f8f9fa;
+  /* border:2px solid #85dc12; */
+  /* background-color: #f8f9fa; */
 }
 
 .benefit-card {
