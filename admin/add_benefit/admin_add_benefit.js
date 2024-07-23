@@ -66,8 +66,17 @@ async function imageHandler() {
         }
     };
 }
-
-document.getElementById('benefit-form').addEventListener('submit', async function (event) {
+const form = document.getElementById('benefit-form');
+//to prevent form submission when enter key pressed in input field
+const inputs = form.getElementsByTagName('input');
+for (let i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default form submission
+        }
+    });
+}
+form.addEventListener('submit', async function (event) {
     event.preventDefault();
     const benefitName = document.getElementById('benefit-name').value;
     const icon = document.getElementById('icon-search').value;
