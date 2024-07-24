@@ -125,6 +125,21 @@ function displayBenefitDetails(benefitId) {
       document.getElementById("customMail").setAttribute("href","mailto:"+benefit.emails[0].to+"?cc="+benefit.emails[0].cc+"&subject="+benefit.emails[0].subject+"&body="+encodedBody);
     }
 
+    if(benefit.links[0]){
+      const supportLinksContainer = document.getElementById("supportLinksContainer");
+      supportLinksContainer.style.display = 'flex';
+      const supportLinks = document.getElementById("supportLinks");
+      // Clear and populate links
+      supportLinks.innerHTML = "";
+      benefit.links.forEach(link => {
+        const linkBtn = document.createElement("a");
+        linkBtn.setAttribute("href",link.link);
+        linkBtn.setAttribute("target","_blank");
+        linkBtn.innerText = link.name;
+        supportLinks.appendChild(linkBtn);
+      })
+    }
+
     if(benefit.faqs[0]){
       document.getElementById("faq").style.display = 'block';
       // Clear and populate FAQs

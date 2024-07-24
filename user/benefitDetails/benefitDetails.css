@@ -165,7 +165,20 @@ main {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
   border: none;
 }
-#customMailBox{
+#supportLinks a{
+  border-radius: 5px;
+  margin: 0.5rem;
+  padding: 0.25rem 0.35rem;
+  border: 2px solid var(--expRed);
+  background-color: white;
+  color: black;
+  text-decoration: none;
+}
+#supportLinks a:hover{
+  background-color: var(--expRed);
+  color: white;
+}
+#customMailBox, #supportLinksContainer{
   display: none;
   background-image: url('/images/image\ 17\ \(2\).png');
   background-size: cover;
@@ -174,7 +187,7 @@ main {
   background-color: white;
   font-size: 0.8rem;
 }
-#customMailBox p{
+#customMailBox p,#supportLinksContainer p{
   font-size: 1rem;
   text-align: center;
 }
@@ -188,6 +201,7 @@ main {
   background-color: var(--expRed);
 
 }
+
 .faq {
   font-size: 0.8rem;
   display: none;
