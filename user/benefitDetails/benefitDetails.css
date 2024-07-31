@@ -35,18 +35,11 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 header img {
-  background-color: var(--expRed);
-  width: 150px;
-  padding: 8px 0;
+  width: 138px;
 }
 .navbar {
   border-bottom: 1px solid #e3e3e3;
-}
-
-.navbar-brand {
-  color: var(--expRed);
-  text-decoration: none;
-  font-weight: bold;
+  padding: 12px 24px;
 }
 
 .topNavLink {
