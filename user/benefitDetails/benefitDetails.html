@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Benefits Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/user/benefitDetails/benefitDetails.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+</head>
+
+<body class="d-flex flex-column">
+    <header class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="/index.html"><img src="/images/logo.svg"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link topNavLink" href="/index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link topNavLink" href="/admin/home/adminhome.html">Admin</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="d-flex">
+      <div class="navbar navbar-expand-md p-0 align-items-start justify-content-center" style="display: unset;">
+        <button class="navbar-toggler p-0 m-1" type="button" data-bs-toggle="collapse" data-bs-target="#leftNav" aria-controls="leftNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="leftNav" class="collapse navbar-collapse leftNav flex-column p-2">
+          <div class="leftNavBanner w-100 mt-2 pt-2">
+          <i class="fas fa-spinner fa-pulse"></i>
+          <h6>Statutory Benefit</h6>
+          </div>
+          <div class="horizontalLine"></div>
+          <div class="leftNavList w-100 mb-3">
+            <ul class="nav flex-column" id="benefit-menu">
+              <!-- nav items inserted by js -->
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="rightContainer row m-0 w-100">
+        <div id="div2Pdf" class="col-12 col-lg-8 p-3">
+          <div class="heading d-flex">
+              <h1 id="benefit-title">_ _ _ _ _ _ _</h1>
+              <button id="downloadButton" title="Download as pdf">
+                <i class="fa-solid fa-download"></i>
+              </button>
+          </div>
+          <p class="description mt-3 mb-0" id="description">_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </p>
+          <!-- Div to display the benefit details -->
+          <div id="benefit-content"></div>
+          <div id="customMailBox" class="mt-3 p-3 rounded flex-column justify-content-center align-items-center">
+            <p>Avail the benefit by sending a quick mail to the HR</p>
+            <a href="mailto:" id="customMail" class="p-1 rounded">Send Mail <i class="fa-solid fa-paper-plane"></i></a>
+          </div>
+          <div id="supportLinksContainer" class="mt-3 p-3 rounded flex-column justify-content-center align-items-center">
+            <p>Supporting documents</p>
+            <div id="supportLinks" class="d-flex flex-wrap justify-content-center">
+
+            </div>
+          </div>
+        </div>
+        <div class="faq-contact col-12 col-lg-4 bg-light d-flex flex-column flex-md-row flex-lg-column p-0">
+          <div id="faq" class="faq col-12 col-md-7 col-lg-12 p-3">
+            <h5>FAQs</h5>
+            <div class="accordion" id="accordionContainer">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionContainer">
+                  <div class="accordion-body p-2">
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionContainer">
+                  <div class="accordion-body p-2">
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionContainer">
+                  <div class="accordion-body p-2">
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contactHR col-12 col-md-5 col-lg-12 p-3 d-flex align-items-center">
+            <div class="contact w-100 d-flex flex-column justify-content-center align-items-center rounded">
+              <p class="text-center rounded-top w-100 py-2">Still your query not yet solved, contact:</p>
+              <a href="callto:" class="mt-2 text-decoration-none text-body p-1 rounded">
+                <i class="fa-solid fa-phone fa-lg me-1"></i>
+                <span id="teamsCall" class="text-decoration-none">Connect with HR</span>
+              </a>
+              <a href="mailto:" class="mt-2 text-decoration-none text-body p-1 rounded">
+                <i class="fa-solid fa-envelope fa-lg"></i>
+                <span id="email"></span>
+              </a>
+              <div class="d-flex">
+                <h6 class="mb-0 pb-0"></h6>
+                <a id="teamsMessage" class="my-2 btn" href="https://teams.microsoft.com/l/chat/0/0?users=user@example.com&message=Hello,%20how%20are%20you?"target="_blank">
+                  Chat with HR <i class="fa-solid fa-paper-plane"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Employee Benefits Portal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" integrity="sha512-MpDFIChbcXl2QgipQrt1VcPHMldRILetapBl5MPCA9Y8r7qvlwx1/Mc9hNTzY+kS5kX6PdoDq41ws1HiVNLdZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script type="module" src="/user/benefitDetails/benefitDetails.js"></script>
+    
+</body>
+
+</html>

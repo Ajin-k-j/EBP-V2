@@ -1,0 +1,230 @@
+:root{
+    --expRed:#DC123C;
+}
+html {
+    font-size: 16px; /* Base font size */
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 17px; /* Increase base font size for tablets */
+    }
+}
+
+@media (min-width: 1024px) {
+    html {
+        font-size: 18px; /* Increase base font size for desktops */
+    }
+}
+
+@media (min-width: 1440px) {
+    html {
+        font-size: 20px;
+    }
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    padding: 0;
+}
+header {
+    background-color: #f8f9fa;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+header img{
+    width: 138px;
+}
+.navbar {
+    background-color: #ffffff;
+    padding: 12px 24px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+/* .admin_userId{
+    margin-bottom: -20px;
+  }
+
+  #adminUserName{
+    font-size: 15px;
+  } */
+
+.nav-link {
+    color: black;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.nav-link:hover{
+    color: var(--expRed);
+}
+.activeColor{
+    font-size: 0.9rem;
+    color: var(--expRed);
+}
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    padding: 35px;
+    box-sizing: border-box;
+    margin: 0;
+    background: linear-gradient(180deg, rgba(220,18,60,0.9) 39%, rgba(118,10,32,0.9) 71%);
+    color: #e3e3e3;
+}
+.welcome-search h1{
+    font-size: 2.07rem;
+    text-align: center;
+}
+.welcome-search p{
+    font-size: 0.9rem;
+    text-align: center;
+}
+.main-categories {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 3.5vh;
+}
+
+.main-category {
+    text-decoration: none;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    width: 30%;
+    height: fit-content;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
+    padding-bottom: 0.5rem;
+}
+
+.main-category:hover {
+    transform: scale(1.05);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
+.main-category h5{
+    border:2px solid var(--expRed);
+    border-radius: 0.4rem 0.4rem 0 0;
+    padding: .5rem;
+    font-weight: bolder;
+    color: var(--expRed);
+}
+@media (max-width: 885px) {
+    .main-category h5{
+        font-size: 0.7rem;
+    }
+}
+.main-category p{
+    color: black;
+    padding: 0 0.4rem;
+    width:100%;
+    font-size: 0.8rem;
+    margin-bottom: 0.5vw;
+}
+.main-category span{
+    margin: 0;
+    border-radius: 5px;
+    color: var(--expRed);
+}
+.main-category i{
+    font-size: 1.2rem;
+}
+.edit-button {
+    background-color: #2ecc71; 
+    color: white;
+    border: none;
+    padding: 0.6vw 1.2vw;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.edit-button:hover{
+    background-color: var(--expRed);
+}
+
+.subscribe-button {
+    
+    background-color: #2ecc71;
+    border: none;
+    padding: 5px 6px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+.subscribe-button:hover {
+    background-color: var(--expRed); /* Change color on hover */
+}
+
+.admin-privileges {
+    background-color: white;
+    background-image: url('/images/image\ 17\ \(2\).png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: rgb(13, 12, 12); /* Ensure text is readable on the background image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), /* bottom-right shadow */
+                0 -4px 6px rgba(0, 0, 0, 0.1), /* top-right shadow */
+                -4px 0 6px rgba(0, 0, 0, 0.1), /* top-left shadow */
+                4px 0 6px rgba(0, 0, 0, 0.1);
+}
+.mailheading h4{
+    font-size: 1.4rem;
+}
+.mailheading p{
+    font-size: 0.85rem;
+}
+
+.vertical-divider1 {
+    border: none;
+    border-left: 2px solid #000; /* Color and thickness of the vertical bar */
+    height: 100px; /* Adjust height as needed */
+    margin: 0 8px; /* Space around the vertical bar */
+}
+.vertical-divider2 {
+    border: none;
+    border-left: 2px solid #000; /* Color and thickness of the vertical bar */
+    height: 50px; /* Adjust height as needed */
+    margin: 0 8px; /* Space around the vertical bar */
+}
+.email-input {
+    border: none;
+    border-bottom: 2px solid #2ecc71;
+    margin-right: 10px; /* Ensures the input does not overlap the button */
+    background: transparent; /* Ensure text is readable on the background image */
+    font-size: 1rem;
+}
+
+.email-input:focus {
+    outline: none;
+    border-bottom-color: #c0392b; /* Change color on focus */
+}
+.email-input::placeholder {
+    font-size: 0.65em; /* Adjust the size as needed */
+    color: rgba(12, 11, 11, 0.7); /* Optional: change color for better readability */
+}
+
+
+.footer {
+    background-color: #f1f1f1;
+    padding: 3px;
+    height: 25px;
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    border-top: 1px solid #e3e3e3;
+}
+
+@media (max-width: 990px) {
+    .mailheading {
+        padding-right: 0; /* Remove padding when stacked */
+    }
+    
+    .vertical-divider1, .vertical-divider2{
+        display: none; /* Hide the vertical divider */
+    }
+}

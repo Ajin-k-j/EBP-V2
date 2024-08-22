@@ -1,0 +1,57 @@
+:root {
+  --expRed: #dc143c;
+}
+body {
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+html {
+  font-size: 16px; /* Base font size */
+}
+@media (min-width: 768px) {
+  html {
+      font-size: 17px; /* Increase base font size for tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+      font-size: 18px; /* Increase base font size for desktops */
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+      font-size: 20px;
+  }
+}
+.login-container {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.login-logo a{
+  margin: 0 auto;
+}
+.login-logo img{
+  width: 138px;
+}
+.angled-rectangle {
+  width: 9.5em;
+  height: 9.5em;
+  background-color: var(--expRed);
+  clip-path: polygon(0% 100%, 100% 62.5%, 100% 0%, 0% 0%);
+  margin: 1em auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+} 
+.login-box {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+.forgot-password a{
+  text-decoration: none;
+}
