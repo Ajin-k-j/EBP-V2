@@ -65,8 +65,9 @@ function populateNavbanner(benefitId) {
 // Populate the menu
 function populateMenu(benefitId) {
   const benefitsMenu = document.getElementById("benefit-menu");
-  benefits.forEach((benefit) => {
-    if (benefit.categoryId == getBenefitById(benefits, benefitId).categoryId) {
+  let benefitByCategory = benefits.filter((item) => item.categoryId == getBenefitById(benefits, benefitId).categoryId);
+  let sortedBenefits = benefitByCategory.sort((a, b) => b.views - a.views);
+  sortedBenefits.forEach((benefit) => {
       const menuItem = document.createElement("li");
       menuItem.classList.add("nav-item", "leftNavItem");
       if (benefit.id == benefitId) {
@@ -75,7 +76,6 @@ function populateMenu(benefitId) {
         menuItem.innerHTML = `<a class="nav-link leftNavLink" href="?id=${benefit.id}">${benefit.name}</a>`;
       }
       benefitsMenu.appendChild(menuItem);
-    }
   });
 }
 

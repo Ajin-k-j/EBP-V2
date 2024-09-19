@@ -59,10 +59,11 @@ header img {
   color: var(--expRed);
 }
 
-/* loading animation css */
 main{
   flex: 1;
 }
+
+/* loading animation css */
 .loading-animation {
   display: flex;
   flex-direction: column;

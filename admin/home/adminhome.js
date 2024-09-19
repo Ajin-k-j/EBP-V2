@@ -104,6 +104,10 @@ function checkAuth() {
       // User is not logged in, redirect to login page
       window.location.href = "/admin/login/login.html";
     }
+    else
+    {
+      document.getElementById("body").style.display = 'block';
+    }
   });
 }
 

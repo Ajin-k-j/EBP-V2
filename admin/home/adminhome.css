@@ -1,5 +1,5 @@
 :root{
-    --expRed:#DC123C;
+    --expRed:#8061c3;
 }
 html {
     font-size: 16px; /* Base font size */
@@ -27,6 +27,7 @@ body {
     background-color: #f8f9fa;
     color: #343a40;
     padding: 0;
+    display: none;
 }
 header {
     background-color: #f8f9fa;
@@ -35,6 +36,9 @@ header {
 }
 header img{
     width: 138px;
+}
+main{
+    flex: 1;
 }
 .navbar {
     background-color: #ffffff;
